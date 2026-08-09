@@ -55,6 +55,8 @@ async def main():
     printer_config, ai_config = config["printer"], config["ai"]
     monitoring, logging_config = config["monitoring"], config.get("logging", {})
     check_interval = monitoring["check_interval"]
+    status_refresh_interval = monitoring.get("status_refresh_interval", 10)
+    status_stale_after = monitoring.get("status_stale_after", max(30, status_refresh_interval * 3))
     alarm_frames_count = monitoring.get("alarm_confirmation_frames", 3)
     alarm_errors = monitoring.get("alarm_required_errors", 2)
     pause_timeout = monitoring.get("pause_timeout", 20)
@@ -106,12 +108,21 @@ async def main():
     review_frames = deque(maxlen=review_count)
     alarm = AlarmState(alarm_frames_count, alarm_errors, clear_ok_count=clear_ok_count)
     check_count = 0
-    was_active_print = printer.is_active_print(active_print_statuses)
+    was_active_print = printer.is_active_print(active_print_statuses, status_stale_after)
+    last_status_refresh = asyncio.get_running_loop().time() - status_refresh_interval
 
     try:
         while True:
             await asyncio.sleep(check_interval)
             check_count += 1
+            now = asyncio.get_running_loop().time()
+            if now - last_status_refresh >= status_refresh_interval:
+                try:
+                    await printer.request_status_refresh(timeout=min(status_refresh_interval, 5))
+                    last_status_refresh = now
+                except Exception as exc:
+                    printer.mark_status_stale()
+                    log.warning(f"⚠️  Regelmäßiger Status-Refresh fehlgeschlagen: {exc}")
             try:
                 current_frame = camera.grab_frame()
             except RuntimeError as exc:
@@ -133,9 +144,10 @@ async def main():
                         )
                 if not recovered:
                     log.error("❌ Kamera bleibt nicht verfügbar; nächster Check versucht es erneut.")
+                    previous_frame = None
                     continue
             stats.checks += 1
-            active_print = printer.is_active_print(active_print_statuses)
+            active_print = printer.is_active_print(active_print_statuses, status_stale_after)
             if not active_print:
                 if was_active_print or alarm.state != "IDLE" or review_frames:
                     log.info(
