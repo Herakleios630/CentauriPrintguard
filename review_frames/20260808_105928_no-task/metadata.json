@@ -1,0 +1,42 @@
+{
+  "saved_at": "2026-08-08T10:59:28",
+  "frame_count": 2,
+  "pause_context": {
+    "reason": "FEHLER: ABGELOEST",
+    "alarm": {
+      "state": "ALARM_PENDING",
+      "error_count": 1,
+      "unknown_count": 0,
+      "ok_streak": 0,
+      "confirmation_frames": 1,
+      "normal_reference_available": true,
+      "error_reference_available": true,
+      "verdicts": [
+        "FEHLER: ABGELOEST"
+      ]
+    },
+    "pending": true
+  },
+  "frames": [
+    {
+      "file": "frame_01.jpg",
+      "check": 1,
+      "captured_at": "2026-08-08T10:59:10",
+      "verdict": "OK",
+      "task_id": "3d25b7c1-03f5-4cb1-82e4-97c6265087db",
+      "filename": "ECC_0.4_angled-support-pole_Sunlu PLA +_0.12_5h51m.gcode",
+      "layer": 44,
+      "print_status": 13
+    },
+    {
+      "file": "frame_02.jpg",
+      "check": 2,
+      "captured_at": "2026-08-08T10:59:24",
+      "verdict": "FEHLER: ABGELOEST",
+      "task_id": "3d25b7c1-03f5-4cb1-82e4-97c6265087db",
+      "filename": "ECC_0.4_angled-support-pole_Sunlu PLA +_0.12_5h51m.gcode",
+      "layer": 45,
+      "print_status": 13
+    }
+  ]
+}

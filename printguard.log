@@ -1,0 +1,76 @@
+08:36:02  ============================================================
+08:36:02  🛡️  PrintGuard - 3D-Druck-Fehlererkennung
+08:36:02  ============================================================
+08:36:02  🔌 Verbinde mit Drucker: ws://10.0.0.63:3030/websocket
+08:36:07  ✅ Verbunden! MainboardID: 18421c180103147000001c0000000000
+08:36:07  📷 Öffne Kamera-Stream: http://10.0.0.63:3031/video
+08:36:07  ✅ Kamera-Stream geöffnet.
+08:36:09  ⚠️  Drucker ist nicht im Druck-Modus (Status: None). Trotzdem wird überwacht...
+08:36:09  🖼️  Erfasse erste Frames...
+08:36:09  ✅ Starte Überwachung – alle 10s ein Check, Pause nach 3 Fehlern in Folge
+08:36:19  🤖 KI-Check #1...
+08:36:21  HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 404 Not Found"
+08:36:21  ❌ Ollama-Fehler: model 'qwen2.5-vl:7b' not found (status code: 404)
+08:36:21     ✅ OK
+08:36:31  🤖 KI-Check #2...
+08:36:33  HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 404 Not Found"
+08:36:33  ❌ Ollama-Fehler: model 'qwen2.5-vl:7b' not found (status code: 404)
+08:36:33     ✅ OK
+08:36:35  📷 Kamera-Stream geschlossen.
+08:36:35  🏁 PrintGuard beendet.
+08:48:32  ============================================================
+08:48:32  🛡️  PrintGuard - 3D-Druck-Fehlererkennung
+08:48:32  ============================================================
+08:48:32  🔌 Verbinde mit Drucker: ws://10.0.0.63:3030/websocket
+08:48:33  ✅ Verbunden! MainboardID: 18421c180103147000001c0000000000
+08:48:33  📷 Öffne Kamera-Stream: http://10.0.0.63:3031/video
+08:48:33  ✅ Kamera-Stream geöffnet.
+08:48:35  ⚠️  Drucker ist nicht im Druck-Modus (Status: None). Trotzdem wird überwacht...
+08:48:35  🖼️  Erfasse erste Frames...
+08:48:35  ✅ Starte Überwachung – alle 10s ein Check, Pause nach 3 Fehlern in Folge
+08:48:45  🤖 KI-Check #1...
+08:48:50  📷 Kamera-Stream geschlossen.
+08:48:50  🏁 PrintGuard beendet.
+08:49:02  HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+08:50:41  🔌 Verbinde mit Drucker: ws://127.0.0.1:3030/websocket
+08:50:41  ✅ Verbunden! MainboardID: test-board
+08:50:54  ============================================================
+08:50:54  🛡️  PrintGuard - 3D-Druck-Fehlererkennung
+08:50:54  ============================================================
+08:50:54  🔌 Verbinde mit Drucker: ws://10.0.0.63:3030/websocket
+08:50:54  ✅ Verbunden! MainboardID: 18421c180103147000001c0000000000
+08:50:54  📷 Öffne Kamera-Stream: http://10.0.0.63:3031/video
+08:50:54  ✅ Kamera-Stream geöffnet.
+08:50:56  🖼️  Erfasse erste Frames...
+08:50:56  ✅ Starte Überwachung – alle 10s ein Check, Pause nach 3 Fehlern in Folge
+08:51:06  🤖 KI-Check #1...
+08:51:20  HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+08:51:20     ✅ OK
+08:51:30  🤖 KI-Check #2...
+08:51:35  HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+08:51:35     ✅ OK
+08:51:37  📷 Kamera-Stream geschlossen.
+08:51:37  🏁 PrintGuard beendet.
+08:55:29  📸 10 Bilder für Gegencheck gespeichert: C:\Users\ajsch\AppData\Local\Temp\tmpq_0ks1p0\20260808_091200
+08:58:40  ============================================================
+08:58:40  🛡️  PrintGuard - 3D-Druck-Fehlererkennung
+08:58:40  ============================================================
+08:58:40  🔌 Verbinde mit Drucker: ws://10.0.0.63:3030/websocket
+08:58:42  ✅ Verbunden! MainboardID: 18421c180103147000001c0000000000
+08:58:42  📷 Öffne Kamera-Stream: http://10.0.0.63:3031/video
+08:58:42  ✅ Kamera-Stream geöffnet.
+08:58:44  🖼️  Erfasse erste Frames...
+08:58:44  ✅ Starte Überwachung – alle 10s ein Check, Pause nach 3 Fehlern in Folge
+08:58:54  🤖 KI-Check #1...
+08:58:56  HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 404 Not Found"
+08:58:56  ❌ Ollama-Fehler: model 'qwen2.5-vl:7b' not found (status code: 404)
+08:58:56     ❌ UNKNOWN: Ungültige KI-Antwort  (1/3)
+08:59:06  🤖 KI-Check #2...
+08:59:08  HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 404 Not Found"
+08:59:08  ❌ Ollama-Fehler: model 'qwen2.5-vl:7b' not found (status code: 404)
+08:59:08     ❌ UNKNOWN: Ungültige KI-Antwort  (2/3)
+08:59:18  ❌ Kamera-Fehler: Konnte kein Frame von der Kamera lesen!
+08:59:28  ❌ Kamera-Fehler: Konnte kein Frame von der Kamera lesen!
+08:59:38  ❌ Kamera-Fehler: Konnte kein Frame von der Kamera lesen!
+08:59:39  📷 Kamera-Stream geschlossen.
+08:59:39  🏁 PrintGuard beendet.

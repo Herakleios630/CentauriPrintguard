@@ -1,0 +1,110 @@
+{
+  "saved_at": "2026-08-08T10:16:57",
+  "frame_count": 7,
+  "pause_context": {
+    "reason": "FEHLER: Stringing an der Oberfläche des Druckes.",
+    "error_count": 2,
+    "task_id": "385b5602-0096-429e-af28-d46129e5aa7e",
+    "filename": "ECC_0.4_angled-support-pole_Sunlu PLA +_0.12_5h51m.gcode",
+    "current_layer": 493,
+    "total_layer": 1902,
+    "current_status": [
+      1
+    ],
+    "print_status": 6,
+    "temperature_nozzle": 203.96031682201036,
+    "captured_at": "2026-08-08T10:16:57",
+    "dry_run": false,
+    "alarm": {
+      "state": "ALARM_CONFIRMED",
+      "error_count": 2,
+      "unknown_count": 0,
+      "confirmation_frames": 3,
+      "normal_reference_available": true,
+      "error_reference_available": true,
+      "verdicts": [
+        "FEHLER: Layer-Shift",
+        "OK",
+        "FEHLER: Stringing an der Oberfläche des Druckes."
+      ]
+    },
+    "pause_ack": 0,
+    "pause_confirmed": false,
+    "current_status_after": [
+      1
+    ],
+    "print_status_after": 6
+  },
+  "frames": [
+    {
+      "file": "frame_01.jpg",
+      "check": 1,
+      "captured_at": "2026-08-08T10:15:21",
+      "verdict": "OK",
+      "task_id": "385b5602-0096-429e-af28-d46129e5aa7e",
+      "filename": "ECC_0.4_angled-support-pole_Sunlu PLA +_0.12_5h51m.gcode",
+      "layer": 493,
+      "print_status": 5
+    },
+    {
+      "file": "frame_02.jpg",
+      "check": 2,
+      "captured_at": "2026-08-08T10:15:35",
+      "verdict": "OK",
+      "task_id": "385b5602-0096-429e-af28-d46129e5aa7e",
+      "filename": "ECC_0.4_angled-support-pole_Sunlu PLA +_0.12_5h51m.gcode",
+      "layer": 493,
+      "print_status": 6
+    },
+    {
+      "file": "frame_03.jpg",
+      "check": 3,
+      "captured_at": "2026-08-08T10:15:50",
+      "verdict": "OK",
+      "task_id": "385b5602-0096-429e-af28-d46129e5aa7e",
+      "filename": "ECC_0.4_angled-support-pole_Sunlu PLA +_0.12_5h51m.gcode",
+      "layer": 493,
+      "print_status": 6
+    },
+    {
+      "file": "frame_04.jpg",
+      "check": 4,
+      "captured_at": "2026-08-08T10:16:06",
+      "verdict": "OK",
+      "task_id": "385b5602-0096-429e-af28-d46129e5aa7e",
+      "filename": "ECC_0.4_angled-support-pole_Sunlu PLA +_0.12_5h51m.gcode",
+      "layer": 493,
+      "print_status": 6
+    },
+    {
+      "file": "frame_05.jpg",
+      "check": 5,
+      "captured_at": "2026-08-08T10:16:22",
+      "verdict": "FEHLER: Layer-Shift",
+      "task_id": "385b5602-0096-429e-af28-d46129e5aa7e",
+      "filename": "ECC_0.4_angled-support-pole_Sunlu PLA +_0.12_5h51m.gcode",
+      "layer": 493,
+      "print_status": 6
+    },
+    {
+      "file": "frame_06.jpg",
+      "check": 6,
+      "captured_at": "2026-08-08T10:16:37",
+      "verdict": "OK",
+      "task_id": "385b5602-0096-429e-af28-d46129e5aa7e",
+      "filename": "ECC_0.4_angled-support-pole_Sunlu PLA +_0.12_5h51m.gcode",
+      "layer": 493,
+      "print_status": 6
+    },
+    {
+      "file": "frame_07.jpg",
+      "check": 7,
+      "captured_at": "2026-08-08T10:16:51",
+      "verdict": "FEHLER: Stringing an der Oberfläche des Druckes.",
+      "task_id": "385b5602-0096-429e-af28-d46129e5aa7e",
+      "filename": "ECC_0.4_angled-support-pole_Sunlu PLA +_0.12_5h51m.gcode",
+      "layer": 493,
+      "print_status": 6
+    }
+  ]
+}

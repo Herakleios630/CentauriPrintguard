@@ -1,0 +1,81 @@
+{
+  "saved_at": "2026-08-08T10:59:57",
+  "frame_count": 4,
+  "pause_context": {
+    "reason": "FEHLER: ABGELOEST",
+    "error_count": 2,
+    "task_id": "3d25b7c1-03f5-4cb1-82e4-97c6265087db",
+    "filename": "ECC_0.4_angled-support-pole_Sunlu PLA +_0.12_5h51m.gcode",
+    "current_layer": 48,
+    "total_layer": 1902,
+    "current_status": [
+      1
+    ],
+    "print_status": 13,
+    "temperature_nozzle": 203.50563830320905,
+    "captured_at": "2026-08-08T10:59:57",
+    "dry_run": false,
+    "alarm": {
+      "state": "ALARM_CONFIRMED",
+      "error_count": 2,
+      "unknown_count": 0,
+      "ok_streak": 0,
+      "confirmation_frames": 3,
+      "normal_reference_available": true,
+      "error_reference_available": true,
+      "verdicts": [
+        "FEHLER: ABGELOEST",
+        "OK",
+        "FEHLER: ABGELOEST"
+      ]
+    },
+    "pause_ack": 0,
+    "pause_confirmed": true,
+    "current_status_after": [
+      1
+    ],
+    "print_status_after": 5
+  },
+  "frames": [
+    {
+      "file": "frame_01.jpg",
+      "check": 1,
+      "captured_at": "2026-08-08T10:59:10",
+      "verdict": "OK",
+      "task_id": "3d25b7c1-03f5-4cb1-82e4-97c6265087db",
+      "filename": "ECC_0.4_angled-support-pole_Sunlu PLA +_0.12_5h51m.gcode",
+      "layer": 44,
+      "print_status": 13
+    },
+    {
+      "file": "frame_02.jpg",
+      "check": 2,
+      "captured_at": "2026-08-08T10:59:24",
+      "verdict": "FEHLER: ABGELOEST",
+      "task_id": "3d25b7c1-03f5-4cb1-82e4-97c6265087db",
+      "filename": "ECC_0.4_angled-support-pole_Sunlu PLA +_0.12_5h51m.gcode",
+      "layer": 45,
+      "print_status": 13
+    },
+    {
+      "file": "frame_03.jpg",
+      "check": 3,
+      "captured_at": "2026-08-08T10:59:38",
+      "verdict": "OK",
+      "task_id": "3d25b7c1-03f5-4cb1-82e4-97c6265087db",
+      "filename": "ECC_0.4_angled-support-pole_Sunlu PLA +_0.12_5h51m.gcode",
+      "layer": 46,
+      "print_status": 13
+    },
+    {
+      "file": "frame_04.jpg",
+      "check": 4,
+      "captured_at": "2026-08-08T10:59:54",
+      "verdict": "FEHLER: ABGELOEST",
+      "task_id": "3d25b7c1-03f5-4cb1-82e4-97c6265087db",
+      "filename": "ECC_0.4_angled-support-pole_Sunlu PLA +_0.12_5h51m.gcode",
+      "layer": 47,
+      "print_status": 13
+    }
+  ]
+}

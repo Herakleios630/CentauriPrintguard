@@ -1,0 +1,37 @@
+# ============================================
+# PrintGuard - Configuration
+# ============================================
+printer:
+  ip: "10.0.0.63"
+  ws_port: 3030               # SDCP WebSocket
+  camera_url: "http://10.0.0.63:3031/video"
+
+ai:
+  model: "qwen2.5vl:7b"
+  ollama_host: "http://localhost:11434"
+  timeout: 120                 # seconds before an AI result is considered unknown
+  startup_timeout: 180         # seconds allowed to load the model before monitoring starts
+  unload_on_pause: true        # unload the model after a confirmed or simulated pause
+  unload_on_exit: true         # unload the model during final cleanup
+  unload_timeout: 10            # seconds allowed for VRAM cleanup
+
+monitoring:
+  check_interval: 10          # seconds between checks
+  consecutive_errors: 3       # errors in a row -> pause
+  alarm_confirmation_frames: 3 # frames collected after the first suspected error
+  alarm_required_errors: 2    # errors required within the confirmation set
+  evidence_frame_count: 4     # chronological images sent to the vision model
+  pending_review_enabled: true # save evidence when an alarm first becomes pending
+  alarm_clear_ok_count: 3     # consecutive OK results required to clear a pending alarm
+  active_print_statuses: [2, 3, 4, 13] # OpenCentauri print phases eligible for AI checks
+  pause_timeout: 20            # seconds for sending and confirming pause
+  pause_cooldown: 60           # seconds before another pause attempt is allowed
+  dry_run: false               # analyze and save evidence without sending SDCP commands
+  review_dir: "review_frames" # images saved when an automatic pause is triggered
+  review_image_count: 10      # number of recent analysis images to keep in memory
+
+logging:
+  level: "INFO"               # DEBUG, INFO, WARNING, ERROR
+  directory: "logs"           # log directory
+  prefix: "printguard"        # daily log filename prefix
+  retention_days: 30           # remove older PrintGuard log files

@@ -1,0 +1,24 @@
+{
+  "saved_at": "2026-08-08T09:01:59",
+  "frame_count": 3,
+  "frames": [
+    {
+      "file": "frame_01.jpg",
+      "check": 1,
+      "captured_at": "2026-08-08T09:01:33",
+      "verdict": "UNKNOWN: Ungültige KI-Antwort"
+    },
+    {
+      "file": "frame_02.jpg",
+      "check": 2,
+      "captured_at": "2026-08-08T09:01:45",
+      "verdict": "UNKNOWN: Ungültige KI-Antwort"
+    },
+    {
+      "file": "frame_03.jpg",
+      "check": 3,
+      "captured_at": "2026-08-08T09:01:57",
+      "verdict": "UNKNOWN: Ungültige KI-Antwort"
+    }
+  ]
+}

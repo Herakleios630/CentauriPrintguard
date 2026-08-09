@@ -1,0 +1,62 @@
+{
+  "saved_at": "2026-08-08T10:40:14",
+  "frame_count": 4,
+  "pause_context": {
+    "reason": "FEHLER: ABGELOEST",
+    "alarm": {
+      "state": "ALARM_PENDING",
+      "error_count": 1,
+      "unknown_count": 0,
+      "ok_streak": 0,
+      "confirmation_frames": 1,
+      "normal_reference_available": true,
+      "error_reference_available": true,
+      "verdicts": [
+        "FEHLER: ABGELOEST"
+      ]
+    },
+    "pending": true
+  },
+  "frames": [
+    {
+      "file": "frame_01.jpg",
+      "check": 1,
+      "captured_at": "2026-08-08T10:39:27",
+      "verdict": "OK",
+      "task_id": "",
+      "filename": "",
+      "layer": 0,
+      "print_status": 1
+    },
+    {
+      "file": "frame_02.jpg",
+      "check": 2,
+      "captured_at": "2026-08-08T10:39:42",
+      "verdict": "OK",
+      "task_id": "",
+      "filename": "",
+      "layer": 0,
+      "print_status": 21
+    },
+    {
+      "file": "frame_03.jpg",
+      "check": 3,
+      "captured_at": "2026-08-08T10:39:54",
+      "verdict": "OK",
+      "task_id": "",
+      "filename": "",
+      "layer": 0,
+      "print_status": 1
+    },
+    {
+      "file": "frame_04.jpg",
+      "check": 4,
+      "captured_at": "2026-08-08T10:40:10",
+      "verdict": "FEHLER: ABGELOEST",
+      "task_id": "",
+      "filename": "",
+      "layer": 0,
+      "print_status": 16
+    }
+  ]
+}

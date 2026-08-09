@@ -1,0 +1,122 @@
+{
+  "saved_at": "2026-08-08T12:18:33",
+  "frame_count": 10,
+  "pause_context": {
+    "reason": "FEHLER: STARK_VERFORMT",
+    "alarm": {
+      "state": "ALARM_PENDING",
+      "error_count": 1,
+      "unknown_count": 0,
+      "ok_streak": 0,
+      "confirmation_frames": 1,
+      "normal_reference_available": true,
+      "error_reference_available": true,
+      "verdicts": [
+        "FEHLER: STARK_VERFORMT"
+      ]
+    },
+    "pending": true
+  },
+  "frames": [
+    {
+      "file": "frame_01.jpg",
+      "check": 13,
+      "captured_at": "2026-08-08T12:15:50",
+      "verdict": "OK",
+      "task_id": "ee975dbc-6d32-4e55-8cc4-05df19274ef6",
+      "filename": "ECC_0.4_angled-support-pole_Sunlu PLA +_0.12_5h51m.gcode",
+      "layer": 54,
+      "print_status": 13
+    },
+    {
+      "file": "frame_02.jpg",
+      "check": 14,
+      "captured_at": "2026-08-08T12:16:07",
+      "verdict": "OK",
+      "task_id": "ee975dbc-6d32-4e55-8cc4-05df19274ef6",
+      "filename": "ECC_0.4_angled-support-pole_Sunlu PLA +_0.12_5h51m.gcode",
+      "layer": 56,
+      "print_status": 13
+    },
+    {
+      "file": "frame_03.jpg",
+      "check": 15,
+      "captured_at": "2026-08-08T12:16:23",
+      "verdict": "OK",
+      "task_id": "ee975dbc-6d32-4e55-8cc4-05df19274ef6",
+      "filename": "ECC_0.4_angled-support-pole_Sunlu PLA +_0.12_5h51m.gcode",
+      "layer": 57,
+      "print_status": 13
+    },
+    {
+      "file": "frame_04.jpg",
+      "check": 16,
+      "captured_at": "2026-08-08T12:16:40",
+      "verdict": "OK",
+      "task_id": "ee975dbc-6d32-4e55-8cc4-05df19274ef6",
+      "filename": "ECC_0.4_angled-support-pole_Sunlu PLA +_0.12_5h51m.gcode",
+      "layer": 59,
+      "print_status": 13
+    },
+    {
+      "file": "frame_05.jpg",
+      "check": 17,
+      "captured_at": "2026-08-08T12:16:59",
+      "verdict": "OK",
+      "task_id": "ee975dbc-6d32-4e55-8cc4-05df19274ef6",
+      "filename": "ECC_0.4_angled-support-pole_Sunlu PLA +_0.12_5h51m.gcode",
+      "layer": 60,
+      "print_status": 13
+    },
+    {
+      "file": "frame_06.jpg",
+      "check": 18,
+      "captured_at": "2026-08-08T12:17:16",
+      "verdict": "OK",
+      "task_id": "ee975dbc-6d32-4e55-8cc4-05df19274ef6",
+      "filename": "ECC_0.4_angled-support-pole_Sunlu PLA +_0.12_5h51m.gcode",
+      "layer": 62,
+      "print_status": 13
+    },
+    {
+      "file": "frame_07.jpg",
+      "check": 19,
+      "captured_at": "2026-08-08T12:17:33",
+      "verdict": "OK",
+      "task_id": "ee975dbc-6d32-4e55-8cc4-05df19274ef6",
+      "filename": "ECC_0.4_angled-support-pole_Sunlu PLA +_0.12_5h51m.gcode",
+      "layer": 63,
+      "print_status": 13
+    },
+    {
+      "file": "frame_08.jpg",
+      "check": 20,
+      "captured_at": "2026-08-08T12:17:50",
+      "verdict": "OK",
+      "task_id": "ee975dbc-6d32-4e55-8cc4-05df19274ef6",
+      "filename": "ECC_0.4_angled-support-pole_Sunlu PLA +_0.12_5h51m.gcode",
+      "layer": 65,
+      "print_status": 13
+    },
+    {
+      "file": "frame_09.jpg",
+      "check": 21,
+      "captured_at": "2026-08-08T12:18:07",
+      "verdict": "OK",
+      "task_id": "ee975dbc-6d32-4e55-8cc4-05df19274ef6",
+      "filename": "ECC_0.4_angled-support-pole_Sunlu PLA +_0.12_5h51m.gcode",
+      "layer": 67,
+      "print_status": 13
+    },
+    {
+      "file": "frame_10.jpg",
+      "check": 22,
+      "captured_at": "2026-08-08T12:18:25",
+      "verdict": "FEHLER: STARK_VERFORMT",
+      "task_id": "ee975dbc-6d32-4e55-8cc4-05df19274ef6",
+      "filename": "ECC_0.4_angled-support-pole_Sunlu PLA +_0.12_5h51m.gcode",
+      "layer": 68,
+      "print_status": 13
+    }
+  ]
+}
