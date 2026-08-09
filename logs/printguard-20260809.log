@@ -1,0 +1,2006 @@
+19:38:42  ============================================================
+19:38:42  🛡️  PrintGuard - 3D-Druck-Fehlererkennung
+19:38:42  ============================================================
+19:38:42  ⚙️  Modus: LIVE
+19:38:42  🧠 Lade Ollama-Modell für Startprüfung: qwen2.5vl:7b
+19:38:55  HTTP Request: POST http://localhost:11434/api/generate "HTTP/1.1 200 OK"
+19:38:55  ✅ Ollama-Modell geladen und bereit: qwen2.5vl:7b
+19:38:55  🔌 Verbinde mit Drucker: ws://10.0.0.63:3030/websocket
+19:38:58  📡 Status geändert: Maschine Printing (1), Druck Preparation (16)
+19:38:58  ✅ Verbunden! MainboardID: 18421c180103147000001c0000000000
+19:38:58  📤 Fordere Status nach Verbindung aktiv an (Cmd 0).
+19:38:58  📨 Antwort für RequestID 6d00de4f-40cb-433b-9f51-60b636ccf3ba: Cmd=0, Ack=0
+19:38:58  ✅ Status nach Verbindung aktualisiert: Maschine=Printing (1), Druck=Preparation (16)
+19:38:58  🔄 Monitorzustand: STARTING -> MONITORING
+19:38:58  📷 Öffne Kamera-Stream: http://10.0.0.63:3031/video
+19:38:58  ✅ Kamera-Stream geöffnet.
+19:39:00  ⚠️  KI wartet auf echten Druck: Maschine=[1], Druck=16.
+19:39:04  📡 Status geändert: Maschine Printing (1), Druck Bed Leveling (20)
+19:39:04  📡 Status geändert: Maschine Printing (1), Druck Homing (1)
+19:39:17  📡 Status geändert: Maschine Printing (1), Druck Leveling Preparation (21)
+19:39:23  📡 Status geändert: Maschine Printing (1), Druck Homing (1)
+19:39:40  ❌ Kamera-Fehler: Konnte kein Frame von der Kamera lesen!
+19:39:41  🔄 Kamera-Stream wird neu verbunden.
+19:39:41  📷 Kamera-Stream geschlossen.
+19:39:41  📷 Öffne Kamera-Stream: http://10.0.0.63:3031/video
+19:39:41  ✅ Kamera-Stream geöffnet.
+19:39:41  ✅ Kamera-Reconnect erfolgreich (Versuch 1/3).
+19:39:41  📡 Status geändert: Maschine Printing (1), Druck Bed Leveling (20)
+19:39:42  📡 Status geändert: Maschine Printing (1), Druck Preparation (16)
+19:39:59  ⚠️  WebSocket-Verbindung unterbrochen (Close-Code=1006, Grund='', Fehler=no close frame received or sent); automatischer Reconnect #1.
+19:39:59  🔄 Neuer Verbindungsversuch in 2s...
+19:40:01  🔌 Verbinde mit Drucker: ws://10.0.0.63:3030/websocket
+19:40:02  ✅ Verbunden! MainboardID: 18421c180103147000001c0000000000
+19:40:02  📤 Fordere Status nach Verbindung aktiv an (Cmd 0).
+19:40:02  📨 Antwort für RequestID d79efca1-df2f-4707-a11f-9010faa19541: Cmd=0, Ack=0
+19:40:02  ✅ Status nach Verbindung aktualisiert: Maschine=Printing (1), Druck=Preparation (16)
+19:40:02  ✅ Reconnect erfolgreich; Status wurde neu eingelesen.
+19:40:20  📡 Status geändert: Maschine Printing (1), Druck Bed Leveling (20)
+19:40:40  📡 Status geändert: Maschine Printing (1), Druck Preparation (16)
+19:40:41  ❌ Kamera-Fehler: Konnte kein Frame von der Kamera lesen!
+19:40:42  🔄 Kamera-Stream wird neu verbunden.
+19:40:42  📷 Kamera-Stream geschlossen.
+19:40:42  📷 Öffne Kamera-Stream: http://10.0.0.63:3031/video
+19:40:42  ✅ Kamera-Stream geöffnet.
+19:40:43  ✅ Kamera-Reconnect erfolgreich (Versuch 1/3).
+19:41:03  ⚠️  WebSocket-Verbindung unterbrochen (Close-Code=1006, Grund='', Fehler=no close frame received or sent); automatischer Reconnect #2.
+19:41:03  🔄 Neuer Verbindungsversuch in 2s...
+19:41:05  🔌 Verbinde mit Drucker: ws://10.0.0.63:3030/websocket
+19:41:06  ✅ Verbunden! MainboardID: 18421c180103147000001c0000000000
+19:41:06  📤 Fordere Status nach Verbindung aktiv an (Cmd 0).
+19:41:06  📨 Antwort für RequestID 610d4d52-8733-4b6b-aff5-4b6bc44ce72e: Cmd=0, Ack=0
+19:41:06  ✅ Status nach Verbindung aktualisiert: Maschine=Printing (1), Druck=Preparation (16)
+19:41:06  ✅ Reconnect erfolgreich; Status wurde neu eingelesen.
+19:41:17  📡 Status geändert: Maschine Printing (1), Druck Bed Leveling (20)
+19:41:33  ❌ Kamera-Fehler: Konnte kein Frame von der Kamera lesen!
+19:41:34  🔄 Kamera-Stream wird neu verbunden.
+19:41:34  📷 Kamera-Stream geschlossen.
+19:41:34  📷 Öffne Kamera-Stream: http://10.0.0.63:3031/video
+19:41:34  ✅ Kamera-Stream geöffnet.
+19:41:34  ✅ Kamera-Reconnect erfolgreich (Versuch 1/3).
+19:41:42  📡 Status geändert: Maschine Printing (1), Druck Preparation (16)
+19:41:48  📡 Status geändert: Maschine Printing (1), Druck Bed Leveling (20)
+19:41:52  📡 Status geändert: Maschine Printing (1), Druck Homing (1)
+19:42:01  📡 Status geändert: Maschine Printing (1), Druck Bed Leveling (20)
+19:42:04  ❌ Kamera-Fehler: Konnte kein Frame von der Kamera lesen!
+19:42:05  🔄 Kamera-Stream wird neu verbunden.
+19:42:05  📷 Kamera-Stream geschlossen.
+19:42:05  📷 Öffne Kamera-Stream: http://10.0.0.63:3031/video
+19:42:05  ✅ Kamera-Stream geöffnet.
+19:42:05  ✅ Kamera-Reconnect erfolgreich (Versuch 1/3).
+19:42:07  ⚠️  WebSocket-Verbindung unterbrochen (Close-Code=1006, Grund='', Fehler=no close frame received or sent); automatischer Reconnect #3.
+19:42:07  🔄 Neuer Verbindungsversuch in 2s...
+19:42:09  🔌 Verbinde mit Drucker: ws://10.0.0.63:3030/websocket
+19:42:45  ❌ Kamera-Fehler: Konnte kein Frame von der Kamera lesen!
+19:42:46  🔄 Kamera-Stream wird neu verbunden.
+19:42:46  📷 Kamera-Stream geschlossen.
+19:42:46  📷 Öffne Kamera-Stream: http://10.0.0.63:3031/video
+19:42:46  ✅ Kamera-Stream geöffnet.
+19:42:47  ✅ Kamera-Reconnect erfolgreich (Versuch 1/3).
+19:44:07  ❌ Kamera-Fehler: Konnte kein Frame von der Kamera lesen!
+19:44:08  🔄 Kamera-Stream wird neu verbunden.
+19:44:08  📷 Kamera-Stream geschlossen.
+19:44:08  📷 Öffne Kamera-Stream: http://10.0.0.63:3031/video
+19:44:08  ✅ Kamera-Stream geöffnet.
+19:44:08  ✅ Kamera-Reconnect erfolgreich (Versuch 1/3).
+19:44:58  ❌ Kamera-Fehler: Konnte kein Frame von der Kamera lesen!
+19:44:59  🔄 Kamera-Stream wird neu verbunden.
+19:44:59  📷 Kamera-Stream geschlossen.
+19:44:59  📷 Öffne Kamera-Stream: http://10.0.0.63:3031/video
+19:44:59  ✅ Kamera-Stream geöffnet.
+19:44:59  ✅ Kamera-Reconnect erfolgreich (Versuch 1/3).
+19:45:49  ❌ Kamera-Fehler: Konnte kein Frame von der Kamera lesen!
+19:45:50  🔄 Kamera-Stream wird neu verbunden.
+19:45:50  📷 Kamera-Stream geschlossen.
+19:45:50  📷 Öffne Kamera-Stream: http://10.0.0.63:3031/video
+19:45:50  ✅ Kamera-Stream geöffnet.
+19:45:51  ✅ Kamera-Reconnect erfolgreich (Versuch 1/3).
+19:46:31  ❌ Kamera-Fehler: Konnte kein Frame von der Kamera lesen!
+19:46:32  🔄 Kamera-Stream wird neu verbunden.
+19:46:32  📷 Kamera-Stream geschlossen.
+19:46:32  📷 Öffne Kamera-Stream: http://10.0.0.63:3031/video
+19:46:32  ✅ Kamera-Stream geöffnet.
+19:46:32  ✅ Kamera-Reconnect erfolgreich (Versuch 1/3).
+19:47:42  ❌ Kamera-Fehler: Konnte kein Frame von der Kamera lesen!
+19:47:43  🔄 Kamera-Stream wird neu verbunden.
+19:47:43  📷 Kamera-Stream geschlossen.
+19:47:43  📷 Öffne Kamera-Stream: http://10.0.0.63:3031/video
+19:47:43  ✅ Kamera-Stream geöffnet.
+19:47:43  ✅ Kamera-Reconnect erfolgreich (Versuch 1/3).
+19:48:33  ❌ Kamera-Fehler: Konnte kein Frame von der Kamera lesen!
+19:48:34  🔄 Kamera-Stream wird neu verbunden.
+19:48:34  📷 Kamera-Stream geschlossen.
+19:48:34  📷 Öffne Kamera-Stream: http://10.0.0.63:3031/video
+19:48:35  ✅ Kamera-Stream geöffnet.
+19:48:35  ✅ Kamera-Reconnect erfolgreich (Versuch 1/3).
+19:49:25  ❌ Kamera-Fehler: Konnte kein Frame von der Kamera lesen!
+19:49:26  🔄 Kamera-Stream wird neu verbunden.
+19:49:26  📷 Kamera-Stream geschlossen.
+19:49:26  📷 Öffne Kamera-Stream: http://10.0.0.63:3031/video
+19:49:26  ✅ Kamera-Stream geöffnet.
+19:49:26  ✅ Kamera-Reconnect erfolgreich (Versuch 1/3).
+19:50:16  ❌ Kamera-Fehler: Konnte kein Frame von der Kamera lesen!
+19:50:17  🔄 Kamera-Stream wird neu verbunden.
+19:50:17  📷 Kamera-Stream geschlossen.
+19:50:17  📷 Öffne Kamera-Stream: http://10.0.0.63:3031/video
+19:50:17  ✅ Kamera-Stream geöffnet.
+19:50:17  ✅ Kamera-Reconnect erfolgreich (Versuch 1/3).
+19:51:07  ❌ Kamera-Fehler: Konnte kein Frame von der Kamera lesen!
+19:51:08  🔄 Kamera-Stream wird neu verbunden.
+19:51:08  📷 Kamera-Stream geschlossen.
+19:51:08  📷 Öffne Kamera-Stream: http://10.0.0.63:3031/video
+19:51:09  ✅ Kamera-Stream geöffnet.
+19:51:09  ✅ Kamera-Reconnect erfolgreich (Versuch 1/3).
+19:52:09  ❌ Kamera-Fehler: Konnte kein Frame von der Kamera lesen!
+19:52:10  🔄 Kamera-Stream wird neu verbunden.
+19:52:10  📷 Kamera-Stream geschlossen.
+19:52:10  📷 Öffne Kamera-Stream: http://10.0.0.63:3031/video
+19:52:10  ✅ Kamera-Stream geöffnet.
+19:52:10  ✅ Kamera-Reconnect erfolgreich (Versuch 1/3).
+19:52:50  ❌ Kamera-Fehler: Konnte kein Frame von der Kamera lesen!
+19:52:51  🔄 Kamera-Stream wird neu verbunden.
+19:52:51  📷 Kamera-Stream geschlossen.
+19:52:51  📷 Öffne Kamera-Stream: http://10.0.0.63:3031/video
+19:52:51  ✅ Kamera-Stream geöffnet.
+19:52:51  ✅ Kamera-Reconnect erfolgreich (Versuch 1/3).
+19:54:02  ❌ Kamera-Fehler: Konnte kein Frame von der Kamera lesen!
+19:54:03  🔄 Kamera-Stream wird neu verbunden.
+19:54:03  📷 Kamera-Stream geschlossen.
+19:54:03  📷 Öffne Kamera-Stream: http://10.0.0.63:3031/video
+19:54:03  ✅ Kamera-Stream geöffnet.
+19:54:03  ✅ Kamera-Reconnect erfolgreich (Versuch 1/3).
+19:55:03  ❌ Kamera-Fehler: Konnte kein Frame von der Kamera lesen!
+19:55:04  🔄 Kamera-Stream wird neu verbunden.
+19:55:04  📷 Kamera-Stream geschlossen.
+19:55:04  📷 Öffne Kamera-Stream: http://10.0.0.63:3031/video
+19:55:04  ✅ Kamera-Stream geöffnet.
+19:55:04  ✅ Kamera-Reconnect erfolgreich (Versuch 1/3).
+19:55:44  ❌ Kamera-Fehler: Konnte kein Frame von der Kamera lesen!
+19:55:45  🔄 Kamera-Stream wird neu verbunden.
+19:55:45  📷 Kamera-Stream geschlossen.
+19:55:45  📷 Öffne Kamera-Stream: http://10.0.0.63:3031/video
+19:55:45  ✅ Kamera-Stream geöffnet.
+19:55:46  ✅ Kamera-Reconnect erfolgreich (Versuch 1/3).
+19:56:46  ❌ Kamera-Fehler: Konnte kein Frame von der Kamera lesen!
+19:56:47  🔄 Kamera-Stream wird neu verbunden.
+19:56:47  📷 Kamera-Stream geschlossen.
+19:56:47  📷 Öffne Kamera-Stream: http://10.0.0.63:3031/video
+19:56:47  ✅ Kamera-Stream geöffnet.
+19:56:47  ✅ Kamera-Reconnect erfolgreich (Versuch 1/3).
+19:57:27  ❌ Kamera-Fehler: Konnte kein Frame von der Kamera lesen!
+19:57:28  🔄 Kamera-Stream wird neu verbunden.
+19:57:28  📷 Kamera-Stream geschlossen.
+19:57:28  📷 Öffne Kamera-Stream: http://10.0.0.63:3031/video
+19:57:28  ✅ Kamera-Stream geöffnet.
+19:57:28  ✅ Kamera-Reconnect erfolgreich (Versuch 1/3).
+19:58:08  ❌ Kamera-Fehler: Konnte kein Frame von der Kamera lesen!
+19:58:09  🔄 Kamera-Stream wird neu verbunden.
+19:58:09  📷 Kamera-Stream geschlossen.
+19:58:09  📷 Öffne Kamera-Stream: http://10.0.0.63:3031/video
+19:58:09  ✅ Kamera-Stream geöffnet.
+19:58:10  ✅ Kamera-Reconnect erfolgreich (Versuch 1/3).
+19:59:10  ❌ Kamera-Fehler: Konnte kein Frame von der Kamera lesen!
+19:59:11  🔄 Kamera-Stream wird neu verbunden.
+19:59:11  📷 Kamera-Stream geschlossen.
+19:59:11  📷 Öffne Kamera-Stream: http://10.0.0.63:3031/video
+19:59:11  ✅ Kamera-Stream geöffnet.
+19:59:11  ✅ Kamera-Reconnect erfolgreich (Versuch 1/3).
+19:59:51  ❌ Kamera-Fehler: Konnte kein Frame von der Kamera lesen!
+19:59:52  🔄 Kamera-Stream wird neu verbunden.
+19:59:52  📷 Kamera-Stream geschlossen.
+19:59:52  📷 Öffne Kamera-Stream: http://10.0.0.63:3031/video
+19:59:52  ✅ Kamera-Stream geöffnet.
+19:59:52  ✅ Kamera-Reconnect erfolgreich (Versuch 1/3).
+20:00:42  ❌ Kamera-Fehler: Konnte kein Frame von der Kamera lesen!
+20:00:43  🔄 Kamera-Stream wird neu verbunden.
+20:00:43  📷 Kamera-Stream geschlossen.
+20:00:43  📷 Öffne Kamera-Stream: http://10.0.0.63:3031/video
+20:00:43  ✅ Kamera-Stream geöffnet.
+20:00:44  ✅ Kamera-Reconnect erfolgreich (Versuch 1/3).
+20:01:34  ❌ Kamera-Fehler: Konnte kein Frame von der Kamera lesen!
+20:01:35  🔄 Kamera-Stream wird neu verbunden.
+20:01:35  📷 Kamera-Stream geschlossen.
+20:01:35  📷 Öffne Kamera-Stream: http://10.0.0.63:3031/video
+20:01:35  ✅ Kamera-Stream geöffnet.
+20:01:35  ✅ Kamera-Reconnect erfolgreich (Versuch 1/3).
+20:02:25  ❌ Kamera-Fehler: Konnte kein Frame von der Kamera lesen!
+20:02:26  🔄 Kamera-Stream wird neu verbunden.
+20:02:26  📷 Kamera-Stream geschlossen.
+20:02:26  📷 Öffne Kamera-Stream: http://10.0.0.63:3031/video
+20:02:26  ✅ Kamera-Stream geöffnet.
+20:02:26  ✅ Kamera-Reconnect erfolgreich (Versuch 1/3).
+20:03:26  ❌ Kamera-Fehler: Konnte kein Frame von der Kamera lesen!
+20:03:27  🔄 Kamera-Stream wird neu verbunden.
+20:03:27  📷 Kamera-Stream geschlossen.
+20:03:27  📷 Öffne Kamera-Stream: http://10.0.0.63:3031/video
+20:03:27  ✅ Kamera-Stream geöffnet.
+20:03:28  ✅ Kamera-Reconnect erfolgreich (Versuch 1/3).
+20:04:08  ❌ Kamera-Fehler: Konnte kein Frame von der Kamera lesen!
+20:04:09  🔄 Kamera-Stream wird neu verbunden.
+20:04:09  📷 Kamera-Stream geschlossen.
+20:04:09  📷 Öffne Kamera-Stream: http://10.0.0.63:3031/video
+20:04:09  ✅ Kamera-Stream geöffnet.
+20:04:09  ✅ Kamera-Reconnect erfolgreich (Versuch 1/3).
+20:04:49  ❌ Kamera-Fehler: Konnte kein Frame von der Kamera lesen!
+20:04:50  🔄 Kamera-Stream wird neu verbunden.
+20:04:50  📷 Kamera-Stream geschlossen.
+20:04:50  📷 Öffne Kamera-Stream: http://10.0.0.63:3031/video
+20:04:50  ✅ Kamera-Stream geöffnet.
+20:04:50  ✅ Kamera-Reconnect erfolgreich (Versuch 1/3).
+20:05:20  ❌ Kamera-Fehler: Konnte kein Frame von der Kamera lesen!
+20:05:21  🔄 Kamera-Stream wird neu verbunden.
+20:05:21  📷 Kamera-Stream geschlossen.
+20:05:21  📷 Öffne Kamera-Stream: http://10.0.0.63:3031/video
+20:05:22  ✅ Kamera-Stream geöffnet.
+20:05:22  ✅ Kamera-Reconnect erfolgreich (Versuch 1/3).
+20:06:12  ❌ Kamera-Fehler: Konnte kein Frame von der Kamera lesen!
+20:06:13  🔄 Kamera-Stream wird neu verbunden.
+20:06:13  📷 Kamera-Stream geschlossen.
+20:06:13  📷 Öffne Kamera-Stream: http://10.0.0.63:3031/video
+20:06:13  ✅ Kamera-Stream geöffnet.
+20:06:13  ✅ Kamera-Reconnect erfolgreich (Versuch 1/3).
+20:06:33  ❌ Kamera-Fehler: Konnte kein Frame von der Kamera lesen!
+20:06:34  🔄 Kamera-Stream wird neu verbunden.
+20:06:34  📷 Kamera-Stream geschlossen.
+20:06:34  📷 Öffne Kamera-Stream: http://10.0.0.63:3031/video
+20:06:34  ✅ Kamera-Stream geöffnet.
+20:06:34  ✅ Kamera-Reconnect erfolgreich (Versuch 1/3).
+20:07:25  ❌ Kamera-Fehler: Konnte kein Frame von der Kamera lesen!
+20:07:26  🔄 Kamera-Stream wird neu verbunden.
+20:07:26  📷 Kamera-Stream geschlossen.
+20:07:26  📷 Öffne Kamera-Stream: http://10.0.0.63:3031/video
+20:07:26  ✅ Kamera-Stream geöffnet.
+20:07:26  ✅ Kamera-Reconnect erfolgreich (Versuch 1/3).
+20:08:16  ❌ Kamera-Fehler: Konnte kein Frame von der Kamera lesen!
+20:08:17  🔄 Kamera-Stream wird neu verbunden.
+20:08:17  📷 Kamera-Stream geschlossen.
+20:08:17  📷 Öffne Kamera-Stream: http://10.0.0.63:3031/video
+20:08:17  ✅ Kamera-Stream geöffnet.
+20:08:17  ✅ Kamera-Reconnect erfolgreich (Versuch 1/3).
+20:09:07  ❌ Kamera-Fehler: Konnte kein Frame von der Kamera lesen!
+20:09:08  🔄 Kamera-Stream wird neu verbunden.
+20:09:08  📷 Kamera-Stream geschlossen.
+20:09:08  📷 Öffne Kamera-Stream: http://10.0.0.63:3031/video
+20:09:08  ✅ Kamera-Stream geöffnet.
+20:09:09  ✅ Kamera-Reconnect erfolgreich (Versuch 1/3).
+20:09:29  ❌ Kamera-Fehler: Konnte kein Frame von der Kamera lesen!
+20:09:30  🔄 Kamera-Stream wird neu verbunden.
+20:09:30  📷 Kamera-Stream geschlossen.
+20:09:30  📷 Öffne Kamera-Stream: http://10.0.0.63:3031/video
+20:09:30  ✅ Kamera-Stream geöffnet.
+20:09:30  ✅ Kamera-Reconnect erfolgreich (Versuch 1/3).
+20:10:30  ❌ Kamera-Fehler: Konnte kein Frame von der Kamera lesen!
+20:10:31  🔄 Kamera-Stream wird neu verbunden.
+20:10:31  📷 Kamera-Stream geschlossen.
+20:10:31  📷 Öffne Kamera-Stream: http://10.0.0.63:3031/video
+20:10:31  ✅ Kamera-Stream geöffnet.
+20:10:31  ✅ Kamera-Reconnect erfolgreich (Versuch 1/3).
+20:11:21  ❌ Kamera-Fehler: Konnte kein Frame von der Kamera lesen!
+20:11:22  🔄 Kamera-Stream wird neu verbunden.
+20:11:22  📷 Kamera-Stream geschlossen.
+20:11:22  📷 Öffne Kamera-Stream: http://10.0.0.63:3031/video
+20:11:22  ✅ Kamera-Stream geöffnet.
+20:11:23  ✅ Kamera-Reconnect erfolgreich (Versuch 1/3).
+20:11:53  ❌ Kamera-Fehler: Konnte kein Frame von der Kamera lesen!
+20:11:54  🔄 Kamera-Stream wird neu verbunden.
+20:11:54  📷 Kamera-Stream geschlossen.
+20:11:54  📷 Öffne Kamera-Stream: http://10.0.0.63:3031/video
+20:11:54  ✅ Kamera-Stream geöffnet.
+20:11:54  ✅ Kamera-Reconnect erfolgreich (Versuch 1/3).
+20:13:04  ❌ Kamera-Fehler: Konnte kein Frame von der Kamera lesen!
+20:13:05  🔄 Kamera-Stream wird neu verbunden.
+20:13:05  📷 Kamera-Stream geschlossen.
+20:13:05  📷 Öffne Kamera-Stream: http://10.0.0.63:3031/video
+20:13:05  ✅ Kamera-Stream geöffnet.
+20:13:05  ✅ Kamera-Reconnect erfolgreich (Versuch 1/3).
+20:14:16  ❌ Kamera-Fehler: Konnte kein Frame von der Kamera lesen!
+20:14:17  🔄 Kamera-Stream wird neu verbunden.
+20:14:17  📷 Kamera-Stream geschlossen.
+20:14:17  📷 Öffne Kamera-Stream: http://10.0.0.63:3031/video
+20:14:17  ✅ Kamera-Stream geöffnet.
+20:14:17  ✅ Kamera-Reconnect erfolgreich (Versuch 1/3).
+20:15:07  ❌ Kamera-Fehler: Konnte kein Frame von der Kamera lesen!
+20:15:08  🔄 Kamera-Stream wird neu verbunden.
+20:15:08  📷 Kamera-Stream geschlossen.
+20:15:08  📷 Öffne Kamera-Stream: http://10.0.0.63:3031/video
+20:15:08  ✅ Kamera-Stream geöffnet.
+20:15:08  ✅ Kamera-Reconnect erfolgreich (Versuch 1/3).
+20:15:28  ❌ Kamera-Fehler: Konnte kein Frame von der Kamera lesen!
+20:15:29  🔄 Kamera-Stream wird neu verbunden.
+20:15:29  📷 Kamera-Stream geschlossen.
+20:15:29  📷 Öffne Kamera-Stream: http://10.0.0.63:3031/video
+20:15:29  ✅ Kamera-Stream geöffnet.
+20:15:30  ✅ Kamera-Reconnect erfolgreich (Versuch 1/3).
+20:16:30  ❌ Kamera-Fehler: Konnte kein Frame von der Kamera lesen!
+20:16:31  🔄 Kamera-Stream wird neu verbunden.
+20:16:31  📷 Kamera-Stream geschlossen.
+20:16:31  📷 Öffne Kamera-Stream: http://10.0.0.63:3031/video
+20:16:31  ✅ Kamera-Stream geöffnet.
+20:16:31  ✅ Kamera-Reconnect erfolgreich (Versuch 1/3).
+20:17:31  ❌ Kamera-Fehler: Konnte kein Frame von der Kamera lesen!
+20:17:32  🔄 Kamera-Stream wird neu verbunden.
+20:17:32  📷 Kamera-Stream geschlossen.
+20:17:32  📷 Öffne Kamera-Stream: http://10.0.0.63:3031/video
+20:17:32  ✅ Kamera-Stream geöffnet.
+20:17:32  ✅ Kamera-Reconnect erfolgreich (Versuch 1/3).
+20:17:52  ❌ Kamera-Fehler: Konnte kein Frame von der Kamera lesen!
+20:17:53  🔄 Kamera-Stream wird neu verbunden.
+20:17:53  📷 Kamera-Stream geschlossen.
+20:17:53  📷 Öffne Kamera-Stream: http://10.0.0.63:3031/video
+20:17:54  ✅ Kamera-Stream geöffnet.
+20:17:54  ✅ Kamera-Reconnect erfolgreich (Versuch 1/3).
+20:19:04  ❌ Kamera-Fehler: Konnte kein Frame von der Kamera lesen!
+20:19:05  🔄 Kamera-Stream wird neu verbunden.
+20:19:05  📷 Kamera-Stream geschlossen.
+20:19:05  📷 Öffne Kamera-Stream: http://10.0.0.63:3031/video
+20:19:05  ✅ Kamera-Stream geöffnet.
+20:19:05  ✅ Kamera-Reconnect erfolgreich (Versuch 1/3).
+20:19:55  ❌ Kamera-Fehler: Konnte kein Frame von der Kamera lesen!
+20:19:56  🔄 Kamera-Stream wird neu verbunden.
+20:19:56  📷 Kamera-Stream geschlossen.
+20:19:56  📷 Öffne Kamera-Stream: http://10.0.0.63:3031/video
+20:19:56  ✅ Kamera-Stream geöffnet.
+20:19:57  ✅ Kamera-Reconnect erfolgreich (Versuch 1/3).
+20:21:07  ❌ Kamera-Fehler: Konnte kein Frame von der Kamera lesen!
+20:21:08  🔄 Kamera-Stream wird neu verbunden.
+20:21:08  📷 Kamera-Stream geschlossen.
+20:21:08  📷 Öffne Kamera-Stream: http://10.0.0.63:3031/video
+20:21:08  ✅ Kamera-Stream geöffnet.
+20:21:08  ✅ Kamera-Reconnect erfolgreich (Versuch 1/3).
+20:21:48  ❌ Kamera-Fehler: Konnte kein Frame von der Kamera lesen!
+20:21:49  🔄 Kamera-Stream wird neu verbunden.
+20:21:49  📷 Kamera-Stream geschlossen.
+20:21:49  📷 Öffne Kamera-Stream: http://10.0.0.63:3031/video
+20:21:49  ✅ Kamera-Stream geöffnet.
+20:21:49  ✅ Kamera-Reconnect erfolgreich (Versuch 1/3).
+20:22:29  ❌ Kamera-Fehler: Konnte kein Frame von der Kamera lesen!
+20:22:30  🔄 Kamera-Stream wird neu verbunden.
+20:22:30  📷 Kamera-Stream geschlossen.
+20:22:30  📷 Öffne Kamera-Stream: http://10.0.0.63:3031/video
+20:22:30  ✅ Kamera-Stream geöffnet.
+20:22:31  ✅ Kamera-Reconnect erfolgreich (Versuch 1/3).
+20:23:01  ❌ Kamera-Fehler: Konnte kein Frame von der Kamera lesen!
+20:23:02  🔄 Kamera-Stream wird neu verbunden.
+20:23:02  📷 Kamera-Stream geschlossen.
+20:23:02  📷 Öffne Kamera-Stream: http://10.0.0.63:3031/video
+20:23:02  ✅ Kamera-Stream geöffnet.
+20:23:02  ✅ Kamera-Reconnect erfolgreich (Versuch 1/3).
+20:23:52  ❌ Kamera-Fehler: Konnte kein Frame von der Kamera lesen!
+20:23:53  🔄 Kamera-Stream wird neu verbunden.
+20:23:53  📷 Kamera-Stream geschlossen.
+20:23:53  📷 Öffne Kamera-Stream: http://10.0.0.63:3031/video
+20:23:53  ✅ Kamera-Stream geöffnet.
+20:23:53  ✅ Kamera-Reconnect erfolgreich (Versuch 1/3).
+20:24:43  ❌ Kamera-Fehler: Konnte kein Frame von der Kamera lesen!
+20:24:44  🔄 Kamera-Stream wird neu verbunden.
+20:24:44  📷 Kamera-Stream geschlossen.
+20:24:44  📷 Öffne Kamera-Stream: http://10.0.0.63:3031/video
+20:24:45  ✅ Kamera-Stream geöffnet.
+20:24:45  ✅ Kamera-Reconnect erfolgreich (Versuch 1/3).
+20:25:35  ❌ Kamera-Fehler: Konnte kein Frame von der Kamera lesen!
+20:25:36  🔄 Kamera-Stream wird neu verbunden.
+20:25:36  📷 Kamera-Stream geschlossen.
+20:25:36  📷 Öffne Kamera-Stream: http://10.0.0.63:3031/video
+20:25:36  ✅ Kamera-Stream geöffnet.
+20:25:36  ✅ Kamera-Reconnect erfolgreich (Versuch 1/3).
+20:26:16  ❌ Kamera-Fehler: Konnte kein Frame von der Kamera lesen!
+20:26:17  🔄 Kamera-Stream wird neu verbunden.
+20:26:17  📷 Kamera-Stream geschlossen.
+20:26:17  📷 Öffne Kamera-Stream: http://10.0.0.63:3031/video
+20:26:17  ✅ Kamera-Stream geöffnet.
+20:26:17  ✅ Kamera-Reconnect erfolgreich (Versuch 1/3).
+20:26:57  ❌ Kamera-Fehler: Konnte kein Frame von der Kamera lesen!
+20:26:58  🔄 Kamera-Stream wird neu verbunden.
+20:26:58  📷 Kamera-Stream geschlossen.
+20:26:58  📷 Öffne Kamera-Stream: http://10.0.0.63:3031/video
+20:26:59  ✅ Kamera-Stream geöffnet.
+20:26:59  ✅ Kamera-Reconnect erfolgreich (Versuch 1/3).
+20:27:59  ❌ Kamera-Fehler: Konnte kein Frame von der Kamera lesen!
+20:28:00  🔄 Kamera-Stream wird neu verbunden.
+20:28:00  📷 Kamera-Stream geschlossen.
+20:28:00  📷 Öffne Kamera-Stream: http://10.0.0.63:3031/video
+20:28:00  ✅ Kamera-Stream geöffnet.
+20:28:00  ✅ Kamera-Reconnect erfolgreich (Versuch 1/3).
+20:28:50  ❌ Kamera-Fehler: Konnte kein Frame von der Kamera lesen!
+20:28:51  🔄 Kamera-Stream wird neu verbunden.
+20:28:51  📷 Kamera-Stream geschlossen.
+20:28:51  📷 Öffne Kamera-Stream: http://10.0.0.63:3031/video
+20:28:51  ✅ Kamera-Stream geöffnet.
+20:28:51  ✅ Kamera-Reconnect erfolgreich (Versuch 1/3).
+20:29:52  ❌ Kamera-Fehler: Konnte kein Frame von der Kamera lesen!
+20:29:53  🔄 Kamera-Stream wird neu verbunden.
+20:29:53  📷 Kamera-Stream geschlossen.
+20:29:53  📷 Öffne Kamera-Stream: http://10.0.0.63:3031/video
+20:29:53  ✅ Kamera-Stream geöffnet.
+20:29:53  ✅ Kamera-Reconnect erfolgreich (Versuch 1/3).
+20:30:53  ❌ Kamera-Fehler: Konnte kein Frame von der Kamera lesen!
+20:30:54  🔄 Kamera-Stream wird neu verbunden.
+20:30:54  📷 Kamera-Stream geschlossen.
+20:30:54  📷 Öffne Kamera-Stream: http://10.0.0.63:3031/video
+20:30:54  ✅ Kamera-Stream geöffnet.
+20:30:54  ✅ Kamera-Reconnect erfolgreich (Versuch 1/3).
+20:31:24  ❌ Kamera-Fehler: Konnte kein Frame von der Kamera lesen!
+20:31:25  🔄 Kamera-Stream wird neu verbunden.
+20:31:25  📷 Kamera-Stream geschlossen.
+20:31:25  📷 Öffne Kamera-Stream: http://10.0.0.63:3031/video
+20:31:25  ✅ Kamera-Stream geöffnet.
+20:31:26  ✅ Kamera-Reconnect erfolgreich (Versuch 1/3).
+20:32:36  ❌ Kamera-Fehler: Konnte kein Frame von der Kamera lesen!
+20:32:37  🔄 Kamera-Stream wird neu verbunden.
+20:32:37  📷 Kamera-Stream geschlossen.
+20:32:37  📷 Öffne Kamera-Stream: http://10.0.0.63:3031/video
+20:32:37  ✅ Kamera-Stream geöffnet.
+20:32:37  ✅ Kamera-Reconnect erfolgreich (Versuch 1/3).
+20:33:07  ❌ Kamera-Fehler: Konnte kein Frame von der Kamera lesen!
+20:33:08  🔄 Kamera-Stream wird neu verbunden.
+20:33:08  📷 Kamera-Stream geschlossen.
+20:33:08  📷 Öffne Kamera-Stream: http://10.0.0.63:3031/video
+20:33:08  ✅ Kamera-Stream geöffnet.
+20:33:08  ✅ Kamera-Reconnect erfolgreich (Versuch 1/3).
+20:33:38  ❌ Kamera-Fehler: Konnte kein Frame von der Kamera lesen!
+20:33:39  🔄 Kamera-Stream wird neu verbunden.
+20:33:39  📷 Kamera-Stream geschlossen.
+20:33:39  📷 Öffne Kamera-Stream: http://10.0.0.63:3031/video
+20:33:39  ✅ Kamera-Stream geöffnet.
+20:33:40  ✅ Kamera-Reconnect erfolgreich (Versuch 1/3).
+20:34:10  ❌ Kamera-Fehler: Konnte kein Frame von der Kamera lesen!
+20:34:11  🔄 Kamera-Stream wird neu verbunden.
+20:34:11  📷 Kamera-Stream geschlossen.
+20:34:11  📷 Öffne Kamera-Stream: http://10.0.0.63:3031/video
+20:34:11  ✅ Kamera-Stream geöffnet.
+20:34:11  ✅ Kamera-Reconnect erfolgreich (Versuch 1/3).
+20:34:41  ❌ Kamera-Fehler: Konnte kein Frame von der Kamera lesen!
+20:34:42  🔄 Kamera-Stream wird neu verbunden.
+20:34:42  📷 Kamera-Stream geschlossen.
+20:34:42  📷 Öffne Kamera-Stream: http://10.0.0.63:3031/video
+20:34:42  ✅ Kamera-Stream geöffnet.
+20:34:42  ✅ Kamera-Reconnect erfolgreich (Versuch 1/3).
+20:35:52  ❌ Kamera-Fehler: Konnte kein Frame von der Kamera lesen!
+20:35:53  🔄 Kamera-Stream wird neu verbunden.
+20:35:53  📷 Kamera-Stream geschlossen.
+20:35:53  📷 Öffne Kamera-Stream: http://10.0.0.63:3031/video
+20:35:53  ✅ Kamera-Stream geöffnet.
+20:35:54  ✅ Kamera-Reconnect erfolgreich (Versuch 1/3).
+20:37:04  ❌ Kamera-Fehler: Konnte kein Frame von der Kamera lesen!
+20:37:05  🔄 Kamera-Stream wird neu verbunden.
+20:37:05  📷 Kamera-Stream geschlossen.
+20:37:05  📷 Öffne Kamera-Stream: http://10.0.0.63:3031/video
+20:37:05  ✅ Kamera-Stream geöffnet.
+20:37:05  ✅ Kamera-Reconnect erfolgreich (Versuch 1/3).
+20:38:15  ❌ Kamera-Fehler: Konnte kein Frame von der Kamera lesen!
+20:38:16  🔄 Kamera-Stream wird neu verbunden.
+20:38:16  📷 Kamera-Stream geschlossen.
+20:38:16  📷 Öffne Kamera-Stream: http://10.0.0.63:3031/video
+20:38:16  ✅ Kamera-Stream geöffnet.
+20:38:16  ✅ Kamera-Reconnect erfolgreich (Versuch 1/3).
+20:38:56  ❌ Kamera-Fehler: Konnte kein Frame von der Kamera lesen!
+20:38:57  🔄 Kamera-Stream wird neu verbunden.
+20:38:57  📷 Kamera-Stream geschlossen.
+20:38:57  📷 Öffne Kamera-Stream: http://10.0.0.63:3031/video
+20:38:57  ✅ Kamera-Stream geöffnet.
+20:38:58  ✅ Kamera-Reconnect erfolgreich (Versuch 1/3).
+20:39:38  ❌ Kamera-Fehler: Konnte kein Frame von der Kamera lesen!
+20:39:39  🔄 Kamera-Stream wird neu verbunden.
+20:39:39  📷 Kamera-Stream geschlossen.
+20:39:39  📷 Öffne Kamera-Stream: http://10.0.0.63:3031/video
+20:39:39  ✅ Kamera-Stream geöffnet.
+20:39:39  ✅ Kamera-Reconnect erfolgreich (Versuch 1/3).
+20:40:19  ❌ Kamera-Fehler: Konnte kein Frame von der Kamera lesen!
+20:40:20  🔄 Kamera-Stream wird neu verbunden.
+20:40:20  📷 Kamera-Stream geschlossen.
+20:40:20  📷 Öffne Kamera-Stream: http://10.0.0.63:3031/video
+20:40:20  ✅ Kamera-Stream geöffnet.
+20:40:20  ✅ Kamera-Reconnect erfolgreich (Versuch 1/3).
+20:41:00  ❌ Kamera-Fehler: Konnte kein Frame von der Kamera lesen!
+20:41:01  🔄 Kamera-Stream wird neu verbunden.
+20:41:01  📷 Kamera-Stream geschlossen.
+20:41:01  📷 Öffne Kamera-Stream: http://10.0.0.63:3031/video
+20:41:01  ✅ Kamera-Stream geöffnet.
+20:41:02  ✅ Kamera-Reconnect erfolgreich (Versuch 1/3).
+20:41:52  ❌ Kamera-Fehler: Konnte kein Frame von der Kamera lesen!
+20:41:53  🔄 Kamera-Stream wird neu verbunden.
+20:41:53  📷 Kamera-Stream geschlossen.
+20:41:53  📷 Öffne Kamera-Stream: http://10.0.0.63:3031/video
+20:41:53  ✅ Kamera-Stream geöffnet.
+20:41:53  ✅ Kamera-Reconnect erfolgreich (Versuch 1/3).
+20:42:33  ❌ Kamera-Fehler: Konnte kein Frame von der Kamera lesen!
+20:42:34  🔄 Kamera-Stream wird neu verbunden.
+20:42:34  📷 Kamera-Stream geschlossen.
+20:42:34  📷 Öffne Kamera-Stream: http://10.0.0.63:3031/video
+20:42:34  ✅ Kamera-Stream geöffnet.
+20:42:34  ✅ Kamera-Reconnect erfolgreich (Versuch 1/3).
+20:42:54  ❌ Kamera-Fehler: Konnte kein Frame von der Kamera lesen!
+20:42:55  🔄 Kamera-Stream wird neu verbunden.
+20:42:55  📷 Kamera-Stream geschlossen.
+20:42:55  📷 Öffne Kamera-Stream: http://10.0.0.63:3031/video
+20:42:55  ✅ Kamera-Stream geöffnet.
+20:42:55  ✅ Kamera-Reconnect erfolgreich (Versuch 1/3).
+20:43:16  ❌ Kamera-Fehler: Konnte kein Frame von der Kamera lesen!
+20:43:17  🔄 Kamera-Stream wird neu verbunden.
+20:43:17  📷 Kamera-Stream geschlossen.
+20:43:17  📷 Öffne Kamera-Stream: http://10.0.0.63:3031/video
+20:43:17  ✅ Kamera-Stream geöffnet.
+20:43:17  ✅ Kamera-Reconnect erfolgreich (Versuch 1/3).
+20:44:07  ❌ Kamera-Fehler: Konnte kein Frame von der Kamera lesen!
+20:44:08  🔄 Kamera-Stream wird neu verbunden.
+20:44:08  📷 Kamera-Stream geschlossen.
+20:44:08  📷 Öffne Kamera-Stream: http://10.0.0.63:3031/video
+20:44:08  ✅ Kamera-Stream geöffnet.
+20:44:08  ✅ Kamera-Reconnect erfolgreich (Versuch 1/3).
+20:44:58  ❌ Kamera-Fehler: Konnte kein Frame von der Kamera lesen!
+20:44:59  🔄 Kamera-Stream wird neu verbunden.
+20:44:59  📷 Kamera-Stream geschlossen.
+20:44:59  📷 Öffne Kamera-Stream: http://10.0.0.63:3031/video
+20:44:59  ✅ Kamera-Stream geöffnet.
+20:45:00  ✅ Kamera-Reconnect erfolgreich (Versuch 1/3).
+20:45:30  ❌ Kamera-Fehler: Konnte kein Frame von der Kamera lesen!
+20:45:31  🔄 Kamera-Stream wird neu verbunden.
+20:45:31  📷 Kamera-Stream geschlossen.
+20:45:31  📷 Öffne Kamera-Stream: http://10.0.0.63:3031/video
+20:45:31  ✅ Kamera-Stream geöffnet.
+20:45:31  ✅ Kamera-Reconnect erfolgreich (Versuch 1/3).
+20:45:51  ❌ Kamera-Fehler: Konnte kein Frame von der Kamera lesen!
+20:45:52  🔄 Kamera-Stream wird neu verbunden.
+20:45:52  📷 Kamera-Stream geschlossen.
+20:45:52  📷 Öffne Kamera-Stream: http://10.0.0.63:3031/video
+20:45:52  ✅ Kamera-Stream geöffnet.
+20:45:52  ✅ Kamera-Reconnect erfolgreich (Versuch 1/3).
+20:46:52  ❌ Kamera-Fehler: Konnte kein Frame von der Kamera lesen!
+20:46:53  🔄 Kamera-Stream wird neu verbunden.
+20:46:53  📷 Kamera-Stream geschlossen.
+20:46:53  📷 Öffne Kamera-Stream: http://10.0.0.63:3031/video
+20:46:53  ✅ Kamera-Stream geöffnet.
+20:46:54  ✅ Kamera-Reconnect erfolgreich (Versuch 1/3).
+20:47:44  ❌ Kamera-Fehler: Konnte kein Frame von der Kamera lesen!
+20:47:45  🔄 Kamera-Stream wird neu verbunden.
+20:47:45  📷 Kamera-Stream geschlossen.
+20:47:45  📷 Öffne Kamera-Stream: http://10.0.0.63:3031/video
+20:47:45  ✅ Kamera-Stream geöffnet.
+20:47:45  ✅ Kamera-Reconnect erfolgreich (Versuch 1/3).
+20:48:05  ❌ Kamera-Fehler: Konnte kein Frame von der Kamera lesen!
+20:48:06  🔄 Kamera-Stream wird neu verbunden.
+20:48:06  📷 Kamera-Stream geschlossen.
+20:48:06  📷 Öffne Kamera-Stream: http://10.0.0.63:3031/video
+20:48:06  ✅ Kamera-Stream geöffnet.
+20:48:06  ✅ Kamera-Reconnect erfolgreich (Versuch 1/3).
+20:49:26  ❌ Kamera-Fehler: Konnte kein Frame von der Kamera lesen!
+20:49:27  🔄 Kamera-Stream wird neu verbunden.
+20:49:27  📷 Kamera-Stream geschlossen.
+20:49:27  📷 Öffne Kamera-Stream: http://10.0.0.63:3031/video
+20:49:28  ✅ Kamera-Stream geöffnet.
+20:49:28  ✅ Kamera-Reconnect erfolgreich (Versuch 1/3).
+20:49:48  ❌ Kamera-Fehler: Konnte kein Frame von der Kamera lesen!
+20:49:49  🔄 Kamera-Stream wird neu verbunden.
+20:49:49  📷 Kamera-Stream geschlossen.
+20:49:49  📷 Öffne Kamera-Stream: http://10.0.0.63:3031/video
+20:49:49  ✅ Kamera-Stream geöffnet.
+20:49:49  ✅ Kamera-Reconnect erfolgreich (Versuch 1/3).
+20:50:39  ❌ Kamera-Fehler: Konnte kein Frame von der Kamera lesen!
+20:50:40  🔄 Kamera-Stream wird neu verbunden.
+20:50:40  📷 Kamera-Stream geschlossen.
+20:50:40  📷 Öffne Kamera-Stream: http://10.0.0.63:3031/video
+20:50:40  ✅ Kamera-Stream geöffnet.
+20:50:40  ✅ Kamera-Reconnect erfolgreich (Versuch 1/3).
+20:51:20  ❌ Kamera-Fehler: Konnte kein Frame von der Kamera lesen!
+20:51:21  🔄 Kamera-Stream wird neu verbunden.
+20:51:21  📷 Kamera-Stream geschlossen.
+20:51:21  📷 Öffne Kamera-Stream: http://10.0.0.63:3031/video
+20:51:22  ✅ Kamera-Stream geöffnet.
+20:51:22  ✅ Kamera-Reconnect erfolgreich (Versuch 1/3).
+20:52:12  ❌ Kamera-Fehler: Konnte kein Frame von der Kamera lesen!
+20:52:13  🔄 Kamera-Stream wird neu verbunden.
+20:52:13  📷 Kamera-Stream geschlossen.
+20:52:13  📷 Öffne Kamera-Stream: http://10.0.0.63:3031/video
+20:52:13  ✅ Kamera-Stream geöffnet.
+20:52:13  ✅ Kamera-Reconnect erfolgreich (Versuch 1/3).
+20:53:13  ❌ Kamera-Fehler: Konnte kein Frame von der Kamera lesen!
+20:53:14  🔄 Kamera-Stream wird neu verbunden.
+20:53:14  📷 Kamera-Stream geschlossen.
+20:53:14  📷 Öffne Kamera-Stream: http://10.0.0.63:3031/video
+20:53:14  ✅ Kamera-Stream geöffnet.
+20:53:15  ✅ Kamera-Reconnect erfolgreich (Versuch 1/3).
+20:54:15  ❌ Kamera-Fehler: Konnte kein Frame von der Kamera lesen!
+20:54:16  🔄 Kamera-Stream wird neu verbunden.
+20:54:16  📷 Kamera-Stream geschlossen.
+20:54:16  📷 Öffne Kamera-Stream: http://10.0.0.63:3031/video
+20:54:16  ✅ Kamera-Stream geöffnet.
+20:54:16  ✅ Kamera-Reconnect erfolgreich (Versuch 1/3).
+20:55:26  ❌ Kamera-Fehler: Konnte kein Frame von der Kamera lesen!
+20:55:27  🔄 Kamera-Stream wird neu verbunden.
+20:55:27  📷 Kamera-Stream geschlossen.
+20:55:27  📷 Öffne Kamera-Stream: http://10.0.0.63:3031/video
+20:55:27  ✅ Kamera-Stream geöffnet.
+20:55:27  ✅ Kamera-Reconnect erfolgreich (Versuch 1/3).
+20:55:47  ❌ Kamera-Fehler: Konnte kein Frame von der Kamera lesen!
+20:55:48  🔄 Kamera-Stream wird neu verbunden.
+20:55:48  📷 Kamera-Stream geschlossen.
+20:55:48  📷 Öffne Kamera-Stream: http://10.0.0.63:3031/video
+20:55:48  ✅ Kamera-Stream geöffnet.
+20:55:49  ✅ Kamera-Reconnect erfolgreich (Versuch 1/3).
+20:56:19  ❌ Kamera-Fehler: Konnte kein Frame von der Kamera lesen!
+20:56:20  🔄 Kamera-Stream wird neu verbunden.
+20:56:20  📷 Kamera-Stream geschlossen.
+20:56:20  📷 Öffne Kamera-Stream: http://10.0.0.63:3031/video
+20:56:20  ✅ Kamera-Stream geöffnet.
+20:56:20  ✅ Kamera-Reconnect erfolgreich (Versuch 1/3).
+20:57:10  ❌ Kamera-Fehler: Konnte kein Frame von der Kamera lesen!
+20:57:11  🔄 Kamera-Stream wird neu verbunden.
+20:57:11  📷 Kamera-Stream geschlossen.
+20:57:11  📷 Öffne Kamera-Stream: http://10.0.0.63:3031/video
+20:57:11  ✅ Kamera-Stream geöffnet.
+20:57:11  ✅ Kamera-Reconnect erfolgreich (Versuch 1/3).
+20:58:11  ❌ Kamera-Fehler: Konnte kein Frame von der Kamera lesen!
+20:58:12  🔄 Kamera-Stream wird neu verbunden.
+20:58:12  📷 Kamera-Stream geschlossen.
+20:58:12  📷 Öffne Kamera-Stream: http://10.0.0.63:3031/video
+20:58:12  ✅ Kamera-Stream geöffnet.
+20:58:13  ✅ Kamera-Reconnect erfolgreich (Versuch 1/3).
+20:58:53  ❌ Kamera-Fehler: Konnte kein Frame von der Kamera lesen!
+20:58:54  🔄 Kamera-Stream wird neu verbunden.
+20:58:54  📷 Kamera-Stream geschlossen.
+20:58:54  📷 Öffne Kamera-Stream: http://10.0.0.63:3031/video
+20:58:54  ✅ Kamera-Stream geöffnet.
+20:58:54  ✅ Kamera-Reconnect erfolgreich (Versuch 1/3).
+20:59:34  ❌ Kamera-Fehler: Konnte kein Frame von der Kamera lesen!
+20:59:35  🔄 Kamera-Stream wird neu verbunden.
+20:59:35  📷 Kamera-Stream geschlossen.
+20:59:35  📷 Öffne Kamera-Stream: http://10.0.0.63:3031/video
+20:59:35  ✅ Kamera-Stream geöffnet.
+20:59:35  ✅ Kamera-Reconnect erfolgreich (Versuch 1/3).
+21:00:25  ❌ Kamera-Fehler: Konnte kein Frame von der Kamera lesen!
+21:00:26  🔄 Kamera-Stream wird neu verbunden.
+21:00:26  📷 Kamera-Stream geschlossen.
+21:00:26  📷 Öffne Kamera-Stream: http://10.0.0.63:3031/video
+21:00:26  ✅ Kamera-Stream geöffnet.
+21:00:27  ✅ Kamera-Reconnect erfolgreich (Versuch 1/3).
+21:00:57  ❌ Kamera-Fehler: Konnte kein Frame von der Kamera lesen!
+21:00:58  🔄 Kamera-Stream wird neu verbunden.
+21:00:58  📷 Kamera-Stream geschlossen.
+21:00:58  📷 Öffne Kamera-Stream: http://10.0.0.63:3031/video
+21:00:58  ✅ Kamera-Stream geöffnet.
+21:00:58  ✅ Kamera-Reconnect erfolgreich (Versuch 1/3).
+21:01:48  ❌ Kamera-Fehler: Konnte kein Frame von der Kamera lesen!
+21:01:49  🔄 Kamera-Stream wird neu verbunden.
+21:01:49  📷 Kamera-Stream geschlossen.
+21:01:49  📷 Öffne Kamera-Stream: http://10.0.0.63:3031/video
+21:01:49  ✅ Kamera-Stream geöffnet.
+21:01:49  ✅ Kamera-Reconnect erfolgreich (Versuch 1/3).
+21:02:29  ❌ Kamera-Fehler: Konnte kein Frame von der Kamera lesen!
+21:02:30  🔄 Kamera-Stream wird neu verbunden.
+21:02:30  📷 Kamera-Stream geschlossen.
+21:02:30  📷 Öffne Kamera-Stream: http://10.0.0.63:3031/video
+21:02:30  ✅ Kamera-Stream geöffnet.
+21:02:31  ✅ Kamera-Reconnect erfolgreich (Versuch 1/3).
+21:03:11  ❌ Kamera-Fehler: Konnte kein Frame von der Kamera lesen!
+21:03:12  🔄 Kamera-Stream wird neu verbunden.
+21:03:12  📷 Kamera-Stream geschlossen.
+21:03:12  📷 Öffne Kamera-Stream: http://10.0.0.63:3031/video
+21:03:12  ✅ Kamera-Stream geöffnet.
+21:03:12  ✅ Kamera-Reconnect erfolgreich (Versuch 1/3).
+21:04:02  ❌ Kamera-Fehler: Konnte kein Frame von der Kamera lesen!
+21:04:03  🔄 Kamera-Stream wird neu verbunden.
+21:04:03  📷 Kamera-Stream geschlossen.
+21:04:03  📷 Öffne Kamera-Stream: http://10.0.0.63:3031/video
+21:04:03  ✅ Kamera-Stream geöffnet.
+21:04:03  ✅ Kamera-Reconnect erfolgreich (Versuch 1/3).
+21:04:43  ❌ Kamera-Fehler: Konnte kein Frame von der Kamera lesen!
+21:04:44  🔄 Kamera-Stream wird neu verbunden.
+21:04:44  📷 Kamera-Stream geschlossen.
+21:04:44  📷 Öffne Kamera-Stream: http://10.0.0.63:3031/video
+21:04:44  ✅ Kamera-Stream geöffnet.
+21:04:45  ✅ Kamera-Reconnect erfolgreich (Versuch 1/3).
+21:05:25  ❌ Kamera-Fehler: Konnte kein Frame von der Kamera lesen!
+21:05:26  🔄 Kamera-Stream wird neu verbunden.
+21:05:26  📷 Kamera-Stream geschlossen.
+21:05:26  📷 Öffne Kamera-Stream: http://10.0.0.63:3031/video
+21:05:26  ✅ Kamera-Stream geöffnet.
+21:05:26  ✅ Kamera-Reconnect erfolgreich (Versuch 1/3).
+21:06:06  ❌ Kamera-Fehler: Konnte kein Frame von der Kamera lesen!
+21:06:07  🔄 Kamera-Stream wird neu verbunden.
+21:06:07  📷 Kamera-Stream geschlossen.
+21:06:07  📷 Öffne Kamera-Stream: http://10.0.0.63:3031/video
+21:06:07  ✅ Kamera-Stream geöffnet.
+21:06:07  ✅ Kamera-Reconnect erfolgreich (Versuch 1/3).
+21:06:57  ❌ Kamera-Fehler: Konnte kein Frame von der Kamera lesen!
+21:06:58  🔄 Kamera-Stream wird neu verbunden.
+21:06:58  📷 Kamera-Stream geschlossen.
+21:06:58  📷 Öffne Kamera-Stream: http://10.0.0.63:3031/video
+21:06:58  ✅ Kamera-Stream geöffnet.
+21:06:59  ✅ Kamera-Reconnect erfolgreich (Versuch 1/3).
+21:07:49  ❌ Kamera-Fehler: Konnte kein Frame von der Kamera lesen!
+21:07:50  🔄 Kamera-Stream wird neu verbunden.
+21:07:50  📷 Kamera-Stream geschlossen.
+21:07:50  📷 Öffne Kamera-Stream: http://10.0.0.63:3031/video
+21:07:50  ✅ Kamera-Stream geöffnet.
+21:07:50  ✅ Kamera-Reconnect erfolgreich (Versuch 1/3).
+21:08:30  ❌ Kamera-Fehler: Konnte kein Frame von der Kamera lesen!
+21:08:31  🔄 Kamera-Stream wird neu verbunden.
+21:08:31  📷 Kamera-Stream geschlossen.
+21:08:31  📷 Öffne Kamera-Stream: http://10.0.0.63:3031/video
+21:08:31  ✅ Kamera-Stream geöffnet.
+21:08:31  ✅ Kamera-Reconnect erfolgreich (Versuch 1/3).
+21:09:11  ❌ Kamera-Fehler: Konnte kein Frame von der Kamera lesen!
+21:09:12  🔄 Kamera-Stream wird neu verbunden.
+21:09:12  📷 Kamera-Stream geschlossen.
+21:09:12  📷 Öffne Kamera-Stream: http://10.0.0.63:3031/video
+21:09:12  ✅ Kamera-Stream geöffnet.
+21:09:13  ✅ Kamera-Reconnect erfolgreich (Versuch 1/3).
+21:09:53  ❌ Kamera-Fehler: Konnte kein Frame von der Kamera lesen!
+21:09:54  🔄 Kamera-Stream wird neu verbunden.
+21:09:54  📷 Kamera-Stream geschlossen.
+21:09:54  📷 Öffne Kamera-Stream: http://10.0.0.63:3031/video
+21:09:54  ✅ Kamera-Stream geöffnet.
+21:09:54  ✅ Kamera-Reconnect erfolgreich (Versuch 1/3).
+21:10:44  ❌ Kamera-Fehler: Konnte kein Frame von der Kamera lesen!
+21:10:45  🔄 Kamera-Stream wird neu verbunden.
+21:10:45  📷 Kamera-Stream geschlossen.
+21:10:45  📷 Öffne Kamera-Stream: http://10.0.0.63:3031/video
+21:10:45  ✅ Kamera-Stream geöffnet.
+21:10:45  ✅ Kamera-Reconnect erfolgreich (Versuch 1/3).
+21:11:25  ❌ Kamera-Fehler: Konnte kein Frame von der Kamera lesen!
+21:11:26  🔄 Kamera-Stream wird neu verbunden.
+21:11:26  📷 Kamera-Stream geschlossen.
+21:11:26  📷 Öffne Kamera-Stream: http://10.0.0.63:3031/video
+21:11:26  ✅ Kamera-Stream geöffnet.
+21:11:27  ✅ Kamera-Reconnect erfolgreich (Versuch 1/3).
+21:12:17  ❌ Kamera-Fehler: Konnte kein Frame von der Kamera lesen!
+21:12:18  🔄 Kamera-Stream wird neu verbunden.
+21:12:18  📷 Kamera-Stream geschlossen.
+21:12:18  📷 Öffne Kamera-Stream: http://10.0.0.63:3031/video
+21:12:18  ✅ Kamera-Stream geöffnet.
+21:12:18  ✅ Kamera-Reconnect erfolgreich (Versuch 1/3).
+21:13:08  ❌ Kamera-Fehler: Konnte kein Frame von der Kamera lesen!
+21:13:09  🔄 Kamera-Stream wird neu verbunden.
+21:13:09  📷 Kamera-Stream geschlossen.
+21:13:09  📷 Öffne Kamera-Stream: http://10.0.0.63:3031/video
+21:13:09  ✅ Kamera-Stream geöffnet.
+21:13:09  ✅ Kamera-Reconnect erfolgreich (Versuch 1/3).
+21:13:49  ❌ Kamera-Fehler: Konnte kein Frame von der Kamera lesen!
+21:13:50  🔄 Kamera-Stream wird neu verbunden.
+21:13:50  📷 Kamera-Stream geschlossen.
+21:13:50  📷 Öffne Kamera-Stream: http://10.0.0.63:3031/video
+21:13:50  ✅ Kamera-Stream geöffnet.
+21:13:51  ✅ Kamera-Reconnect erfolgreich (Versuch 1/3).
+21:14:31  ❌ Kamera-Fehler: Konnte kein Frame von der Kamera lesen!
+21:14:32  🔄 Kamera-Stream wird neu verbunden.
+21:14:32  📷 Kamera-Stream geschlossen.
+21:14:32  📷 Öffne Kamera-Stream: http://10.0.0.63:3031/video
+21:14:32  ✅ Kamera-Stream geöffnet.
+21:14:32  ✅ Kamera-Reconnect erfolgreich (Versuch 1/3).
+21:15:22  ❌ Kamera-Fehler: Konnte kein Frame von der Kamera lesen!
+21:15:23  🔄 Kamera-Stream wird neu verbunden.
+21:15:23  📷 Kamera-Stream geschlossen.
+21:15:23  📷 Öffne Kamera-Stream: http://10.0.0.63:3031/video
+21:15:23  ✅ Kamera-Stream geöffnet.
+21:15:23  ✅ Kamera-Reconnect erfolgreich (Versuch 1/3).
+21:16:23  ❌ Kamera-Fehler: Konnte kein Frame von der Kamera lesen!
+21:16:24  🔄 Kamera-Stream wird neu verbunden.
+21:16:24  📷 Kamera-Stream geschlossen.
+21:16:24  📷 Öffne Kamera-Stream: http://10.0.0.63:3031/video
+21:16:25  ✅ Kamera-Stream geöffnet.
+21:16:25  ✅ Kamera-Reconnect erfolgreich (Versuch 1/3).
+21:17:05  ❌ Kamera-Fehler: Konnte kein Frame von der Kamera lesen!
+21:17:06  🔄 Kamera-Stream wird neu verbunden.
+21:17:06  📷 Kamera-Stream geschlossen.
+21:17:06  📷 Öffne Kamera-Stream: http://10.0.0.63:3031/video
+21:17:06  ✅ Kamera-Stream geöffnet.
+21:17:06  ✅ Kamera-Reconnect erfolgreich (Versuch 1/3).
+21:18:06  ❌ Kamera-Fehler: Konnte kein Frame von der Kamera lesen!
+21:18:07  🔄 Kamera-Stream wird neu verbunden.
+21:18:07  📷 Kamera-Stream geschlossen.
+21:18:07  📷 Öffne Kamera-Stream: http://10.0.0.63:3031/video
+21:18:07  ✅ Kamera-Stream geöffnet.
+21:18:07  ✅ Kamera-Reconnect erfolgreich (Versuch 1/3).
+21:18:47  ❌ Kamera-Fehler: Konnte kein Frame von der Kamera lesen!
+21:18:48  🔄 Kamera-Stream wird neu verbunden.
+21:18:48  📷 Kamera-Stream geschlossen.
+21:18:48  📷 Öffne Kamera-Stream: http://10.0.0.63:3031/video
+21:18:48  ✅ Kamera-Stream geöffnet.
+21:18:49  ✅ Kamera-Reconnect erfolgreich (Versuch 1/3).
+21:19:29  ❌ Kamera-Fehler: Konnte kein Frame von der Kamera lesen!
+21:19:30  🔄 Kamera-Stream wird neu verbunden.
+21:19:30  📷 Kamera-Stream geschlossen.
+21:19:30  📷 Öffne Kamera-Stream: http://10.0.0.63:3031/video
+21:19:30  ✅ Kamera-Stream geöffnet.
+21:19:30  ✅ Kamera-Reconnect erfolgreich (Versuch 1/3).
+21:20:10  ❌ Kamera-Fehler: Konnte kein Frame von der Kamera lesen!
+21:20:11  🔄 Kamera-Stream wird neu verbunden.
+21:20:11  📷 Kamera-Stream geschlossen.
+21:20:11  📷 Öffne Kamera-Stream: http://10.0.0.63:3031/video
+21:20:11  ✅ Kamera-Stream geöffnet.
+21:20:11  ✅ Kamera-Reconnect erfolgreich (Versuch 1/3).
+21:21:11  ❌ Kamera-Fehler: Konnte kein Frame von der Kamera lesen!
+21:21:12  🔄 Kamera-Stream wird neu verbunden.
+21:21:12  📷 Kamera-Stream geschlossen.
+21:21:12  📷 Öffne Kamera-Stream: http://10.0.0.63:3031/video
+21:21:13  ✅ Kamera-Stream geöffnet.
+21:21:13  ✅ Kamera-Reconnect erfolgreich (Versuch 1/3).
+21:21:53  ❌ Kamera-Fehler: Konnte kein Frame von der Kamera lesen!
+21:21:54  🔄 Kamera-Stream wird neu verbunden.
+21:21:54  📷 Kamera-Stream geschlossen.
+21:21:54  📷 Öffne Kamera-Stream: http://10.0.0.63:3031/video
+21:21:54  ✅ Kamera-Stream geöffnet.
+21:21:54  ✅ Kamera-Reconnect erfolgreich (Versuch 1/3).
+21:22:54  ❌ Kamera-Fehler: Konnte kein Frame von der Kamera lesen!
+21:22:55  🔄 Kamera-Stream wird neu verbunden.
+21:22:55  📷 Kamera-Stream geschlossen.
+21:22:55  📷 Öffne Kamera-Stream: http://10.0.0.63:3031/video
+21:22:55  ✅ Kamera-Stream geöffnet.
+21:22:55  ✅ Kamera-Reconnect erfolgreich (Versuch 1/3).
+21:23:15  ❌ Kamera-Fehler: Konnte kein Frame von der Kamera lesen!
+21:23:16  🔄 Kamera-Stream wird neu verbunden.
+21:23:16  📷 Kamera-Stream geschlossen.
+21:23:16  📷 Öffne Kamera-Stream: http://10.0.0.63:3031/video
+21:23:17  ✅ Kamera-Stream geöffnet.
+21:23:17  ✅ Kamera-Reconnect erfolgreich (Versuch 1/3).
+21:23:57  ❌ Kamera-Fehler: Konnte kein Frame von der Kamera lesen!
+21:23:58  🔄 Kamera-Stream wird neu verbunden.
+21:23:58  📷 Kamera-Stream geschlossen.
+21:23:58  📷 Öffne Kamera-Stream: http://10.0.0.63:3031/video
+21:23:58  ✅ Kamera-Stream geöffnet.
+21:23:58  ✅ Kamera-Reconnect erfolgreich (Versuch 1/3).
+21:24:48  ❌ Kamera-Fehler: Konnte kein Frame von der Kamera lesen!
+21:24:49  🔄 Kamera-Stream wird neu verbunden.
+21:24:49  📷 Kamera-Stream geschlossen.
+21:24:49  📷 Öffne Kamera-Stream: http://10.0.0.63:3031/video
+21:24:49  ✅ Kamera-Stream geöffnet.
+21:24:49  ✅ Kamera-Reconnect erfolgreich (Versuch 1/3).
+21:25:49  ❌ Kamera-Fehler: Konnte kein Frame von der Kamera lesen!
+21:25:50  🔄 Kamera-Stream wird neu verbunden.
+21:25:50  📷 Kamera-Stream geschlossen.
+21:25:50  📷 Öffne Kamera-Stream: http://10.0.0.63:3031/video
+21:25:51  ✅ Kamera-Stream geöffnet.
+21:25:51  ✅ Kamera-Reconnect erfolgreich (Versuch 1/3).
+21:26:21  ❌ Kamera-Fehler: Konnte kein Frame von der Kamera lesen!
+21:26:22  🔄 Kamera-Stream wird neu verbunden.
+21:26:22  📷 Kamera-Stream geschlossen.
+21:26:22  📷 Öffne Kamera-Stream: http://10.0.0.63:3031/video
+21:26:22  ✅ Kamera-Stream geöffnet.
+21:26:22  ✅ Kamera-Reconnect erfolgreich (Versuch 1/3).
+21:27:12  ❌ Kamera-Fehler: Konnte kein Frame von der Kamera lesen!
+21:27:13  🔄 Kamera-Stream wird neu verbunden.
+21:27:13  📷 Kamera-Stream geschlossen.
+21:27:13  📷 Öffne Kamera-Stream: http://10.0.0.63:3031/video
+21:27:13  ✅ Kamera-Stream geöffnet.
+21:27:13  ✅ Kamera-Reconnect erfolgreich (Versuch 1/3).
+21:28:24  ❌ Kamera-Fehler: Konnte kein Frame von der Kamera lesen!
+21:28:25  🔄 Kamera-Stream wird neu verbunden.
+21:28:25  📷 Kamera-Stream geschlossen.
+21:28:25  📷 Öffne Kamera-Stream: http://10.0.0.63:3031/video
+21:28:25  ✅ Kamera-Stream geöffnet.
+21:28:25  ✅ Kamera-Reconnect erfolgreich (Versuch 1/3).
+21:28:45  ❌ Kamera-Fehler: Konnte kein Frame von der Kamera lesen!
+21:28:46  🔄 Kamera-Stream wird neu verbunden.
+21:28:46  📷 Kamera-Stream geschlossen.
+21:28:46  📷 Öffne Kamera-Stream: http://10.0.0.63:3031/video
+21:28:46  ✅ Kamera-Stream geöffnet.
+21:28:46  ✅ Kamera-Reconnect erfolgreich (Versuch 1/3).
+21:29:56  ❌ Kamera-Fehler: Konnte kein Frame von der Kamera lesen!
+21:29:57  🔄 Kamera-Stream wird neu verbunden.
+21:29:57  📷 Kamera-Stream geschlossen.
+21:29:57  📷 Öffne Kamera-Stream: http://10.0.0.63:3031/video
+21:29:57  ✅ Kamera-Stream geöffnet.
+21:29:58  ✅ Kamera-Reconnect erfolgreich (Versuch 1/3).
+21:30:18  ❌ Kamera-Fehler: Konnte kein Frame von der Kamera lesen!
+21:30:19  🔄 Kamera-Stream wird neu verbunden.
+21:30:19  📷 Kamera-Stream geschlossen.
+21:30:19  📷 Öffne Kamera-Stream: http://10.0.0.63:3031/video
+21:30:19  ✅ Kamera-Stream geöffnet.
+21:30:19  ✅ Kamera-Reconnect erfolgreich (Versuch 1/3).
+21:31:09  ❌ Kamera-Fehler: Konnte kein Frame von der Kamera lesen!
+21:31:10  🔄 Kamera-Stream wird neu verbunden.
+21:31:10  📷 Kamera-Stream geschlossen.
+21:31:10  📷 Öffne Kamera-Stream: http://10.0.0.63:3031/video
+21:31:10  ✅ Kamera-Stream geöffnet.
+21:31:10  ✅ Kamera-Reconnect erfolgreich (Versuch 1/3).
+21:32:00  ❌ Kamera-Fehler: Konnte kein Frame von der Kamera lesen!
+21:32:01  🔄 Kamera-Stream wird neu verbunden.
+21:32:01  📷 Kamera-Stream geschlossen.
+21:32:01  📷 Öffne Kamera-Stream: http://10.0.0.63:3031/video
+21:32:01  ✅ Kamera-Stream geöffnet.
+21:32:02  ✅ Kamera-Reconnect erfolgreich (Versuch 1/3).
+21:32:52  ❌ Kamera-Fehler: Konnte kein Frame von der Kamera lesen!
+21:32:53  🔄 Kamera-Stream wird neu verbunden.
+21:32:53  📷 Kamera-Stream geschlossen.
+21:32:53  📷 Öffne Kamera-Stream: http://10.0.0.63:3031/video
+21:32:53  ✅ Kamera-Stream geöffnet.
+21:32:53  ✅ Kamera-Reconnect erfolgreich (Versuch 1/3).
+21:33:43  ❌ Kamera-Fehler: Konnte kein Frame von der Kamera lesen!
+21:33:44  🔄 Kamera-Stream wird neu verbunden.
+21:33:44  📷 Kamera-Stream geschlossen.
+21:33:44  📷 Öffne Kamera-Stream: http://10.0.0.63:3031/video
+21:33:44  ✅ Kamera-Stream geöffnet.
+21:33:44  ✅ Kamera-Reconnect erfolgreich (Versuch 1/3).
+21:34:24  ❌ Kamera-Fehler: Konnte kein Frame von der Kamera lesen!
+21:34:25  🔄 Kamera-Stream wird neu verbunden.
+21:34:25  📷 Kamera-Stream geschlossen.
+21:34:25  📷 Öffne Kamera-Stream: http://10.0.0.63:3031/video
+21:34:25  ✅ Kamera-Stream geöffnet.
+21:34:26  ✅ Kamera-Reconnect erfolgreich (Versuch 1/3).
+21:35:26  ❌ Kamera-Fehler: Konnte kein Frame von der Kamera lesen!
+21:35:27  🔄 Kamera-Stream wird neu verbunden.
+21:35:27  📷 Kamera-Stream geschlossen.
+21:35:27  📷 Öffne Kamera-Stream: http://10.0.0.63:3031/video
+21:35:27  ✅ Kamera-Stream geöffnet.
+21:35:27  ✅ Kamera-Reconnect erfolgreich (Versuch 1/3).
+21:36:07  ❌ Kamera-Fehler: Konnte kein Frame von der Kamera lesen!
+21:36:08  🔄 Kamera-Stream wird neu verbunden.
+21:36:08  📷 Kamera-Stream geschlossen.
+21:36:08  📷 Öffne Kamera-Stream: http://10.0.0.63:3031/video
+21:36:08  ✅ Kamera-Stream geöffnet.
+21:36:08  ✅ Kamera-Reconnect erfolgreich (Versuch 1/3).
+21:36:48  ❌ Kamera-Fehler: Konnte kein Frame von der Kamera lesen!
+21:36:49  🔄 Kamera-Stream wird neu verbunden.
+21:36:49  📷 Kamera-Stream geschlossen.
+21:36:49  📷 Öffne Kamera-Stream: http://10.0.0.63:3031/video
+21:36:50  ✅ Kamera-Stream geöffnet.
+21:36:50  ✅ Kamera-Reconnect erfolgreich (Versuch 1/3).
+21:37:30  ❌ Kamera-Fehler: Konnte kein Frame von der Kamera lesen!
+21:37:31  🔄 Kamera-Stream wird neu verbunden.
+21:37:31  📷 Kamera-Stream geschlossen.
+21:37:31  📷 Öffne Kamera-Stream: http://10.0.0.63:3031/video
+21:37:31  ✅ Kamera-Stream geöffnet.
+21:37:31  ✅ Kamera-Reconnect erfolgreich (Versuch 1/3).
+21:38:11  ❌ Kamera-Fehler: Konnte kein Frame von der Kamera lesen!
+21:38:12  🔄 Kamera-Stream wird neu verbunden.
+21:38:12  📷 Kamera-Stream geschlossen.
+21:38:12  📷 Öffne Kamera-Stream: http://10.0.0.63:3031/video
+21:38:12  ✅ Kamera-Stream geöffnet.
+21:38:12  ✅ Kamera-Reconnect erfolgreich (Versuch 1/3).
+21:38:53  ❌ Kamera-Fehler: Konnte kein Frame von der Kamera lesen!
+21:38:54  🔄 Kamera-Stream wird neu verbunden.
+21:38:54  📷 Kamera-Stream geschlossen.
+21:38:54  📷 Öffne Kamera-Stream: http://10.0.0.63:3031/video
+21:38:54  ✅ Kamera-Stream geöffnet.
+21:38:54  ✅ Kamera-Reconnect erfolgreich (Versuch 1/3).
+21:39:44  ❌ Kamera-Fehler: Konnte kein Frame von der Kamera lesen!
+21:39:45  🔄 Kamera-Stream wird neu verbunden.
+21:39:45  📷 Kamera-Stream geschlossen.
+21:39:45  📷 Öffne Kamera-Stream: http://10.0.0.63:3031/video
+21:39:45  ✅ Kamera-Stream geöffnet.
+21:39:45  ✅ Kamera-Reconnect erfolgreich (Versuch 1/3).
+21:40:25  ❌ Kamera-Fehler: Konnte kein Frame von der Kamera lesen!
+21:40:26  🔄 Kamera-Stream wird neu verbunden.
+21:40:26  📷 Kamera-Stream geschlossen.
+21:40:26  📷 Öffne Kamera-Stream: http://10.0.0.63:3031/video
+21:40:26  ✅ Kamera-Stream geöffnet.
+21:40:26  ✅ Kamera-Reconnect erfolgreich (Versuch 1/3).
+21:41:17  ❌ Kamera-Fehler: Konnte kein Frame von der Kamera lesen!
+21:41:18  🔄 Kamera-Stream wird neu verbunden.
+21:41:18  📷 Kamera-Stream geschlossen.
+21:41:18  📷 Öffne Kamera-Stream: http://10.0.0.63:3031/video
+21:41:18  ✅ Kamera-Stream geöffnet.
+21:41:18  ✅ Kamera-Reconnect erfolgreich (Versuch 1/3).
+21:41:58  ❌ Kamera-Fehler: Konnte kein Frame von der Kamera lesen!
+21:41:59  🔄 Kamera-Stream wird neu verbunden.
+21:41:59  📷 Kamera-Stream geschlossen.
+21:41:59  📷 Öffne Kamera-Stream: http://10.0.0.63:3031/video
+21:41:59  ✅ Kamera-Stream geöffnet.
+21:41:59  ✅ Kamera-Reconnect erfolgreich (Versuch 1/3).
+21:42:39  ❌ Kamera-Fehler: Konnte kein Frame von der Kamera lesen!
+21:42:40  🔄 Kamera-Stream wird neu verbunden.
+21:42:40  📷 Kamera-Stream geschlossen.
+21:42:40  📷 Öffne Kamera-Stream: http://10.0.0.63:3031/video
+21:42:40  ✅ Kamera-Stream geöffnet.
+21:42:40  ✅ Kamera-Reconnect erfolgreich (Versuch 1/3).
+22:03:21  ❌ Kamera-Fehler: Konnte kein Frame von der Kamera lesen!
+22:03:22  🔄 Kamera-Stream wird neu verbunden.
+22:03:22  📷 Kamera-Stream geschlossen.
+22:03:22  📷 Öffne Kamera-Stream: http://10.0.0.63:3031/video
+22:03:22  ✅ Kamera-Stream geöffnet.
+22:03:23  ✅ Kamera-Reconnect erfolgreich (Versuch 1/3).
+22:03:43  ❌ Kamera-Fehler: Konnte kein Frame von der Kamera lesen!
+22:03:44  🔄 Kamera-Stream wird neu verbunden.
+22:03:44  📷 Kamera-Stream geschlossen.
+22:03:44  📷 Öffne Kamera-Stream: http://10.0.0.63:3031/video
+22:03:44  ✅ Kamera-Stream geöffnet.
+22:03:44  ✅ Kamera-Reconnect erfolgreich (Versuch 1/3).
+22:03:50  🔄 Monitorzustand: MONITORING -> STOPPING
+22:03:50  Laufzusammenfassung: Dauer=2:25:07.945288, Checks=727, OK=0, Fehler=0, UNKNOWN=0, Kamera=158, Reconnects=2, Verbindungsabbrüche=3, Pauseversuche=0, Endzustand=STOPPING
+22:03:52  HTTP Request: POST http://localhost:11434/api/generate "HTTP/1.1 200 OK"
+22:03:52  🧠 Ollama-Modell aus VRAM entladen: qwen2.5vl:7b
+22:03:52  📷 Kamera-Stream geschlossen.
+22:03:52  unhandled exception during asyncio.run() shutdown
+task: <Task finished name='Task-1' coro=<main() done, defined at C:\coding\centauri\printguard\monitor.py:50> exception=TimeoutError()>
+Traceback (most recent call last):
+  File "C:\Users\ajsch\AppData\Local\Programs\Python\Python310\lib\site-packages\websockets\asyncio\connection.py", line 305, in recv
+    return await self.recv_messages.get(decode)
+  File "C:\Users\ajsch\AppData\Local\Programs\Python\Python310\lib\site-packages\websockets\asyncio\messages.py", line 158, in get
+    frame = await self.frames.get(not self.closed)
+  File "C:\Users\ajsch\AppData\Local\Programs\Python\Python310\lib\site-packages\websockets\asyncio\messages.py", line 51, in get
+    await self.get_waiter
+asyncio.exceptions.CancelledError
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\ajsch\AppData\Local\Programs\Python\Python310\lib\asyncio\tasks.py", line 456, in wait_for
+    return fut.result()
+asyncio.exceptions.CancelledError
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\coding\centauri\printguard\monitor.py", line 239, in main
+    await listener
+  File "C:\coding\centauri\printguard\printer.py", line 233, in listen_status
+    await self.connect()
+  File "C:\coding\centauri\printguard\printer.py", line 63, in connect
+    data = self._parse_message(await asyncio.wait_for(self.ws.recv(), timeout=5))
+  File "C:\Users\ajsch\AppData\Local\Programs\Python\Python310\lib\asyncio\tasks.py", line 458, in wait_for
+    raise exceptions.TimeoutError() from exc
+asyncio.exceptions.TimeoutError
+22:03:54  ============================================================
+22:03:54  🛡️  PrintGuard - 3D-Druck-Fehlererkennung
+22:03:54  ============================================================
+22:03:54  ⚙️  Modus: LIVE
+22:03:54  🧠 Lade Ollama-Modell für Startprüfung: qwen2.5vl:7b
+22:04:02  HTTP Request: POST http://localhost:11434/api/generate "HTTP/1.1 200 OK"
+22:04:02  ✅ Ollama-Modell geladen und bereit: qwen2.5vl:7b
+22:04:02  🔌 Verbinde mit Drucker: ws://10.0.0.63:3030/websocket
+22:04:05  📡 Status geändert: Maschine Printing (1), Druck Unknown (13)
+22:04:05  ✅ Verbunden! MainboardID: 18421c180103147000001c0000000000
+22:04:05  📤 Fordere Status nach Verbindung aktiv an (Cmd 0).
+22:04:05  📨 Antwort für RequestID 1ee47a74-ae47-4144-abec-7557434eb94e: Cmd=0, Ack=0
+22:04:05  ✅ Status nach Verbindung aktualisiert: Maschine=Printing (1), Druck=Unknown (13)
+22:04:05  🔄 Monitorzustand: STARTING -> MONITORING
+22:04:05  📷 Öffne Kamera-Stream: http://10.0.0.63:3031/video
+22:04:05  ✅ Kamera-Stream geöffnet.
+22:04:22  HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+22:04:22     ✅ OK
+22:04:24  📡 Status geändert: Maschine Printing (1), Druck Stopping (7)
+22:04:32  ⏭️  KI-Prüfung übersprungen: kein echter Druck (Maschine=[1], Druck=7).
+22:04:33  📡 Status geändert: Maschine Idle (0), Druck Stopped (8)
+22:04:42  ❌ Kamera-Fehler: Konnte kein Frame von der Kamera lesen!
+22:04:43  🔄 Kamera-Stream wird neu verbunden.
+22:04:43  📷 Kamera-Stream geschlossen.
+22:04:43  📷 Öffne Kamera-Stream: http://10.0.0.63:3031/video
+22:04:43  ✅ Kamera-Stream geöffnet.
+22:04:44  ✅ Kamera-Reconnect erfolgreich (Versuch 1/3).
+22:05:06  ⚠️  WebSocket-Verbindung unterbrochen (Close-Code=1006, Grund='', Fehler=no close frame received or sent); automatischer Reconnect #1.
+22:05:06  🔄 Neuer Verbindungsversuch in 2s...
+22:05:08  🔌 Verbinde mit Drucker: ws://10.0.0.63:3030/websocket
+22:05:09  ✅ Verbunden! MainboardID: 18421c180103147000001c0000000000
+22:05:09  📤 Fordere Status nach Verbindung aktiv an (Cmd 0).
+22:05:09  📨 Antwort für RequestID 0592b579-7d81-4136-b24f-8a9e28231e09: Cmd=0, Ack=0
+22:05:09  ✅ Status nach Verbindung aktualisiert: Maschine=Idle (0), Druck=Stopped (8)
+22:05:09  ✅ Reconnect erfolgreich; Status wurde neu eingelesen.
+22:05:24  ❌ Kamera-Fehler: Konnte kein Frame von der Kamera lesen!
+22:05:25  🔄 Kamera-Stream wird neu verbunden.
+22:05:25  📷 Kamera-Stream geschlossen.
+22:05:25  📷 Öffne Kamera-Stream: http://10.0.0.63:3031/video
+22:05:25  ✅ Kamera-Stream geöffnet.
+22:05:25  ✅ Kamera-Reconnect erfolgreich (Versuch 1/3).
+22:06:05  ❌ Kamera-Fehler: Konnte kein Frame von der Kamera lesen!
+22:06:06  🔄 Kamera-Stream wird neu verbunden.
+22:06:06  📷 Kamera-Stream geschlossen.
+22:06:06  📷 Öffne Kamera-Stream: http://10.0.0.63:3031/video
+22:06:06  ✅ Kamera-Stream geöffnet.
+22:06:06  ✅ Kamera-Reconnect erfolgreich (Versuch 1/3).
+22:06:10  ⚠️  WebSocket-Verbindung unterbrochen (Close-Code=1006, Grund='', Fehler=no close frame received or sent); automatischer Reconnect #2.
+22:06:10  🔄 Neuer Verbindungsversuch in 2s...
+22:06:12  🔌 Verbinde mit Drucker: ws://10.0.0.63:3030/websocket
+22:06:16  ✅ Verbunden! MainboardID: 18421c180103147000001c0000000000
+22:06:16  📤 Fordere Status nach Verbindung aktiv an (Cmd 0).
+22:06:16  📨 Antwort für RequestID f73f003b-cc11-463c-936f-8b8de46fc13f: Cmd=0, Ack=0
+22:06:16  ✅ Status nach Verbindung aktualisiert: Maschine=Idle (0), Druck=Stopped (8)
+22:06:16  ✅ Reconnect erfolgreich; Status wurde neu eingelesen.
+22:06:33  📡 Status geändert: Maschine Idle (0), Druck Idle (0)
+22:06:46  ❌ Kamera-Fehler: Konnte kein Frame von der Kamera lesen!
+22:06:47  🔄 Kamera-Stream wird neu verbunden.
+22:06:47  📷 Kamera-Stream geschlossen.
+22:06:47  📷 Öffne Kamera-Stream: http://10.0.0.63:3031/video
+22:06:47  ✅ Kamera-Stream geöffnet.
+22:06:47  ✅ Kamera-Reconnect erfolgreich (Versuch 1/3).
+22:07:17  ⚠️  WebSocket-Verbindung unterbrochen (Close-Code=1006, Grund='', Fehler=no close frame received or sent); automatischer Reconnect #3.
+22:07:17  🔄 Neuer Verbindungsversuch in 2s...
+22:07:19  🔌 Verbinde mit Drucker: ws://10.0.0.63:3030/websocket
+22:07:23  ✅ Verbunden! MainboardID: 18421c180103147000001c0000000000
+22:07:23  📤 Fordere Status nach Verbindung aktiv an (Cmd 0).
+22:07:23  📨 Antwort für RequestID a6aef5a3-8bc0-4c94-a1bf-b7c581203fdd: Cmd=0, Ack=0
+22:07:23  ✅ Status nach Verbindung aktualisiert: Maschine=Idle (0), Druck=Idle (0)
+22:07:23  ✅ Reconnect erfolgreich; Status wurde neu eingelesen.
+22:07:28  ❌ Kamera-Fehler: Konnte kein Frame von der Kamera lesen!
+22:07:29  🔄 Kamera-Stream wird neu verbunden.
+22:07:29  📷 Kamera-Stream geschlossen.
+22:07:29  📷 Öffne Kamera-Stream: http://10.0.0.63:3031/video
+22:07:29  ✅ Kamera-Stream geöffnet.
+22:07:29  ✅ Kamera-Reconnect erfolgreich (Versuch 1/3).
+22:08:19  ❌ Kamera-Fehler: Konnte kein Frame von der Kamera lesen!
+22:08:20  🔄 Kamera-Stream wird neu verbunden.
+22:08:20  📷 Kamera-Stream geschlossen.
+22:08:20  📷 Öffne Kamera-Stream: http://10.0.0.63:3031/video
+22:08:20  ✅ Kamera-Stream geöffnet.
+22:08:20  ✅ Kamera-Reconnect erfolgreich (Versuch 1/3).
+22:08:24  ⚠️  WebSocket-Verbindung unterbrochen (Close-Code=1006, Grund='', Fehler=no close frame received or sent); automatischer Reconnect #4.
+22:08:24  🔄 Neuer Verbindungsversuch in 2s...
+22:08:26  🔌 Verbinde mit Drucker: ws://10.0.0.63:3030/websocket
+22:09:10  ❌ Kamera-Fehler: Konnte kein Frame von der Kamera lesen!
+22:09:11  🔄 Kamera-Stream wird neu verbunden.
+22:09:11  📷 Kamera-Stream geschlossen.
+22:09:11  📷 Öffne Kamera-Stream: http://10.0.0.63:3031/video
+22:09:11  ✅ Kamera-Stream geöffnet.
+22:09:12  ✅ Kamera-Reconnect erfolgreich (Versuch 1/3).
+22:10:02  ❌ Kamera-Fehler: Konnte kein Frame von der Kamera lesen!
+22:10:03  🔄 Kamera-Stream wird neu verbunden.
+22:10:03  📷 Kamera-Stream geschlossen.
+22:10:03  📷 Öffne Kamera-Stream: http://10.0.0.63:3031/video
+22:10:03  ✅ Kamera-Stream geöffnet.
+22:10:03  ✅ Kamera-Reconnect erfolgreich (Versuch 1/3).
+22:10:43  ❌ Kamera-Fehler: Konnte kein Frame von der Kamera lesen!
+22:10:44  🔄 Kamera-Stream wird neu verbunden.
+22:10:44  📷 Kamera-Stream geschlossen.
+22:10:44  📷 Öffne Kamera-Stream: http://10.0.0.63:3031/video
+22:10:44  ✅ Kamera-Stream geöffnet.
+22:10:44  ✅ Kamera-Reconnect erfolgreich (Versuch 1/3).
+22:11:24  ❌ Kamera-Fehler: Konnte kein Frame von der Kamera lesen!
+22:11:25  🔄 Kamera-Stream wird neu verbunden.
+22:11:25  📷 Kamera-Stream geschlossen.
+22:11:25  📷 Öffne Kamera-Stream: http://10.0.0.63:3031/video
+22:11:25  ✅ Kamera-Stream geöffnet.
+22:11:25  ✅ Kamera-Reconnect erfolgreich (Versuch 1/3).
+22:12:05  ❌ Kamera-Fehler: Konnte kein Frame von der Kamera lesen!
+22:12:06  🔄 Kamera-Stream wird neu verbunden.
+22:12:06  📷 Kamera-Stream geschlossen.
+22:12:06  📷 Öffne Kamera-Stream: http://10.0.0.63:3031/video
+22:12:07  ✅ Kamera-Stream geöffnet.
+22:12:07  ✅ Kamera-Reconnect erfolgreich (Versuch 1/3).
+22:12:47  ❌ Kamera-Fehler: Konnte kein Frame von der Kamera lesen!
+22:12:48  🔄 Kamera-Stream wird neu verbunden.
+22:12:48  📷 Kamera-Stream geschlossen.
+22:12:48  📷 Öffne Kamera-Stream: http://10.0.0.63:3031/video
+22:12:48  ✅ Kamera-Stream geöffnet.
+22:12:48  ✅ Kamera-Reconnect erfolgreich (Versuch 1/3).
+22:13:18  🔄 Monitorzustand: MONITORING -> STOPPING
+22:13:18  Laufzusammenfassung: Dauer=0:09:23.587127, Checks=52, OK=1, Fehler=0, UNKNOWN=0, Kamera=12, Reconnects=3, Verbindungsabbrüche=4, Pauseversuche=0, Endzustand=STOPPING
+22:13:20  HTTP Request: POST http://localhost:11434/api/generate "HTTP/1.1 200 OK"
+22:13:20  🧠 Ollama-Modell aus VRAM entladen: qwen2.5vl:7b
+22:13:20  📷 Kamera-Stream geschlossen.
+22:13:20  unhandled exception during asyncio.run() shutdown
+task: <Task finished name='Task-1' coro=<main() done, defined at C:\coding\centauri\printguard\monitor.py:50> exception=TimeoutError()>
+Traceback (most recent call last):
+  File "C:\Users\ajsch\AppData\Local\Programs\Python\Python310\lib\site-packages\websockets\asyncio\connection.py", line 305, in recv
+    return await self.recv_messages.get(decode)
+  File "C:\Users\ajsch\AppData\Local\Programs\Python\Python310\lib\site-packages\websockets\asyncio\messages.py", line 158, in get
+    frame = await self.frames.get(not self.closed)
+  File "C:\Users\ajsch\AppData\Local\Programs\Python\Python310\lib\site-packages\websockets\asyncio\messages.py", line 51, in get
+    await self.get_waiter
+asyncio.exceptions.CancelledError
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\ajsch\AppData\Local\Programs\Python\Python310\lib\asyncio\tasks.py", line 456, in wait_for
+    return fut.result()
+asyncio.exceptions.CancelledError
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\coding\centauri\printguard\monitor.py", line 239, in main
+    await listener
+  File "C:\coding\centauri\printguard\printer.py", line 233, in listen_status
+    await self.connect()
+  File "C:\coding\centauri\printguard\printer.py", line 63, in connect
+    data = self._parse_message(await asyncio.wait_for(self.ws.recv(), timeout=5))
+  File "C:\Users\ajsch\AppData\Local\Programs\Python\Python310\lib\asyncio\tasks.py", line 458, in wait_for
+    raise exceptions.TimeoutError() from exc
+asyncio.exceptions.TimeoutError
+22:13:29  ============================================================
+22:13:29  🛡️  PrintGuard - 3D-Druck-Fehlererkennung
+22:13:29  ============================================================
+22:13:29  ⚙️  Modus: LIVE
+22:13:29  🧠 Lade Ollama-Modell für Startprüfung: qwen2.5vl:7b
+22:13:37  HTTP Request: POST http://localhost:11434/api/generate "HTTP/1.1 200 OK"
+22:13:37  ✅ Ollama-Modell geladen und bereit: qwen2.5vl:7b
+22:13:37  🔌 Verbinde mit Drucker: ws://10.0.0.63:3030/websocket
+22:13:38  📡 Status geändert: Maschine Printing (1), Druck Bed Leveling (20)
+22:13:38  ✅ Verbunden! MainboardID: 18421c180103147000001c0000000000
+22:13:38  📤 Fordere Status nach Verbindung aktiv an (Cmd 0).
+22:13:38  📨 Antwort für RequestID 044e6b47-e987-4759-9ab2-6c9cff86f186: Cmd=0, Ack=0
+22:13:38  ✅ Status nach Verbindung aktualisiert: Maschine=Printing (1), Druck=Bed Leveling (20)
+22:13:38  🔄 Monitorzustand: STARTING -> MONITORING
+22:13:38  📷 Öffne Kamera-Stream: http://10.0.0.63:3031/video
+22:13:38  ✅ Kamera-Stream geöffnet.
+22:13:38  📡 Status geändert: Maschine Printing (1), Druck Homing (1)
+22:13:40  ⚠️  KI wartet auf echten Druck: Maschine=[1], Druck=1.
+22:13:51  📡 Status geändert: Maschine Printing (1), Druck Leveling Preparation (21)
+22:13:57  📡 Status geändert: Maschine Printing (1), Druck Homing (1)
+22:14:15  📡 Status geändert: Maschine Printing (1), Druck Bed Leveling (20)
+22:14:15  📡 Status geändert: Maschine Printing (1), Druck Preparation (16)
+22:14:20  ❌ Kamera-Fehler: Konnte kein Frame von der Kamera lesen!
+22:14:21  🔄 Kamera-Stream wird neu verbunden.
+22:14:21  📷 Kamera-Stream geschlossen.
+22:14:21  📷 Öffne Kamera-Stream: http://10.0.0.63:3031/video
+22:14:21  ✅ Kamera-Stream geöffnet.
+22:14:21  ✅ Kamera-Reconnect erfolgreich (Versuch 1/3).
+22:14:39  ⚠️  WebSocket-Verbindung unterbrochen (Close-Code=1006, Grund='', Fehler=no close frame received or sent); automatischer Reconnect #1.
+22:14:39  🔄 Neuer Verbindungsversuch in 2s...
+22:14:41  🔌 Verbinde mit Drucker: ws://10.0.0.63:3030/websocket
+22:14:41  ✅ Verbunden! MainboardID: 18421c180103147000001c0000000000
+22:14:41  📤 Fordere Status nach Verbindung aktiv an (Cmd 0).
+22:14:41  📨 Antwort für RequestID 82d1cc64-cb08-4214-bb23-b7cecd5a6b57: Cmd=0, Ack=0
+22:14:41  ✅ Status nach Verbindung aktualisiert: Maschine=Printing (1), Druck=Preparation (16)
+22:14:41  ✅ Reconnect erfolgreich; Status wurde neu eingelesen.
+22:14:54  📡 Status geändert: Maschine Printing (1), Druck Bed Leveling (20)
+22:15:11  ❌ Kamera-Fehler: Konnte kein Frame von der Kamera lesen!
+22:15:12  🔄 Kamera-Stream wird neu verbunden.
+22:15:12  📷 Kamera-Stream geschlossen.
+22:15:12  📷 Öffne Kamera-Stream: http://10.0.0.63:3031/video
+22:15:12  ✅ Kamera-Stream geöffnet.
+22:15:13  ✅ Kamera-Reconnect erfolgreich (Versuch 1/3).
+22:15:15  📡 Status geändert: Maschine Printing (1), Druck Preparation (16)
+22:15:42  ⚠️  WebSocket-Verbindung unterbrochen (Close-Code=1006, Grund='', Fehler=no close frame received or sent); automatischer Reconnect #2.
+22:15:42  🔄 Neuer Verbindungsversuch in 2s...
+22:15:44  🔌 Verbinde mit Drucker: ws://10.0.0.63:3030/websocket
+22:15:46  ✅ Verbunden! MainboardID: 18421c180103147000001c0000000000
+22:15:46  📤 Fordere Status nach Verbindung aktiv an (Cmd 0).
+22:15:46  📨 Antwort für RequestID 9f887e7d-5fd9-4a2f-9c63-17534518fd7d: Cmd=0, Ack=0
+22:15:46  ✅ Status nach Verbindung aktualisiert: Maschine=Printing (1), Druck=Preparation (16)
+22:15:46  ✅ Reconnect erfolgreich; Status wurde neu eingelesen.
+22:15:51  📡 Status geändert: Maschine Printing (1), Druck Bed Leveling (20)
+22:15:53  ❌ Kamera-Fehler: Konnte kein Frame von der Kamera lesen!
+22:15:54  🔄 Kamera-Stream wird neu verbunden.
+22:15:54  📷 Kamera-Stream geschlossen.
+22:15:54  📷 Öffne Kamera-Stream: http://10.0.0.63:3031/video
+22:15:54  ✅ Kamera-Stream geöffnet.
+22:15:54  ✅ Kamera-Reconnect erfolgreich (Versuch 1/3).
+22:16:16  📡 Status geändert: Maschine Printing (1), Druck Preparation (16)
+22:16:22  📡 Status geändert: Maschine Printing (1), Druck Bed Leveling (20)
+22:16:25  📡 Status geändert: Maschine Printing (1), Druck Homing (1)
+22:16:34  ❌ Kamera-Fehler: Konnte kein Frame von der Kamera lesen!
+22:16:34  📡 Status geändert: Maschine Printing (1), Druck Bed Leveling (20)
+22:16:35  🔄 Kamera-Stream wird neu verbunden.
+22:16:35  📷 Kamera-Stream geschlossen.
+22:16:35  📷 Öffne Kamera-Stream: http://10.0.0.63:3031/video
+22:16:35  ✅ Kamera-Stream geöffnet.
+22:16:35  ✅ Kamera-Reconnect erfolgreich (Versuch 1/3).
+22:16:47  ⚠️  WebSocket-Verbindung unterbrochen (Close-Code=1006, Grund='', Fehler=no close frame received or sent); automatischer Reconnect #3.
+22:16:47  🔄 Neuer Verbindungsversuch in 2s...
+22:16:49  🔌 Verbinde mit Drucker: ws://10.0.0.63:3030/websocket
+22:17:15  ❌ Kamera-Fehler: Konnte kein Frame von der Kamera lesen!
+22:17:16  🔄 Kamera-Stream wird neu verbunden.
+22:17:16  📷 Kamera-Stream geschlossen.
+22:17:16  📷 Öffne Kamera-Stream: http://10.0.0.63:3031/video
+22:17:16  ✅ Kamera-Stream geöffnet.
+22:17:17  ✅ Kamera-Reconnect erfolgreich (Versuch 1/3).
+22:17:57  ❌ Kamera-Fehler: Konnte kein Frame von der Kamera lesen!
+22:17:58  🔄 Kamera-Stream wird neu verbunden.
+22:17:58  📷 Kamera-Stream geschlossen.
+22:17:58  📷 Öffne Kamera-Stream: http://10.0.0.63:3031/video
+22:17:58  ✅ Kamera-Stream geöffnet.
+22:17:58  ✅ Kamera-Reconnect erfolgreich (Versuch 1/3).
+22:18:48  ❌ Kamera-Fehler: Konnte kein Frame von der Kamera lesen!
+22:18:49  🔄 Kamera-Stream wird neu verbunden.
+22:18:49  📷 Kamera-Stream geschlossen.
+22:18:49  📷 Öffne Kamera-Stream: http://10.0.0.63:3031/video
+22:18:49  ✅ Kamera-Stream geöffnet.
+22:18:49  ✅ Kamera-Reconnect erfolgreich (Versuch 1/3).
+22:19:39  ❌ Kamera-Fehler: Konnte kein Frame von der Kamera lesen!
+22:19:40  🔄 Kamera-Stream wird neu verbunden.
+22:19:40  📷 Kamera-Stream geschlossen.
+22:19:40  📷 Öffne Kamera-Stream: http://10.0.0.63:3031/video
+22:19:40  ✅ Kamera-Stream geöffnet.
+22:19:41  ✅ Kamera-Reconnect erfolgreich (Versuch 1/3).
+22:20:41  ❌ Kamera-Fehler: Konnte kein Frame von der Kamera lesen!
+22:20:42  🔄 Kamera-Stream wird neu verbunden.
+22:20:42  📷 Kamera-Stream geschlossen.
+22:20:42  📷 Öffne Kamera-Stream: http://10.0.0.63:3031/video
+22:20:42  ✅ Kamera-Stream geöffnet.
+22:20:42  ✅ Kamera-Reconnect erfolgreich (Versuch 1/3).
+22:21:22  ❌ Kamera-Fehler: Konnte kein Frame von der Kamera lesen!
+22:21:23  🔄 Kamera-Stream wird neu verbunden.
+22:21:23  📷 Kamera-Stream geschlossen.
+22:21:23  📷 Öffne Kamera-Stream: http://10.0.0.63:3031/video
+22:21:23  ✅ Kamera-Stream geöffnet.
+22:21:23  ✅ Kamera-Reconnect erfolgreich (Versuch 1/3).
+22:22:33  ❌ Kamera-Fehler: Konnte kein Frame von der Kamera lesen!
+22:22:34  🔄 Kamera-Stream wird neu verbunden.
+22:22:34  📷 Kamera-Stream geschlossen.
+22:22:34  📷 Öffne Kamera-Stream: http://10.0.0.63:3031/video
+22:22:34  ✅ Kamera-Stream geöffnet.
+22:22:35  ✅ Kamera-Reconnect erfolgreich (Versuch 1/3).
+22:23:15  ❌ Kamera-Fehler: Konnte kein Frame von der Kamera lesen!
+22:23:16  🔄 Kamera-Stream wird neu verbunden.
+22:23:16  📷 Kamera-Stream geschlossen.
+22:23:16  📷 Öffne Kamera-Stream: http://10.0.0.63:3031/video
+22:23:16  ✅ Kamera-Stream geöffnet.
+22:23:16  ✅ Kamera-Reconnect erfolgreich (Versuch 1/3).
+22:23:34  🔄 Monitorzustand: MONITORING -> STOPPING
+22:23:34  Laufzusammenfassung: Dauer=0:10:04.707810, Checks=57, OK=0, Fehler=0, UNKNOWN=0, Kamera=12, Reconnects=2, Verbindungsabbrüche=3, Pauseversuche=0, Endzustand=STOPPING
+22:23:36  HTTP Request: POST http://localhost:11434/api/generate "HTTP/1.1 200 OK"
+22:23:36  🧠 Ollama-Modell aus VRAM entladen: qwen2.5vl:7b
+22:23:36  📷 Kamera-Stream geschlossen.
+22:23:36  unhandled exception during asyncio.run() shutdown
+task: <Task finished name='Task-1' coro=<main() done, defined at C:\coding\centauri\printguard\monitor.py:50> exception=TimeoutError()>
+Traceback (most recent call last):
+  File "C:\Users\ajsch\AppData\Local\Programs\Python\Python310\lib\site-packages\websockets\asyncio\connection.py", line 305, in recv
+    return await self.recv_messages.get(decode)
+  File "C:\Users\ajsch\AppData\Local\Programs\Python\Python310\lib\site-packages\websockets\asyncio\messages.py", line 158, in get
+    frame = await self.frames.get(not self.closed)
+  File "C:\Users\ajsch\AppData\Local\Programs\Python\Python310\lib\site-packages\websockets\asyncio\messages.py", line 51, in get
+    await self.get_waiter
+asyncio.exceptions.CancelledError
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\ajsch\AppData\Local\Programs\Python\Python310\lib\asyncio\tasks.py", line 456, in wait_for
+    return fut.result()
+asyncio.exceptions.CancelledError
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\coding\centauri\printguard\monitor.py", line 239, in main
+    await listener
+  File "C:\coding\centauri\printguard\printer.py", line 233, in listen_status
+    await self.connect()
+  File "C:\coding\centauri\printguard\printer.py", line 63, in connect
+    data = self._parse_message(await asyncio.wait_for(self.ws.recv(), timeout=5))
+  File "C:\Users\ajsch\AppData\Local\Programs\Python\Python310\lib\asyncio\tasks.py", line 458, in wait_for
+    raise exceptions.TimeoutError() from exc
+asyncio.exceptions.TimeoutError
+22:28:26  ============================================================
+22:28:26  🛡️  PrintGuard - 3D-Druck-Fehlererkennung
+22:28:26  ============================================================
+22:28:27  ⚙️  Modus: LIVE
+22:28:27  🧠 Lade Ollama-Modell für Startprüfung: qwen2.5vl:7b
+22:28:36  HTTP Request: POST http://localhost:11434/api/generate "HTTP/1.1 200 OK"
+22:28:36  ✅ Ollama-Modell geladen und bereit: qwen2.5vl:7b
+22:28:36  🔌 Verbinde mit Drucker: ws://10.0.0.63:3030/websocket
+22:28:38  📡 Status geändert: Maschine Printing (1), Druck Unknown (13)
+22:28:38  ✅ Verbunden! MainboardID: 18421c180103147000001c0000000000
+22:28:38  📤 Fordere Status nach Verbindung aktiv an (Cmd 0).
+22:28:38  📨 Antwort für RequestID 9565019f-992b-477e-9c63-e3fcc8cc73a8: Cmd=0, Ack=0
+22:28:38  ✅ Status nach Verbindung aktualisiert: Maschine=Printing (1), Druck=Unknown (13)
+22:28:38  🔄 Monitorzustand: STARTING -> MONITORING
+22:28:38  📷 Öffne Kamera-Stream: http://10.0.0.63:3031/video
+22:28:38  ✅ Kamera-Stream geöffnet.
+22:28:50  🔄 Monitorzustand: MONITORING -> STOPPING
+22:28:50  Laufzusammenfassung: Dauer=0:00:23.261037, Checks=0, OK=0, Fehler=0, UNKNOWN=0, Kamera=0, Reconnects=0, Verbindungsabbrüche=0, Pauseversuche=0, Endzustand=STOPPING
+22:28:52  HTTP Request: POST http://localhost:11434/api/generate "HTTP/1.1 200 OK"
+22:28:52  🧠 Ollama-Modell aus VRAM entladen: qwen2.5vl:7b
+22:28:52  📷 Kamera-Stream geschlossen.
+22:28:52  🏁 PrintGuard beendet.
+22:30:05  ============================================================
+22:30:05  🛡️  PrintGuard - 3D-Druck-Fehlererkennung
+22:30:05  ============================================================
+22:30:05  ⚙️  Modus: LIVE
+22:30:05  🧠 Lade Ollama-Modell für Startprüfung: qwen2.5vl:7b
+22:30:13  HTTP Request: POST http://localhost:11434/api/generate "HTTP/1.1 200 OK"
+22:30:13  ✅ Ollama-Modell geladen und bereit: qwen2.5vl:7b
+22:30:13  🔌 Verbinde mit Drucker: ws://10.0.0.63:3030/websocket
+22:30:16  📡 Status geändert: Maschine Printing (1), Druck Unknown (13)
+22:30:16  ✅ Verbunden! MainboardID: 18421c180103147000001c0000000000
+22:30:16  📤 Fordere Status nach Verbindung aktiv an (Cmd 0).
+22:30:16  📨 Antwort für RequestID 3a535699-b519-4037-be31-7c9ff17061fd: Cmd=0, Ack=0
+22:30:17  ✅ Status nach Verbindung aktualisiert: Maschine=Printing (1), Druck=Unknown (13)
+22:30:17  🔄 Monitorzustand: STARTING -> MONITORING
+22:30:17  📷 Öffne Kamera-Stream: http://10.0.0.63:3031/video
+22:30:17  ✅ Kamera-Stream geöffnet.
+22:30:29  📤 Sende Cmd 0 an sdcp/request/18421c180103147000001c0000000000
+22:30:29  📨 Antwort für RequestID 6b1db591-48f6-4b6b-a6aa-854dcfb89438: Cmd=0, Ack=0
+22:30:29  🔄 Status regelmäßig aktualisiert: Maschine=Printing (1), Druck=Unknown (13)
+22:30:34  HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+22:30:34     ✅ OK
+22:30:44  📤 Sende Cmd 0 an sdcp/request/18421c180103147000001c0000000000
+22:30:44  📨 Antwort für RequestID 833926b5-eabb-44d3-9f22-1170810014ef: Cmd=0, Ack=0
+22:30:44  🔄 Status regelmäßig aktualisiert: Maschine=Printing (1), Druck=Unknown (13)
+22:30:47  HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+22:30:47     ✅ OK
+22:30:57  📤 Sende Cmd 0 an sdcp/request/18421c180103147000001c0000000000
+22:30:57  📨 Antwort für RequestID a9dd799e-fa5c-4e14-9e05-8436ee403d36: Cmd=0, Ack=0
+22:30:57  🔄 Status regelmäßig aktualisiert: Maschine=Printing (1), Druck=Unknown (13)
+22:30:57  ❌ Kamera-Fehler: Konnte kein Frame von der Kamera lesen!
+22:30:58  🔄 Kamera-Stream wird neu verbunden.
+22:30:58  📷 Kamera-Stream geschlossen.
+22:30:58  📷 Öffne Kamera-Stream: http://10.0.0.63:3031/video
+22:30:58  ✅ Kamera-Stream geöffnet.
+22:30:58  ✅ Kamera-Reconnect erfolgreich (Versuch 1/3).
+22:31:04  HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+22:31:04     ✅ OK
+22:31:14  📤 Sende Cmd 0 an sdcp/request/18421c180103147000001c0000000000
+22:31:14  📨 Antwort für RequestID b3137c19-af4c-43dc-a456-c41a13b2ec8b: Cmd=0, Ack=0
+22:31:14  🔄 Status regelmäßig aktualisiert: Maschine=Printing (1), Druck=Unknown (13)
+22:31:17  HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+22:31:17     ✅ OK
+22:31:27  📤 Sende Cmd 0 an sdcp/request/18421c180103147000001c0000000000
+22:31:27  📨 Antwort für RequestID e86c66d0-1a96-4cbc-b8a6-abcbe7cd3516: Cmd=0, Ack=0
+22:31:27  🔄 Status regelmäßig aktualisiert: Maschine=Printing (1), Druck=Unknown (13)
+22:31:34  HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+22:31:34     ✅ OK
+22:31:44  📤 Sende Cmd 0 an sdcp/request/18421c180103147000001c0000000000
+22:31:44  📨 Antwort für RequestID a9f436f8-0ea1-4aaa-ab23-baceef05d738: Cmd=0, Ack=0
+22:31:44  🔄 Status regelmäßig aktualisiert: Maschine=Printing (1), Druck=Unknown (13)
+22:31:52  HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+22:31:52     ✅ OK
+22:32:02  📤 Sende Cmd 0 an sdcp/request/18421c180103147000001c0000000000
+22:32:02  📨 Antwort für RequestID f1346ec9-57be-4ec9-a24c-6817dfe3ac2e: Cmd=0, Ack=0
+22:32:02  🔄 Status regelmäßig aktualisiert: Maschine=Printing (1), Druck=Unknown (13)
+22:32:02  ❌ Kamera-Fehler: Konnte kein Frame von der Kamera lesen!
+22:32:03  🔄 Kamera-Stream wird neu verbunden.
+22:32:03  📷 Kamera-Stream geschlossen.
+22:32:03  📷 Öffne Kamera-Stream: http://10.0.0.63:3031/video
+22:32:03  ✅ Kamera-Stream geöffnet.
+22:32:03  ✅ Kamera-Reconnect erfolgreich (Versuch 1/3).
+22:32:10  HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+22:32:10     ✅ OK
+22:32:20  📤 Sende Cmd 0 an sdcp/request/18421c180103147000001c0000000000
+22:32:20  📨 Antwort für RequestID e544a481-5632-461a-b18a-e351adc24ca1: Cmd=0, Ack=0
+22:32:20  🔄 Status regelmäßig aktualisiert: Maschine=Printing (1), Druck=Unknown (13)
+22:32:27  HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+22:32:27     ✅ OK
+22:32:37  📤 Sende Cmd 0 an sdcp/request/18421c180103147000001c0000000000
+22:32:38  📨 Antwort für RequestID 06e51e89-bd50-489d-a0a5-bdf267856341: Cmd=0, Ack=0
+22:32:38  🔄 Status regelmäßig aktualisiert: Maschine=Printing (1), Druck=Unknown (13)
+22:32:45  HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+22:32:45     ✅ OK
+22:32:55  📤 Sende Cmd 0 an sdcp/request/18421c180103147000001c0000000000
+22:32:55  📨 Antwort für RequestID d82fd8e6-26f8-41c6-89ec-09cd6be89bb3: Cmd=0, Ack=0
+22:32:55  🔄 Status regelmäßig aktualisiert: Maschine=Printing (1), Druck=Unknown (13)
+22:33:02  HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+22:33:02     ✅ OK
+22:33:12  📤 Sende Cmd 0 an sdcp/request/18421c180103147000001c0000000000
+22:33:12  📨 Antwort für RequestID 01a088f1-dfb9-40aa-b13f-2d1029846c55: Cmd=0, Ack=0
+22:33:12  🔄 Status regelmäßig aktualisiert: Maschine=Printing (1), Druck=Unknown (13)
+22:33:12  ❌ Kamera-Fehler: Konnte kein Frame von der Kamera lesen!
+22:33:13  🔄 Kamera-Stream wird neu verbunden.
+22:33:13  📷 Kamera-Stream geschlossen.
+22:33:13  📷 Öffne Kamera-Stream: http://10.0.0.63:3031/video
+22:33:13  ✅ Kamera-Stream geöffnet.
+22:33:14  ✅ Kamera-Reconnect erfolgreich (Versuch 1/3).
+22:33:21  HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+22:33:21     ✅ OK
+22:33:31  📤 Sende Cmd 0 an sdcp/request/18421c180103147000001c0000000000
+22:33:31  📨 Antwort für RequestID d1527e2f-d21a-46e7-a471-1a9d7d0807ee: Cmd=0, Ack=0
+22:33:31  🔄 Status regelmäßig aktualisiert: Maschine=Printing (1), Druck=Unknown (13)
+22:33:38  HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+22:33:38     ✅ OK
+22:33:48  📤 Sende Cmd 0 an sdcp/request/18421c180103147000001c0000000000
+22:33:48  📨 Antwort für RequestID dd33a331-2abf-41d4-b083-cd5549c436f1: Cmd=0, Ack=0
+22:33:48  🔄 Status regelmäßig aktualisiert: Maschine=Printing (1), Druck=Unknown (13)
+22:33:56  HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+22:33:56     ✅ OK
+22:34:06  📤 Sende Cmd 0 an sdcp/request/18421c180103147000001c0000000000
+22:34:06  📨 Antwort für RequestID 5f7af654-e8c2-4d7e-a7a3-c492c3927963: Cmd=0, Ack=0
+22:34:06  🔄 Status regelmäßig aktualisiert: Maschine=Printing (1), Druck=Unknown (13)
+22:34:13  HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+22:34:13     ✅ OK
+22:34:23  📤 Sende Cmd 0 an sdcp/request/18421c180103147000001c0000000000
+22:34:23  📨 Antwort für RequestID 221585af-b3f9-4135-83ad-c104f534eb7d: Cmd=0, Ack=0
+22:34:23  🔄 Status regelmäßig aktualisiert: Maschine=Printing (1), Druck=Unknown (13)
+22:34:23  ❌ Kamera-Fehler: Konnte kein Frame von der Kamera lesen!
+22:34:24  🔄 Kamera-Stream wird neu verbunden.
+22:34:24  📷 Kamera-Stream geschlossen.
+22:34:24  📷 Öffne Kamera-Stream: http://10.0.0.63:3031/video
+22:34:24  ✅ Kamera-Stream geöffnet.
+22:34:24  ✅ Kamera-Reconnect erfolgreich (Versuch 1/3).
+22:34:32  HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+22:34:32     ✅ OK
+22:34:42  📤 Sende Cmd 0 an sdcp/request/18421c180103147000001c0000000000
+22:34:42  📨 Antwort für RequestID baf91747-47c2-444a-9543-d4b03e5a5b78: Cmd=0, Ack=0
+22:34:42  🔄 Status regelmäßig aktualisiert: Maschine=Printing (1), Druck=Unknown (13)
+22:34:49  HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+22:34:49     ✅ OK
+22:34:59  📤 Sende Cmd 0 an sdcp/request/18421c180103147000001c0000000000
+22:34:59  📨 Antwort für RequestID 1a30b7b6-fbc1-4fb3-8742-86086cc5b59c: Cmd=0, Ack=0
+22:34:59  🔄 Status regelmäßig aktualisiert: Maschine=Printing (1), Druck=Unknown (13)
+22:34:59  ❌ Kamera-Fehler: Konnte kein Frame von der Kamera lesen!
+22:35:00  🔄 Kamera-Stream wird neu verbunden.
+22:35:00  📷 Kamera-Stream geschlossen.
+22:35:00  📷 Öffne Kamera-Stream: http://10.0.0.63:3031/video
+22:35:00  ✅ Kamera-Stream geöffnet.
+22:35:00  ✅ Kamera-Reconnect erfolgreich (Versuch 1/3).
+22:35:08  HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+22:35:08     ✅ OK
+22:35:18  📤 Sende Cmd 0 an sdcp/request/18421c180103147000001c0000000000
+22:35:18  📨 Antwort für RequestID a0ff8913-d472-401b-9904-255eb4d530cc: Cmd=0, Ack=0
+22:35:18  🔄 Status regelmäßig aktualisiert: Maschine=Printing (1), Druck=Unknown (13)
+22:35:25  HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+22:35:25     ✅ OK
+22:35:35  📤 Sende Cmd 0 an sdcp/request/18421c180103147000001c0000000000
+22:35:35  📨 Antwort für RequestID a929787e-2bb4-429d-93e5-dcb9e089db2c: Cmd=0, Ack=0
+22:35:35  🔄 Status regelmäßig aktualisiert: Maschine=Printing (1), Druck=Unknown (13)
+22:35:42  HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+22:35:42     ✅ OK
+22:35:52  📤 Sende Cmd 0 an sdcp/request/18421c180103147000001c0000000000
+22:35:52  📨 Antwort für RequestID f35e0d81-4f4c-4172-a554-d542d514cf6c: Cmd=0, Ack=0
+22:35:52  🔄 Status regelmäßig aktualisiert: Maschine=Printing (1), Druck=Unknown (13)
+22:35:52  ❌ Kamera-Fehler: Konnte kein Frame von der Kamera lesen!
+22:35:53  🔄 Kamera-Stream wird neu verbunden.
+22:35:53  📷 Kamera-Stream geschlossen.
+22:35:53  📷 Öffne Kamera-Stream: http://10.0.0.63:3031/video
+22:35:53  ✅ Kamera-Stream geöffnet.
+22:35:54  ✅ Kamera-Reconnect erfolgreich (Versuch 1/3).
+22:36:01  HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+22:36:01     ✅ OK
+22:36:11  📤 Sende Cmd 0 an sdcp/request/18421c180103147000001c0000000000
+22:36:11  📨 Antwort für RequestID 09c00160-a795-4baf-86d9-3d7862531a99: Cmd=0, Ack=0
+22:36:11  🔄 Status regelmäßig aktualisiert: Maschine=Printing (1), Druck=Unknown (13)
+22:36:18  HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+22:36:18     ✅ OK
+22:36:28  📤 Sende Cmd 0 an sdcp/request/18421c180103147000001c0000000000
+22:36:28  📨 Antwort für RequestID 258553c9-0c4f-495c-a9a7-44726432b71d: Cmd=0, Ack=0
+22:36:28  🔄 Status regelmäßig aktualisiert: Maschine=Printing (1), Druck=Unknown (13)
+22:36:36  HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+22:36:36     ✅ OK
+22:36:46  📤 Sende Cmd 0 an sdcp/request/18421c180103147000001c0000000000
+22:36:46  📨 Antwort für RequestID 755e640e-fd17-4611-8a77-98a285b6b4d6: Cmd=0, Ack=0
+22:36:46  🔄 Status regelmäßig aktualisiert: Maschine=Printing (1), Druck=Unknown (13)
+22:36:46  ❌ Kamera-Fehler: Konnte kein Frame von der Kamera lesen!
+22:36:47  🔄 Kamera-Stream wird neu verbunden.
+22:36:47  📷 Kamera-Stream geschlossen.
+22:36:47  📷 Öffne Kamera-Stream: http://10.0.0.63:3031/video
+22:36:47  ✅ Kamera-Stream geöffnet.
+22:36:47  ✅ Kamera-Reconnect erfolgreich (Versuch 1/3).
+22:36:54  HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+22:36:54     ✅ OK
+22:37:04  📤 Sende Cmd 0 an sdcp/request/18421c180103147000001c0000000000
+22:37:04  📨 Antwort für RequestID 2676b663-f19f-444e-a601-ed7498a7c4b2: Cmd=0, Ack=0
+22:37:04  🔄 Status regelmäßig aktualisiert: Maschine=Printing (1), Druck=Unknown (13)
+22:37:12  HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+22:37:12     ✅ OK
+22:37:22  📤 Sende Cmd 0 an sdcp/request/18421c180103147000001c0000000000
+22:37:22  📨 Antwort für RequestID 52242a40-f950-4d7f-b17a-a96434c6af5f: Cmd=0, Ack=0
+22:37:22  🔄 Status regelmäßig aktualisiert: Maschine=Printing (1), Druck=Unknown (13)
+22:37:29  HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+22:37:29     ✅ OK
+22:37:39  📤 Sende Cmd 0 an sdcp/request/18421c180103147000001c0000000000
+22:37:39  📨 Antwort für RequestID e5a229b3-3a20-4b6c-8a55-695e06f63440: Cmd=0, Ack=0
+22:37:39  🔄 Status regelmäßig aktualisiert: Maschine=Printing (1), Druck=Unknown (13)
+22:37:46  HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+22:37:46     ✅ OK
+22:37:56  📤 Sende Cmd 0 an sdcp/request/18421c180103147000001c0000000000
+22:37:56  📨 Antwort für RequestID c34082e3-f973-4441-b34e-d2dbad9c56c5: Cmd=0, Ack=0
+22:37:56  🔄 Status regelmäßig aktualisiert: Maschine=Printing (1), Druck=Unknown (13)
+22:37:56  ❌ Kamera-Fehler: Konnte kein Frame von der Kamera lesen!
+22:37:57  🔄 Kamera-Stream wird neu verbunden.
+22:37:57  📷 Kamera-Stream geschlossen.
+22:37:57  📷 Öffne Kamera-Stream: http://10.0.0.63:3031/video
+22:37:58  ✅ Kamera-Stream geöffnet.
+22:37:58  ✅ Kamera-Reconnect erfolgreich (Versuch 1/3).
+22:38:05  HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+22:38:05     ✅ OK
+22:38:15  📤 Sende Cmd 0 an sdcp/request/18421c180103147000001c0000000000
+22:38:15  📨 Antwort für RequestID bab3478f-a63e-4df0-857a-fb676976c734: Cmd=0, Ack=0
+22:38:15  🔄 Status regelmäßig aktualisiert: Maschine=Printing (1), Druck=Unknown (13)
+22:38:22  HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+22:38:22     ✅ OK
+22:38:32  📤 Sende Cmd 0 an sdcp/request/18421c180103147000001c0000000000
+22:38:32  📨 Antwort für RequestID 6f00c402-1091-449e-a36f-ceaabc66180c: Cmd=0, Ack=0
+22:38:32  🔄 Status regelmäßig aktualisiert: Maschine=Printing (1), Druck=Unknown (13)
+22:38:39  HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+22:38:39     ✅ OK
+22:38:49  📤 Sende Cmd 0 an sdcp/request/18421c180103147000001c0000000000
+22:38:50  📨 Antwort für RequestID 2de1a1b9-150c-48a9-b847-a3230ed84a32: Cmd=0, Ack=0
+22:38:50  🔄 Status regelmäßig aktualisiert: Maschine=Printing (1), Druck=Unknown (13)
+22:38:57  HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+22:38:57     ✅ OK
+22:39:07  📤 Sende Cmd 0 an sdcp/request/18421c180103147000001c0000000000
+22:39:07  📨 Antwort für RequestID fdb99231-8074-4bdc-88cf-f53022ecf94e: Cmd=0, Ack=0
+22:39:07  🔄 Status regelmäßig aktualisiert: Maschine=Printing (1), Druck=Unknown (13)
+22:39:07  ❌ Kamera-Fehler: Konnte kein Frame von der Kamera lesen!
+22:39:08  🔄 Kamera-Stream wird neu verbunden.
+22:39:08  📷 Kamera-Stream geschlossen.
+22:39:08  📷 Öffne Kamera-Stream: http://10.0.0.63:3031/video
+22:39:08  ✅ Kamera-Stream geöffnet.
+22:39:08  ✅ Kamera-Reconnect erfolgreich (Versuch 1/3).
+22:39:15  HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+22:39:15     ✅ OK
+22:39:25  📤 Sende Cmd 0 an sdcp/request/18421c180103147000001c0000000000
+22:39:25  📨 Antwort für RequestID 32570860-7dc0-47a9-b23e-03c8fc7a2d14: Cmd=0, Ack=0
+22:39:26  🔄 Status regelmäßig aktualisiert: Maschine=Printing (1), Druck=Unknown (13)
+22:39:33  HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+22:39:33     ✅ OK
+22:39:43  📤 Sende Cmd 0 an sdcp/request/18421c180103147000001c0000000000
+22:39:43  📨 Antwort für RequestID 51415fd9-c27d-4102-8d9e-414cebe4c738: Cmd=0, Ack=0
+22:39:43  🔄 Status regelmäßig aktualisiert: Maschine=Printing (1), Druck=Unknown (13)
+22:39:50  HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+22:39:50     ✅ OK
+22:40:00  📤 Sende Cmd 0 an sdcp/request/18421c180103147000001c0000000000
+22:40:00  📨 Antwort für RequestID d01f9ceb-e772-40b9-afae-6f3344dea5f9: Cmd=0, Ack=0
+22:40:00  🔄 Status regelmäßig aktualisiert: Maschine=Printing (1), Druck=Unknown (13)
+22:40:00  ❌ Kamera-Fehler: Konnte kein Frame von der Kamera lesen!
+22:40:01  🔄 Kamera-Stream wird neu verbunden.
+22:40:01  📷 Kamera-Stream geschlossen.
+22:40:01  📷 Öffne Kamera-Stream: http://10.0.0.63:3031/video
+22:40:01  ✅ Kamera-Stream geöffnet.
+22:40:02  ✅ Kamera-Reconnect erfolgreich (Versuch 1/3).
+22:40:09  HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+22:40:09     ✅ OK
+22:40:19  📤 Sende Cmd 0 an sdcp/request/18421c180103147000001c0000000000
+22:40:19  📨 Antwort für RequestID 1e845cf3-948c-4f83-b95f-a8ebc18deaf5: Cmd=0, Ack=0
+22:40:19  🔄 Status regelmäßig aktualisiert: Maschine=Printing (1), Druck=Unknown (13)
+22:40:26  HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+22:40:26     ✅ OK
+22:40:36  📤 Sende Cmd 0 an sdcp/request/18421c180103147000001c0000000000
+22:40:36  📨 Antwort für RequestID 07cae7a1-17cc-4997-b2a3-fc28e8815244: Cmd=0, Ack=0
+22:40:36  🔄 Status regelmäßig aktualisiert: Maschine=Printing (1), Druck=Unknown (13)
+22:40:43  HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+22:40:43     ✅ OK
+22:40:53  📤 Sende Cmd 0 an sdcp/request/18421c180103147000001c0000000000
+22:40:54  📨 Antwort für RequestID 88366d51-bb00-4c72-a15a-e06b7792f1f1: Cmd=0, Ack=0
+22:40:54  🔄 Status regelmäßig aktualisiert: Maschine=Printing (1), Druck=Unknown (13)
+22:41:01  HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+22:41:01     ✅ OK
+22:41:11  📤 Sende Cmd 0 an sdcp/request/18421c180103147000001c0000000000
+22:41:11  📨 Antwort für RequestID bc779637-56a7-463d-b37d-cc35e140b99e: Cmd=0, Ack=0
+22:41:11  🔄 Status regelmäßig aktualisiert: Maschine=Printing (1), Druck=Unknown (13)
+22:41:18  HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+22:41:18     ✅ OK
+22:41:28  📤 Sende Cmd 0 an sdcp/request/18421c180103147000001c0000000000
+22:41:28  📨 Antwort für RequestID 8774590c-b091-4ee8-9fcf-0ec6457df3c4: Cmd=0, Ack=0
+22:41:28  🔄 Status regelmäßig aktualisiert: Maschine=Printing (1), Druck=Unknown (13)
+22:41:36  HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+22:41:36     ✅ OK
+22:41:46  📤 Sende Cmd 0 an sdcp/request/18421c180103147000001c0000000000
+22:41:46  📨 Antwort für RequestID b56f63d2-2b20-46e6-ab11-c4347e819d02: Cmd=0, Ack=0
+22:41:46  🔄 Status regelmäßig aktualisiert: Maschine=Printing (1), Druck=Unknown (13)
+22:41:53  HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+22:41:53     ✅ OK
+22:42:03  📤 Sende Cmd 0 an sdcp/request/18421c180103147000001c0000000000
+22:42:03  📨 Antwort für RequestID c19ddcb7-22ad-487d-b951-143424bd095d: Cmd=0, Ack=0
+22:42:03  🔄 Status regelmäßig aktualisiert: Maschine=Printing (1), Druck=Unknown (13)
+22:42:03  ❌ Kamera-Fehler: Konnte kein Frame von der Kamera lesen!
+22:42:04  🔄 Kamera-Stream wird neu verbunden.
+22:42:04  📷 Kamera-Stream geschlossen.
+22:42:04  📷 Öffne Kamera-Stream: http://10.0.0.63:3031/video
+22:42:04  ✅ Kamera-Stream geöffnet.
+22:42:04  ✅ Kamera-Reconnect erfolgreich (Versuch 1/3).
+22:42:12  HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+22:42:12     ✅ OK
+22:42:22  📤 Sende Cmd 0 an sdcp/request/18421c180103147000001c0000000000
+22:42:22  📨 Antwort für RequestID 28042323-eceb-41ae-875d-66cc706be69c: Cmd=0, Ack=0
+22:42:22  🔄 Status regelmäßig aktualisiert: Maschine=Printing (1), Druck=Unknown (13)
+22:42:29  HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+22:42:29     ✅ OK
+22:42:39  📤 Sende Cmd 0 an sdcp/request/18421c180103147000001c0000000000
+22:42:39  📨 Antwort für RequestID dc7010df-88a4-4ca2-bae6-8ee0a82921f8: Cmd=0, Ack=0
+22:42:39  🔄 Status regelmäßig aktualisiert: Maschine=Printing (1), Druck=Unknown (13)
+22:42:46  HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+22:42:46     ✅ OK
+22:42:56  📤 Sende Cmd 0 an sdcp/request/18421c180103147000001c0000000000
+22:42:56  📨 Antwort für RequestID 064b0c0c-558d-41ab-88f7-e8b6fe0e1d2d: Cmd=0, Ack=0
+22:42:57  🔄 Status regelmäßig aktualisiert: Maschine=Printing (1), Druck=Unknown (13)
+22:43:04  HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+22:43:04     ✅ OK
+22:43:14  📤 Sende Cmd 0 an sdcp/request/18421c180103147000001c0000000000
+22:43:14  📨 Antwort für RequestID e4812641-0a6e-4aa0-ae3e-dd9fa2942a95: Cmd=0, Ack=0
+22:43:14  🔄 Status regelmäßig aktualisiert: Maschine=Printing (1), Druck=Unknown (13)
+22:43:14  ❌ Kamera-Fehler: Konnte kein Frame von der Kamera lesen!
+22:43:15  🔄 Kamera-Stream wird neu verbunden.
+22:43:15  📷 Kamera-Stream geschlossen.
+22:43:15  📷 Öffne Kamera-Stream: http://10.0.0.63:3031/video
+22:43:15  ✅ Kamera-Stream geöffnet.
+22:43:15  ✅ Kamera-Reconnect erfolgreich (Versuch 1/3).
+22:43:22  HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+22:43:22     ✅ OK
+22:43:32  📤 Sende Cmd 0 an sdcp/request/18421c180103147000001c0000000000
+22:43:32  📨 Antwort für RequestID 34683fb1-14b5-4263-89ba-06371ad5c5bd: Cmd=0, Ack=0
+22:43:32  🔄 Status regelmäßig aktualisiert: Maschine=Printing (1), Druck=Unknown (13)
+22:43:39  HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+22:43:39     ✅ OK
+22:43:49  📤 Sende Cmd 0 an sdcp/request/18421c180103147000001c0000000000
+22:43:50  📨 Antwort für RequestID 61cab249-2e77-40e7-89a1-2c0e9be63b71: Cmd=0, Ack=0
+22:43:50  🔄 Status regelmäßig aktualisiert: Maschine=Printing (1), Druck=Unknown (13)
+22:43:50  ❌ Kamera-Fehler: Konnte kein Frame von der Kamera lesen!
+22:43:51  🔄 Kamera-Stream wird neu verbunden.
+22:43:51  📷 Kamera-Stream geschlossen.
+22:43:51  📷 Öffne Kamera-Stream: http://10.0.0.63:3031/video
+22:43:51  ✅ Kamera-Stream geöffnet.
+22:43:51  ✅ Kamera-Reconnect erfolgreich (Versuch 1/3).
+22:43:58  HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+22:43:58     ✅ OK
+22:44:08  📤 Sende Cmd 0 an sdcp/request/18421c180103147000001c0000000000
+22:44:08  📨 Antwort für RequestID 49b40660-c66f-4a33-9d41-d285533288a0: Cmd=0, Ack=0
+22:44:08  🔄 Status regelmäßig aktualisiert: Maschine=Printing (1), Druck=Unknown (13)
+22:44:15  HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+22:44:15     ✅ OK
+22:44:25  📤 Sende Cmd 0 an sdcp/request/18421c180103147000001c0000000000
+22:44:25  📨 Antwort für RequestID 367796a1-b696-49b2-9408-d2b33e8f78bb: Cmd=0, Ack=0
+22:44:25  🔄 Status regelmäßig aktualisiert: Maschine=Printing (1), Druck=Unknown (13)
+22:44:40  HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+22:44:40     ✅ OK
+22:44:50  📤 Sende Cmd 0 an sdcp/request/18421c180103147000001c0000000000
+22:44:50  📨 Antwort für RequestID a3732ab1-5d15-474f-9b4a-8d1c660d14a1: Cmd=0, Ack=0
+22:44:50  🔄 Status regelmäßig aktualisiert: Maschine=Printing (1), Druck=Unknown (13)
+22:45:04  HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+22:45:04     ✅ OK
+22:45:14  📤 Sende Cmd 0 an sdcp/request/18421c180103147000001c0000000000
+22:45:14  📨 Antwort für RequestID 8ad60b61-e5c7-4e15-8ef2-9d4930840fad: Cmd=0, Ack=0
+22:45:14  🔄 Status regelmäßig aktualisiert: Maschine=Printing (1), Druck=Unknown (13)
+22:45:14  ❌ Kamera-Fehler: Konnte kein Frame von der Kamera lesen!
+22:45:15  🔄 Kamera-Stream wird neu verbunden.
+22:45:15  📷 Kamera-Stream geschlossen.
+22:45:15  📷 Öffne Kamera-Stream: http://10.0.0.63:3031/video
+22:45:15  ✅ Kamera-Stream geöffnet.
+22:45:15  ✅ Kamera-Reconnect erfolgreich (Versuch 1/3).
+22:45:28  HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+22:45:28     ✅ OK
+22:45:38  📤 Sende Cmd 0 an sdcp/request/18421c180103147000001c0000000000
+22:45:38  📨 Antwort für RequestID 58f5ae1b-fe1c-4848-8473-41bcfb2ccb39: Cmd=0, Ack=0
+22:45:38  🔄 Status regelmäßig aktualisiert: Maschine=Printing (1), Druck=Unknown (13)
+22:45:52  HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+22:45:52     ✅ OK
+22:46:02  📤 Sende Cmd 0 an sdcp/request/18421c180103147000001c0000000000
+22:46:02  📨 Antwort für RequestID 203fcb9b-fc8f-4258-8d87-c5bb03986f4c: Cmd=0, Ack=0
+22:46:02  🔄 Status regelmäßig aktualisiert: Maschine=Printing (1), Druck=Unknown (13)
+22:46:09  HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+22:46:09     ✅ OK
+22:46:19  📤 Sende Cmd 0 an sdcp/request/18421c180103147000001c0000000000
+22:46:20  📨 Antwort für RequestID 9314f103-b46c-438c-972f-e9ec8787bd98: Cmd=0, Ack=0
+22:46:20  🔄 Status regelmäßig aktualisiert: Maschine=Printing (1), Druck=Unknown (13)
+22:46:27  HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+22:46:27     ✅ OK
+22:46:37  📤 Sende Cmd 0 an sdcp/request/18421c180103147000001c0000000000
+22:46:37  📨 Antwort für RequestID 3b81eda8-48ad-49d6-b4b1-55d275d3e89c: Cmd=0, Ack=0
+22:46:37  🔄 Status regelmäßig aktualisiert: Maschine=Printing (1), Druck=Unknown (13)
+22:46:37  ❌ Kamera-Fehler: Konnte kein Frame von der Kamera lesen!
+22:46:38  🔄 Kamera-Stream wird neu verbunden.
+22:46:38  📷 Kamera-Stream geschlossen.
+22:46:38  📷 Öffne Kamera-Stream: http://10.0.0.63:3031/video
+22:46:38  ✅ Kamera-Stream geöffnet.
+22:46:38  ✅ Kamera-Reconnect erfolgreich (Versuch 1/3).
+22:46:46  HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+22:46:46     ✅ OK
+22:46:56  📤 Sende Cmd 0 an sdcp/request/18421c180103147000001c0000000000
+22:46:56  📨 Antwort für RequestID 6906128b-25d4-4b3a-8205-34166b1ae417: Cmd=0, Ack=0
+22:46:56  🔄 Status regelmäßig aktualisiert: Maschine=Printing (1), Druck=Unknown (13)
+22:47:03  HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+22:47:03     ✅ OK
+22:47:13  📤 Sende Cmd 0 an sdcp/request/18421c180103147000001c0000000000
+22:47:13  📨 Antwort für RequestID 577434eb-4bd7-401d-9617-3827400e2cea: Cmd=0, Ack=0
+22:47:13  🔄 Status regelmäßig aktualisiert: Maschine=Printing (1), Druck=Unknown (13)
+22:47:20  HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+22:47:20     ✅ OK
+22:47:30  📤 Sende Cmd 0 an sdcp/request/18421c180103147000001c0000000000
+22:47:30  📨 Antwort für RequestID c6592804-ec28-4141-8ed9-1d058c88ecc3: Cmd=0, Ack=0
+22:47:30  🔄 Status regelmäßig aktualisiert: Maschine=Printing (1), Druck=Unknown (13)
+22:47:37  HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+22:47:37     ✅ OK
+22:47:47  📤 Sende Cmd 0 an sdcp/request/18421c180103147000001c0000000000
+22:47:48  📨 Antwort für RequestID 20dbf034-1d2b-4f2c-975e-703fb0b4fd1e: Cmd=0, Ack=0
+22:47:48  🔄 Status regelmäßig aktualisiert: Maschine=Printing (1), Druck=Unknown (13)
+22:47:55  HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+22:47:55     ✅ OK
+22:48:05  📤 Sende Cmd 0 an sdcp/request/18421c180103147000001c0000000000
+22:48:05  📨 Antwort für RequestID 8d08ab52-5f04-4dff-b452-5cebd335cb0d: Cmd=0, Ack=0
+22:48:05  🔄 Status regelmäßig aktualisiert: Maschine=Printing (1), Druck=Unknown (13)
+22:48:05  ❌ Kamera-Fehler: Konnte kein Frame von der Kamera lesen!
+22:48:06  🔄 Kamera-Stream wird neu verbunden.
+22:48:06  📷 Kamera-Stream geschlossen.
+22:48:06  📷 Öffne Kamera-Stream: http://10.0.0.63:3031/video
+22:48:06  ✅ Kamera-Stream geöffnet.
+22:48:06  ✅ Kamera-Reconnect erfolgreich (Versuch 1/3).
+22:48:13  HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+22:48:13     ✅ OK
+22:48:23  📤 Sende Cmd 0 an sdcp/request/18421c180103147000001c0000000000
+22:48:24  📨 Antwort für RequestID b9e91000-570f-4d42-8e75-5e1d8d6828b2: Cmd=0, Ack=0
+22:48:24  🔄 Status regelmäßig aktualisiert: Maschine=Printing (1), Druck=Unknown (13)
+22:48:31  HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+22:48:31     ✅ OK
+22:48:41  📤 Sende Cmd 0 an sdcp/request/18421c180103147000001c0000000000
+22:48:41  📨 Antwort für RequestID d6daabb3-8a56-4d9e-93a0-f1222c4ad2ef: Cmd=0, Ack=0
+22:48:41  🔄 Status regelmäßig aktualisiert: Maschine=Printing (1), Druck=Unknown (13)
+22:48:48  HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+22:48:48     ✅ OK
+22:48:58  📤 Sende Cmd 0 an sdcp/request/18421c180103147000001c0000000000
+22:48:58  📨 Antwort für RequestID 4848921a-fae4-4200-a36a-1522a4f6f49c: Cmd=0, Ack=0
+22:48:58  🔄 Status regelmäßig aktualisiert: Maschine=Printing (1), Druck=Unknown (13)
+22:49:05  HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+22:49:05     ✅ OK
+22:49:15  📤 Sende Cmd 0 an sdcp/request/18421c180103147000001c0000000000
+22:49:15  📨 Antwort für RequestID 3db99623-42f6-4964-be7d-c0362ba173ce: Cmd=0, Ack=0
+22:49:16  🔄 Status regelmäßig aktualisiert: Maschine=Printing (1), Druck=Unknown (13)
+22:49:16  ❌ Kamera-Fehler: Konnte kein Frame von der Kamera lesen!
+22:49:17  🔄 Kamera-Stream wird neu verbunden.
+22:49:17  📷 Kamera-Stream geschlossen.
+22:49:17  📷 Öffne Kamera-Stream: http://10.0.0.63:3031/video
+22:49:17  ✅ Kamera-Stream geöffnet.
+22:49:17  ✅ Kamera-Reconnect erfolgreich (Versuch 1/3).
+22:49:24  HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+22:49:24     ✅ OK
+22:49:34  📤 Sende Cmd 0 an sdcp/request/18421c180103147000001c0000000000
+22:49:34  📨 Antwort für RequestID 4700308d-0ee1-43d1-be1c-875fe1d27f21: Cmd=0, Ack=0
+22:49:34  🔄 Status regelmäßig aktualisiert: Maschine=Printing (1), Druck=Unknown (13)
+22:49:41  HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+22:49:41     ✅ OK
+22:49:51  📤 Sende Cmd 0 an sdcp/request/18421c180103147000001c0000000000
+22:49:52  📨 Antwort für RequestID c2697bec-888d-4d9d-a54e-dc1ff3c94f39: Cmd=0, Ack=0
+22:49:52  🔄 Status regelmäßig aktualisiert: Maschine=Printing (1), Druck=Unknown (13)
+22:49:59  HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+22:49:59     ✅ OK
+22:50:09  📤 Sende Cmd 0 an sdcp/request/18421c180103147000001c0000000000
+22:50:09  📨 Antwort für RequestID 31cde6db-794e-41e9-a5ea-95e92cf596ea: Cmd=0, Ack=0
+22:50:09  🔄 Status regelmäßig aktualisiert: Maschine=Printing (1), Druck=Unknown (13)
+22:50:16  HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+22:50:16     ✅ OK
+22:50:26  📤 Sende Cmd 0 an sdcp/request/18421c180103147000001c0000000000
+22:50:26  📨 Antwort für RequestID 7678cfc9-1bb5-4d21-be86-46bb337645be: Cmd=0, Ack=0
+22:50:26  🔄 Status regelmäßig aktualisiert: Maschine=Printing (1), Druck=Unknown (13)
+22:50:26  ❌ Kamera-Fehler: Konnte kein Frame von der Kamera lesen!
+22:50:27  🔄 Kamera-Stream wird neu verbunden.
+22:50:27  📷 Kamera-Stream geschlossen.
+22:50:27  📷 Öffne Kamera-Stream: http://10.0.0.63:3031/video
+22:50:27  ✅ Kamera-Stream geöffnet.
+22:50:28  ✅ Kamera-Reconnect erfolgreich (Versuch 1/3).
+22:50:35  HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+22:50:35     ✅ OK
+22:50:45  📤 Sende Cmd 0 an sdcp/request/18421c180103147000001c0000000000
+22:50:45  📨 Antwort für RequestID 63cd4409-b7a1-43e8-a63d-d0218171c528: Cmd=0, Ack=0
+22:50:45  🔄 Status regelmäßig aktualisiert: Maschine=Printing (1), Druck=Unknown (13)
+22:50:52  HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+22:50:52     ✅ OK
+22:51:02  📤 Sende Cmd 0 an sdcp/request/18421c180103147000001c0000000000
+22:51:02  📨 Antwort für RequestID b17ca5b5-5b35-483a-ad88-a4eab2f7637c: Cmd=0, Ack=0
+22:51:03  🔄 Status regelmäßig aktualisiert: Maschine=Printing (1), Druck=Unknown (13)
+22:51:10  HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+22:51:10     ✅ OK
+22:51:20  📤 Sende Cmd 0 an sdcp/request/18421c180103147000001c0000000000
+22:51:20  📨 Antwort für RequestID 09a95e96-0a1b-435e-95ae-83d255037d41: Cmd=0, Ack=0
+22:51:20  🔄 Status regelmäßig aktualisiert: Maschine=Printing (1), Druck=Unknown (13)
+22:51:27  HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+22:51:27     ✅ OK
+22:51:37  📤 Sende Cmd 0 an sdcp/request/18421c180103147000001c0000000000
+22:51:37  📨 Antwort für RequestID ea9176b5-5f06-42ee-b16f-cfa435ed4af4: Cmd=0, Ack=0
+22:51:38  🔄 Status regelmäßig aktualisiert: Maschine=Printing (1), Druck=Unknown (13)
+22:51:38  ❌ Kamera-Fehler: Konnte kein Frame von der Kamera lesen!
+22:51:39  🔄 Kamera-Stream wird neu verbunden.
+22:51:39  📷 Kamera-Stream geschlossen.
+22:51:39  📷 Öffne Kamera-Stream: http://10.0.0.63:3031/video
+22:51:39  ✅ Kamera-Stream geöffnet.
+22:51:39  ✅ Kamera-Reconnect erfolgreich (Versuch 1/3).
+22:51:46  HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+22:51:46     ✅ OK
+22:51:56  📤 Sende Cmd 0 an sdcp/request/18421c180103147000001c0000000000
+22:51:56  📨 Antwort für RequestID a18307a5-2961-4b2f-8f4f-768e4460df2b: Cmd=0, Ack=0
+22:51:56  🔄 Status regelmäßig aktualisiert: Maschine=Printing (1), Druck=Unknown (13)
+22:52:03  HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+22:52:03     ✅ OK
+22:52:13  📤 Sende Cmd 0 an sdcp/request/18421c180103147000001c0000000000
+22:52:13  📨 Antwort für RequestID 13254b5c-451d-4665-b191-664eea90f2ba: Cmd=0, Ack=0
+22:52:14  🔄 Status regelmäßig aktualisiert: Maschine=Printing (1), Druck=Unknown (13)
+22:52:21  HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+22:52:21     ✅ OK
+22:52:31  📤 Sende Cmd 0 an sdcp/request/18421c180103147000001c0000000000
+22:52:31  📨 Antwort für RequestID 33decf3e-b54d-4078-9398-5f6dd15d0d8e: Cmd=0, Ack=0
+22:52:31  🔄 Status regelmäßig aktualisiert: Maschine=Printing (1), Druck=Unknown (13)
+22:52:38  HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+22:52:38     ✅ OK
+22:52:48  📤 Sende Cmd 0 an sdcp/request/18421c180103147000001c0000000000
+22:52:48  📨 Antwort für RequestID b9191cc5-9f88-4673-96ff-61f510344a3f: Cmd=0, Ack=0
+22:52:48  🔄 Status regelmäßig aktualisiert: Maschine=Printing (1), Druck=Unknown (13)
+22:52:48  ❌ Kamera-Fehler: Konnte kein Frame von der Kamera lesen!
+22:52:49  🔄 Kamera-Stream wird neu verbunden.
+22:52:49  📷 Kamera-Stream geschlossen.
+22:52:49  📷 Öffne Kamera-Stream: http://10.0.0.63:3031/video
+22:52:49  ✅ Kamera-Stream geöffnet.
+22:52:50  ✅ Kamera-Reconnect erfolgreich (Versuch 1/3).
+22:52:57  HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+22:52:57     ✅ OK
+22:53:07  📤 Sende Cmd 0 an sdcp/request/18421c180103147000001c0000000000
+22:53:07  📨 Antwort für RequestID 4de83397-4562-4ab6-8002-0e67d40031e0: Cmd=0, Ack=0
+22:53:07  🔄 Status regelmäßig aktualisiert: Maschine=Printing (1), Druck=Unknown (13)
+22:53:14  HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+22:53:14     ✅ OK
+22:53:24  📤 Sende Cmd 0 an sdcp/request/18421c180103147000001c0000000000
+22:53:24  📨 Antwort für RequestID d7fda056-ac91-402f-b301-3a54866d9387: Cmd=0, Ack=0
+22:53:24  🔄 Status regelmäßig aktualisiert: Maschine=Printing (1), Druck=Unknown (13)
+22:53:32  HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+22:53:32     ✅ OK
+22:53:42  📤 Sende Cmd 0 an sdcp/request/18421c180103147000001c0000000000
+22:53:42  📨 Antwort für RequestID 57872d0f-17bf-4f07-99fc-699513d984f1: Cmd=0, Ack=0
+22:53:42  🔄 Status regelmäßig aktualisiert: Maschine=Printing (1), Druck=Unknown (13)
+22:53:49  HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+22:53:49     ✅ OK
+22:53:59  📤 Sende Cmd 0 an sdcp/request/18421c180103147000001c0000000000
+22:53:59  📨 Antwort für RequestID 28491352-22f7-468f-b6eb-6067651a1e1d: Cmd=0, Ack=0
+22:53:59  🔄 Status regelmäßig aktualisiert: Maschine=Printing (1), Druck=Unknown (13)
+22:53:59  ❌ Kamera-Fehler: Konnte kein Frame von der Kamera lesen!
+22:54:00  🔄 Kamera-Stream wird neu verbunden.
+22:54:00  📷 Kamera-Stream geschlossen.
+22:54:00  📷 Öffne Kamera-Stream: http://10.0.0.63:3031/video
+22:54:00  ✅ Kamera-Stream geöffnet.
+22:54:00  ✅ Kamera-Reconnect erfolgreich (Versuch 1/3).
+22:54:08  HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+22:54:08     ✅ OK
+22:54:18  📤 Sende Cmd 0 an sdcp/request/18421c180103147000001c0000000000
+22:54:18  📨 Antwort für RequestID 27d879cb-5eb4-4d26-8ebc-d5387756e434: Cmd=0, Ack=0
+22:54:18  🔄 Status regelmäßig aktualisiert: Maschine=Printing (1), Druck=Unknown (13)
+22:54:25  HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+22:54:25     ✅ OK
+22:54:35  📤 Sende Cmd 0 an sdcp/request/18421c180103147000001c0000000000
+22:54:35  📨 Antwort für RequestID 944ea1c9-1b12-4fa5-bd94-3f750c1b5f20: Cmd=0, Ack=0
+22:54:35  🔄 Status regelmäßig aktualisiert: Maschine=Printing (1), Druck=Unknown (13)
+22:54:42  HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+22:54:42     ✅ OK
+22:54:52  📤 Sende Cmd 0 an sdcp/request/18421c180103147000001c0000000000
+22:54:53  📨 Antwort für RequestID 02c4e5ed-524d-4dc4-843a-13cb29177e3d: Cmd=0, Ack=0
+22:54:53  🔄 Status regelmäßig aktualisiert: Maschine=Printing (1), Druck=Unknown (13)
+22:55:00  HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+22:55:00     ✅ OK
+22:55:10  📤 Sende Cmd 0 an sdcp/request/18421c180103147000001c0000000000
+22:55:10  📨 Antwort für RequestID bbd1660b-e89e-4b50-875c-edf25d399381: Cmd=0, Ack=0
+22:55:10  🔄 Status regelmäßig aktualisiert: Maschine=Printing (1), Druck=Unknown (13)
+22:55:10  ❌ Kamera-Fehler: Konnte kein Frame von der Kamera lesen!
+22:55:11  🔄 Kamera-Stream wird neu verbunden.
+22:55:11  📷 Kamera-Stream geschlossen.
+22:55:11  📷 Öffne Kamera-Stream: http://10.0.0.63:3031/video
+22:55:11  ✅ Kamera-Stream geöffnet.
+22:55:11  ✅ Kamera-Reconnect erfolgreich (Versuch 1/3).
+22:55:18  HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+22:55:18     ✅ OK
+22:55:28  📤 Sende Cmd 0 an sdcp/request/18421c180103147000001c0000000000
+22:55:29  📨 Antwort für RequestID a114a236-bda7-4357-8a6e-e32d5fa6c7e0: Cmd=0, Ack=0
+22:55:29  🔄 Status regelmäßig aktualisiert: Maschine=Printing (1), Druck=Unknown (13)
+22:55:36  HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+22:55:36     ✅ OK
+22:55:46  📤 Sende Cmd 0 an sdcp/request/18421c180103147000001c0000000000
+22:55:46  📨 Antwort für RequestID b944f00d-9ddc-401a-970e-00ac1f4a30ba: Cmd=0, Ack=0
+22:55:46  🔄 Status regelmäßig aktualisiert: Maschine=Printing (1), Druck=Unknown (13)
+22:55:53  HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+22:55:53     ✅ OK
+22:56:03  📤 Sende Cmd 0 an sdcp/request/18421c180103147000001c0000000000
+22:56:03  📨 Antwort für RequestID 88d38cf8-f7e1-4fef-a2c5-dbc4e43c1f66: Cmd=0, Ack=0
+22:56:03  🔄 Status regelmäßig aktualisiert: Maschine=Printing (1), Druck=Unknown (13)
+22:56:11  HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+22:56:11     ✅ OK
+22:56:21  📤 Sende Cmd 0 an sdcp/request/18421c180103147000001c0000000000
+22:56:21  📨 Antwort für RequestID 1918d3c9-91ce-44ec-aafd-fed437006ae1: Cmd=0, Ack=0
+22:56:21  🔄 Status regelmäßig aktualisiert: Maschine=Printing (1), Druck=Unknown (13)
+22:56:21  ❌ Kamera-Fehler: Konnte kein Frame von der Kamera lesen!
+22:56:22  🔄 Kamera-Stream wird neu verbunden.
+22:56:22  📷 Kamera-Stream geschlossen.
+22:56:22  📷 Öffne Kamera-Stream: http://10.0.0.63:3031/video
+22:56:22  ✅ Kamera-Stream geöffnet.
+22:56:22  ✅ Kamera-Reconnect erfolgreich (Versuch 1/3).
+22:56:29  HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+22:56:29     ✅ OK
+22:56:39  📤 Sende Cmd 0 an sdcp/request/18421c180103147000001c0000000000
+22:56:39  📨 Antwort für RequestID 2c2f2aac-257c-4e8b-abcd-50bf34860914: Cmd=0, Ack=0
+22:56:40  🔄 Status regelmäßig aktualisiert: Maschine=Printing (1), Druck=Unknown (13)
+22:56:47  HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+22:56:47     ✅ OK
+22:56:57  📤 Sende Cmd 0 an sdcp/request/18421c180103147000001c0000000000
+22:56:57  📨 Antwort für RequestID 1b17a5c3-8c42-48f4-b01b-3d4018ac8243: Cmd=0, Ack=0
+22:56:57  🔄 Status regelmäßig aktualisiert: Maschine=Printing (1), Druck=Unknown (13)
+22:57:04  HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+22:57:04     ✅ OK
+22:57:14  📤 Sende Cmd 0 an sdcp/request/18421c180103147000001c0000000000
+22:57:14  📨 Antwort für RequestID 3911c5a0-dd7a-4e31-aa48-03ce822b38c1: Cmd=0, Ack=0
+22:57:14  🔄 Status regelmäßig aktualisiert: Maschine=Printing (1), Druck=Unknown (13)
+22:57:21  HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+22:57:21     ✅ OK
+22:57:31  📤 Sende Cmd 0 an sdcp/request/18421c180103147000001c0000000000
+22:57:32  📨 Antwort für RequestID 5377f106-29a9-453b-a465-1573b0fbc6e4: Cmd=0, Ack=0
+22:57:32  🔄 Status regelmäßig aktualisiert: Maschine=Printing (1), Druck=Unknown (13)
+22:57:32  ❌ Kamera-Fehler: Konnte kein Frame von der Kamera lesen!
+22:57:33  🔄 Kamera-Stream wird neu verbunden.
+22:57:33  📷 Kamera-Stream geschlossen.
+22:57:33  📷 Öffne Kamera-Stream: http://10.0.0.63:3031/video
+22:57:33  ✅ Kamera-Stream geöffnet.
+22:57:33  ✅ Kamera-Reconnect erfolgreich (Versuch 1/3).
+22:57:40  HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+22:57:40     ✅ OK
+22:57:50  📤 Sende Cmd 0 an sdcp/request/18421c180103147000001c0000000000
+22:57:50  📨 Antwort für RequestID 8d67a556-1ec5-458f-8c29-fa0c14eb7230: Cmd=0, Ack=0
+22:57:50  🔄 Status regelmäßig aktualisiert: Maschine=Printing (1), Druck=Unknown (13)
+22:57:58  HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+22:57:58     ✅ OK
+22:58:08  📤 Sende Cmd 0 an sdcp/request/18421c180103147000001c0000000000
+22:58:08  📨 Antwort für RequestID 526dcc51-7a68-4861-8332-ac0dc4c91766: Cmd=0, Ack=0
+22:58:08  🔄 Status regelmäßig aktualisiert: Maschine=Printing (1), Druck=Unknown (13)
+22:58:15  HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+22:58:15     ✅ OK
+22:58:25  📤 Sende Cmd 0 an sdcp/request/18421c180103147000001c0000000000
+22:58:25  📨 Antwort für RequestID f59811c6-a28c-4a90-a9fa-7bd697255443: Cmd=0, Ack=0
+22:58:25  🔄 Status regelmäßig aktualisiert: Maschine=Printing (1), Druck=Unknown (13)
+22:58:33  HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+22:58:33     ✅ OK
+22:58:40  🔄 Monitorzustand: MONITORING -> STOPPING
+22:58:40  Laufzusammenfassung: Dauer=0:28:35.589875, Checks=95, OK=95, Fehler=0, UNKNOWN=0, Kamera=24, Reconnects=0, Verbindungsabbrüche=0, Pauseversuche=0, Endzustand=STOPPING
+22:58:42  HTTP Request: POST http://localhost:11434/api/generate "HTTP/1.1 200 OK"
+22:58:42  🧠 Ollama-Modell aus VRAM entladen: qwen2.5vl:7b
+22:58:42  📷 Kamera-Stream geschlossen.
+22:58:42  🏁 PrintGuard beendet.
