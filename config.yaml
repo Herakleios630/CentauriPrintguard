@@ -24,6 +24,8 @@ monitoring:
   pending_review_enabled: true # save evidence when an alarm first becomes pending
   alarm_clear_ok_count: 3     # consecutive OK results required to clear a pending alarm
   active_print_statuses: [2, 3, 4, 13] # OpenCentauri print phases eligible for AI checks
+  status_refresh_interval: 10     # seconds between active Cmd 0 status requests
+  status_stale_after: 30          # older status is invalid for AI and pause decisions
   pause_timeout: 20            # seconds for sending and confirming pause
   pause_cooldown: 60           # seconds before another pause attempt is allowed
   dry_run: false               # analyze and save evidence without sending SDCP commands

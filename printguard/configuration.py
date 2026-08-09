@@ -67,10 +67,16 @@ def load_config(path: str = "config.yaml") -> dict:
 
     pause_timeout = monitoring.get("pause_timeout", 20)
     pause_cooldown = monitoring.get("pause_cooldown", 60)
+    status_refresh_interval = monitoring.get("status_refresh_interval", 10)
+    status_stale_after = monitoring.get("status_stale_after", max(30, status_refresh_interval * 3))
     if not isinstance(pause_timeout, (int, float)) or isinstance(pause_timeout, bool) or pause_timeout <= 0:
         raise ValueError("monitoring.pause_timeout muss größer als 0 sein.")
     if not isinstance(pause_cooldown, (int, float)) or isinstance(pause_cooldown, bool) or pause_cooldown < 0:
         raise ValueError("monitoring.pause_cooldown darf nicht negativ sein.")
+    if not isinstance(status_refresh_interval, (int, float)) or isinstance(status_refresh_interval, bool) or status_refresh_interval <= 0:
+        raise ValueError("monitoring.status_refresh_interval muss größer als 0 sein.")
+    if not isinstance(status_stale_after, (int, float)) or isinstance(status_stale_after, bool) or status_stale_after < status_refresh_interval:
+        raise ValueError("monitoring.status_stale_after muss mindestens dem Refresh-Intervall entsprechen.")
     if not isinstance(monitoring.get("dry_run", False), bool):
         raise ValueError("monitoring.dry_run muss true oder false sein.")
     if not isinstance(monitoring.get("pending_review_enabled", True), bool):

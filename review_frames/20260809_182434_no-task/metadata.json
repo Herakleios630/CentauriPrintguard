@@ -1,0 +1,123 @@
+{
+  "saved_at": "2026-08-09T18:24:34",
+  "frame_count": 10,
+  "pause_context": {
+    "reason": "FEHLER: SPAGHETTI",
+    "alarm": {
+      "state": "ALARM_PENDING",
+      "error_count": 1,
+      "unknown_count": 0,
+      "ok_streak": 0,
+      "confirmation_frames": 1,
+      "normal_reference_available": true,
+      "error_reference_available": true,
+      "catastrophe": "SPAGHETTI",
+      "verdicts": [
+        "FEHLER: SPAGHETTI"
+      ]
+    },
+    "pending": true
+  },
+  "frames": [
+    {
+      "file": "frame_01.jpg",
+      "check": 3981,
+      "captured_at": "2026-08-09T18:21:50",
+      "verdict": "OK",
+      "task_id": "ee975dbc-6d32-4e55-8cc4-05df19274ef6",
+      "filename": "ECC_0.4_angled-support-pole_Sunlu PLA +_0.12_5h51m.gcode",
+      "layer": 1902,
+      "print_status": 13
+    },
+    {
+      "file": "frame_02.jpg",
+      "check": 3982,
+      "captured_at": "2026-08-09T18:22:08",
+      "verdict": "OK",
+      "task_id": "ee975dbc-6d32-4e55-8cc4-05df19274ef6",
+      "filename": "ECC_0.4_angled-support-pole_Sunlu PLA +_0.12_5h51m.gcode",
+      "layer": 1902,
+      "print_status": 13
+    },
+    {
+      "file": "frame_03.jpg",
+      "check": 3983,
+      "captured_at": "2026-08-09T18:22:25",
+      "verdict": "OK",
+      "task_id": "ee975dbc-6d32-4e55-8cc4-05df19274ef6",
+      "filename": "ECC_0.4_angled-support-pole_Sunlu PLA +_0.12_5h51m.gcode",
+      "layer": 1902,
+      "print_status": 13
+    },
+    {
+      "file": "frame_04.jpg",
+      "check": 3984,
+      "captured_at": "2026-08-09T18:22:43",
+      "verdict": "OK",
+      "task_id": "ee975dbc-6d32-4e55-8cc4-05df19274ef6",
+      "filename": "ECC_0.4_angled-support-pole_Sunlu PLA +_0.12_5h51m.gcode",
+      "layer": 1902,
+      "print_status": 13
+    },
+    {
+      "file": "frame_05.jpg",
+      "check": 3985,
+      "captured_at": "2026-08-09T18:23:00",
+      "verdict": "OK",
+      "task_id": "ee975dbc-6d32-4e55-8cc4-05df19274ef6",
+      "filename": "ECC_0.4_angled-support-pole_Sunlu PLA +_0.12_5h51m.gcode",
+      "layer": 1902,
+      "print_status": 13
+    },
+    {
+      "file": "frame_06.jpg",
+      "check": 3986,
+      "captured_at": "2026-08-09T18:23:17",
+      "verdict": "OK",
+      "task_id": "ee975dbc-6d32-4e55-8cc4-05df19274ef6",
+      "filename": "ECC_0.4_angled-support-pole_Sunlu PLA +_0.12_5h51m.gcode",
+      "layer": 1902,
+      "print_status": 13
+    },
+    {
+      "file": "frame_07.jpg",
+      "check": 3987,
+      "captured_at": "2026-08-09T18:23:35",
+      "verdict": "OK",
+      "task_id": "ee975dbc-6d32-4e55-8cc4-05df19274ef6",
+      "filename": "ECC_0.4_angled-support-pole_Sunlu PLA +_0.12_5h51m.gcode",
+      "layer": 1902,
+      "print_status": 13
+    },
+    {
+      "file": "frame_08.jpg",
+      "check": 3988,
+      "captured_at": "2026-08-09T18:23:52",
+      "verdict": "OK",
+      "task_id": "ee975dbc-6d32-4e55-8cc4-05df19274ef6",
+      "filename": "ECC_0.4_angled-support-pole_Sunlu PLA +_0.12_5h51m.gcode",
+      "layer": 1902,
+      "print_status": 13
+    },
+    {
+      "file": "frame_09.jpg",
+      "check": 3989,
+      "captured_at": "2026-08-09T18:24:10",
+      "verdict": "OK",
+      "task_id": "ee975dbc-6d32-4e55-8cc4-05df19274ef6",
+      "filename": "ECC_0.4_angled-support-pole_Sunlu PLA +_0.12_5h51m.gcode",
+      "layer": 1902,
+      "print_status": 13
+    },
+    {
+      "file": "frame_10.jpg",
+      "check": 3990,
+      "captured_at": "2026-08-09T18:24:27",
+      "verdict": "FEHLER: SPAGHETTI",
+      "task_id": "ee975dbc-6d32-4e55-8cc4-05df19274ef6",
+      "filename": "ECC_0.4_angled-support-pole_Sunlu PLA +_0.12_5h51m.gcode",
+      "layer": 1902,
+      "print_status": 13
+    }
+  ]
+}
