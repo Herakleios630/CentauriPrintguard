@@ -18,6 +18,11 @@ from .stats import MonitorStats
 log = logging.getLogger(__name__)
 
 
+def _pause_cooldown_active(last_pause: float | None, now: float, cooldown: float) -> bool:
+    """Return whether another pause attempt must still be deferred."""
+    return last_pause is not None and now - last_pause < cooldown
+
+
 async def _capture_camera(camera: CameraCapture) -> bytes | None:
     """Read one frame and reconnect only the camera that failed."""
     try:
@@ -356,15 +361,16 @@ async def main():
                 except OSError as exc:
                     log.error(f"❌ Gegencheck-Bilder konnten nicht gespeichert werden: {exc}")
                 now = asyncio.get_running_loop().time()
-                if last_pause is not None and now - last_pause < pause_cooldown:
-                    log.error(f"⏳ Pause-Cooldown aktiv; nächster Versuch in {pause_cooldown - (now - last_pause):.1f}s.")
-                    if dry_run:
-                        alarm.reset()
-                        set_state("MONITORING")
-                        previous_frame = current_frame
-                        continue
-                    set_state("ERROR")
-                    break
+                if _pause_cooldown_active(last_pause, now, pause_cooldown):
+                    remaining = pause_cooldown - (now - last_pause)
+                    log.warning(
+                        f"⏳ Pause-Cooldown aktiv; Alarm wird weiter beobachtet. "
+                        f"Nächster Versuch in {remaining:.1f}s."
+                    )
+                    alarm.reset()
+                    set_state("MONITORING")
+                    previous_frame = current_frame
+                    continue
                 last_pause = now
                 stats.pause_attempts += 1
                 set_state("PAUSING")

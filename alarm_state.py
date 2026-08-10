@@ -69,6 +69,18 @@ class AlarmState:
             self.unknown_count += 1
             return AlarmResult("ALARM_PENDING", "COLLECT", self.error_count, len(self.frames))
 
+        if verdict == "OK":
+            self.frames.append(entry)
+            self.ok_streak += 1
+            confirmation_count = len(self.frames)
+            if (
+                confirmation_count >= self.confirmation_frames
+                and self.ok_streak >= self.clear_ok_count
+            ):
+                self.state = "ALARM_CLEARED"
+                return AlarmResult(self.state, "RESET", self.error_count, confirmation_count)
+            return AlarmResult("ALARM_PENDING", "COLLECT", self.error_count, confirmation_count)
+
         if current_catastrophe != self.catastrophe:
             self.reset()
             return AlarmResult("IDLE", "RESET", 0, 0)
@@ -82,9 +94,6 @@ class AlarmState:
         if self.error_count >= self.required_errors:
             self.state = "ALARM_CONFIRMED"
             return AlarmResult(self.state, "PAUSE", self.error_count, confirmation_count)
-        if confirmation_count >= self.confirmation_frames and self.ok_streak >= self.clear_ok_count:
-            self.state = "ALARM_CLEARED"
-            return AlarmResult(self.state, "RESET", self.error_count, confirmation_count)
         return AlarmResult("ALARM_PENDING", "COLLECT", self.error_count, confirmation_count)
 
     def context(self) -> dict:

@@ -13,7 +13,7 @@ from printguard.ai import build_analysis_prompt, extract_verdict
 from printguard.camera import redact_url
 from printguard.configuration import load_config
 from printguard.diagnostics import DryRunDiagnostics
-from printguard.monitor import _capture_views
+from printguard.monitor import _capture_views, _pause_cooldown_active
 from printguard.printer import PRINT_STATUS_NAMES
 from printguard.review import save_review_frames
 
@@ -120,6 +120,24 @@ class MultiViewTests(unittest.TestCase):
         self.assertEqual(alarm.catastrophe, "SPAGHETTI")
         self.assertEqual(alarm.unknown_count, 1)
         self.assertEqual(len(alarm.frames), 2)
+
+    def test_ok_requires_configured_streak_to_clear_pending_alarm(self):
+        alarm = AlarmState(confirmation_frames=3, required_errors=2, clear_ok_count=2)
+
+        alarm.observe("FEHLER: SPAGHETTI", b"front")
+        first_ok = alarm.observe("OK", b"front")
+        cleared = alarm.observe("OK", b"front")
+
+        self.assertEqual(first_ok.action, "COLLECT")
+        self.assertEqual(first_ok.state, "ALARM_PENDING")
+        self.assertEqual(cleared.action, "RESET")
+        self.assertEqual(cleared.state, "ALARM_CLEARED")
+        self.assertEqual(alarm.ok_streak, 2)
+
+    def test_pause_cooldown_only_defers_until_expired(self):
+        self.assertTrue(_pause_cooldown_active(100.0, 120.0, 60.0))
+        self.assertFalse(_pause_cooldown_active(100.0, 160.0, 60.0))
+        self.assertFalse(_pause_cooldown_active(None, 120.0, 60.0))
 
     def test_diagnostic_prompt_is_saved_once_and_referenced(self):
         with TemporaryDirectory() as directory:
