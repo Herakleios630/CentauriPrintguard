@@ -99,13 +99,18 @@ class CameraCapture:
     def _stop_reader(self):
         self._reader_stop.set()
         reader = self._reader_thread
+        cap = self.cap
+        if cap:
+            with _suppress_native_stderr():
+                cap.release()
         if reader and reader is not threading.current_thread():
             reader.join(timeout=2)
+            if reader.is_alive():
+                log.warning(
+                    f"⚠️  {self.label}-Reader beendet sich nicht innerhalb des Stop-Timeouts."
+                )
         self._reader_thread = None
-        if self.cap:
-            with _suppress_native_stderr():
-                self.cap.release()
-            self.cap = None
+        self.cap = None
 
     def _reader_loop(self):
         while not self._reader_stop.is_set():

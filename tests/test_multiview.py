@@ -12,7 +12,7 @@ from alarm_state import AlarmState
 from printguard.ai import build_analysis_prompt, extract_verdict
 from printguard.alarm_coordinator import resolve_alarm_action
 from printguard.analysis_coordinator import run_analysis, select_labeled_frames
-from printguard.camera import redact_url
+from printguard.camera import CameraCapture, redact_url
 from printguard.camera_coordinator import CameraCoordinator
 from printguard.configuration import load_config
 from printguard.diagnostics import DryRunDiagnostics
@@ -93,6 +93,23 @@ class MultiViewTests(unittest.TestCase):
             self.assertEqual(camera.reconnect_calls, 1)
 
         asyncio.run(scenario())
+
+    def test_camera_release_releases_capture_before_reader_join(self):
+        camera = CameraCapture("http://camera", label="Frontansicht")
+        capture = Mock()
+        reader = Mock()
+        reader.is_alive.return_value = True
+        camera.cap = capture
+        camera._reader_thread = reader
+
+        with patch("printguard.camera.log.warning") as warning:
+            camera.release()
+
+        capture.release.assert_called_once_with()
+        reader.join.assert_called_once_with(timeout=2)
+        warning.assert_called_once()
+        self.assertIsNone(camera.cap)
+        self.assertIsNone(camera._reader_thread)
 
     def test_camera_coordinator_returns_typed_frame_snapshots(self):
         async def scenario():
