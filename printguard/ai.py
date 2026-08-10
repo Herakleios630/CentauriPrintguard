@@ -9,9 +9,11 @@ import ollama
 log = logging.getLogger(__name__)
 
 SYSTEM_PROMPT = """Du bist ein sicherheitsorientiertes Überwachungssystem für einen FDM-3D-Drucker.
-Du erhältst bis zu vier zeitlich geordnete Bilder desselben Drucks. Das letzte Bild ist
-AKTUELL. Prüfe immer das aktuelle Bild und vergleiche die Objektform, Position und
-Neigung mit den älteren Bildern.
+Du erhältst zeitlich geordnete Bilder aus zwei Perspektiven: Frontansicht und Seitenansicht.
+Die Perspektiven gehören zusammen und müssen gemeinsam bewertet werden. Die Bildlabels
+enthalten Kamera und Aufnahmezeit. Prüfe die aktuellsten Bilder und vergleiche die
+Objektform, Position und Neigung mit älteren Bildern. Suche gezielt nach kleinen Objekten
+am Rand, insbesondere vorne rechts.
 
 WICHTIGE AUSNAHME - DRUCKKOPF:
 Der Druckkopf, die Düse und das Hotend sind bewegliche, erwartete Komponenten.
@@ -33,7 +35,10 @@ AUTOMATISCH PAUSENRELEVANTE KATASTROPHEN:
 Layer-Shift, Warping, Unterextrusion, Stringing, kleine Verformungen, schlechte Oberfläche
 und einzelne Düsenprobleme sind keine automatischen Pausenfehler. Melde sie als UNSICHER.
 
-Beachte: Der Druckkopf kann das Bauteil teilweise verdecken. Wenn die Objektgeometrie,
+Beachte: Der Druckkopf kann das Bauteil teilweise verdecken. Wenn eine Kamera fehlt,
+ein Bild zu alt ist oder die Perspektiven widersprüchliche Zeitpunkte zeigen, antworte
+UNSICHER. Behaupte bei nicht vergleichbarer Evidenz niemals sicher OK oder FEHLER.
+Wenn die Objektgeometrie,
 Standfläche oder mögliche Neigung wegen des Druckkopfs nicht sicher beurteilbar ist,
 antworte UNSICHER, niemals OK und niemals ABGELOEST. Ein einzelnes unauffälliges Bild
 widerlegt keinen Fehler in den älteren Bildern. Ein ABGELOEST- oder UMGEKIPPT-Befund
@@ -51,12 +56,49 @@ FEHLER: FILAMENT_OHNE_OBJEKT
 FEHLER: MATERIALKLUEMPEN
 Keine weiteren Erklärungen."""
 
+DIAGNOSTIC_SUFFIX = """
+
+ZUSATZ FÜR DEN DRY-RUN:
+Antworte zuerst mit genau einer Verdict-Zeile im vereinbarten Format.
+Danach ergänze die Abschnitte:
+BEOBACHTUNGEN_FRONT: <sichtbare relevante Beobachtungen>
+BEOBACHTUNGEN_SEITE: <sichtbare relevante Beobachtungen>
+UNSICHERHEITEN: <verdeckte oder nicht sicher bewertbare Bereiche>
+BEGRUENDUNG: <warum dieses Verdict gewählt wurde>
+Die erste Zeile bleibt die einzige maschinenlesbare Entscheidungszeile."""
+
+
+def build_analysis_prompt(frames: list[tuple[str, bytes]], diagnostic: bool = False) -> str:
+    timeline = "\n".join(f"{index + 1}. {label}" for index, (label, _) in enumerate(frames))
+    prompt = f"{SYSTEM_PROMPT}\n\nBildreihenfolge:\n{timeline}"
+    if diagnostic:
+        prompt = prompt.replace("Keine weiteren Erklärungen.", "")
+        return prompt + DIAGNOSTIC_SUFFIX
+    return prompt
+
+
+def analyze_frames_diagnostic(frames: list[tuple[str, bytes]], model: str, host: str) -> dict:
+    client = ollama.Client(host=host)
+    images = [base64.b64encode(frame).decode("utf-8") for _, frame in frames]
+    prompt = build_analysis_prompt(frames, diagnostic=True)
+    try:
+        response = client.chat(
+            model=model,
+            messages=[{"role": "user", "content": prompt, "images": images}],
+            options={"temperature": 0.1, "num_predict": 250},
+        )
+        result = response["message"]["content"].strip()
+        log.debug(f"🤖 KI-Antwort: {result}")
+        return {"prompt": prompt, "raw_response": result, "error": None}
+    except Exception as exc:
+        log.error(f"❌ Ollama-Fehler: {exc}")
+        return {"prompt": prompt, "raw_response": "", "error": str(exc)}
+
 
 def analyze_frames(frames: list[tuple[str, bytes]], model: str, host: str) -> str:
     client = ollama.Client(host=host)
     images = [base64.b64encode(frame).decode("utf-8") for _, frame in frames]
-    timeline = "\n".join(f"{index + 1}. {label}" for index, (label, _) in enumerate(frames))
-    prompt = f"{SYSTEM_PROMPT}\n\nBildreihenfolge:\n{timeline}"
+    prompt = build_analysis_prompt(frames)
     try:
         response = client.chat(
             model=model,
@@ -69,6 +111,15 @@ def analyze_frames(frames: list[tuple[str, bytes]], model: str, host: str) -> st
     except Exception as exc:
         log.error(f"❌ Ollama-Fehler: {exc}")
         return "UNKNOWN: Ollama-Analyse nicht verfügbar"
+
+
+def extract_verdict(response: str) -> str:
+    """Extract the first supported verdict line from a diagnostic response."""
+    for line in response.splitlines():
+        line = line.strip()
+        if line == "OK" or line.startswith("UNSICHER:") or line.startswith("FEHLER: "):
+            return line
+    return "UNKNOWN: Kein maschinenlesbares Verdict in der Qwen-Antwort"
 
 
 def analyze_frame(frame_now: bytes, frame_before: bytes, model: str, host: str) -> str:

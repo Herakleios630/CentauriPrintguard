@@ -1,0 +1,7 @@
+tests/pictures/*
+!tests/pictures/.gitkeep
+__pycache__/
+*.py[cod]
+logs/*
+!logs/.gitkeep
+review_frames/*

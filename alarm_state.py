@@ -64,6 +64,11 @@ class AlarmState:
         if self.state != "ALARM_PENDING":
             return AlarmResult(self.state, "STOP", self.error_count, len(self.frames))
 
+        if verdict.startswith(("UNSICHER:", "UNKNOWN:")):
+            self.frames.append(entry)
+            self.unknown_count += 1
+            return AlarmResult("ALARM_PENDING", "COLLECT", self.error_count, len(self.frames))
+
         if current_catastrophe != self.catastrophe:
             self.reset()
             return AlarmResult("IDLE", "RESET", 0, 0)
