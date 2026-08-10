@@ -87,6 +87,25 @@ class PrinterClientTests(unittest.TestCase):
 
         asyncio.run(scenario())
 
+    def test_connect_logs_missing_mainboard_id(self):
+        async def scenario():
+            client = PrinterClient("10.0.0.63")
+            websocket = FakeWebSocket()
+            with patch(
+                "printguard.printer.websockets.connect",
+                new_callable=AsyncMock,
+                return_value=websocket,
+            ), patch("printguard.printer.log.error") as error_log:
+                with self.assertRaisesRegex(TimeoutError, "Keine MainboardID"):
+                    await client.connect(timeout=0.01)
+
+            error_log.assert_any_call(
+                "❌ Drucker-Handshake fehlgeschlagen: "
+                "Keine MainboardID innerhalb des Zeitlimits empfangen."
+            )
+
+        asyncio.run(scenario())
+
     def test_pending_ack_is_released_when_connection_fails(self):
         async def scenario():
             client = PrinterClient("10.0.0.63")
