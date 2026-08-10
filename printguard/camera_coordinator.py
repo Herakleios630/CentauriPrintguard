@@ -31,6 +31,28 @@ class FrameSnapshot:
             "available": self.available,
         }
 
+def camera_availability_verdict(
+    primary: FrameSnapshot, secondary: FrameSnapshot
+) -> str | None:
+    """Return an uncertainty verdict when either required view is unavailable."""
+    if not primary.available or not secondary.available:
+        return "UNSICHER: Kameraevidenz unvollständig"
+    return None
+
+
+def camera_offset_verdict(
+    primary: FrameSnapshot,
+    secondary: FrameSnapshot,
+    max_offset: float,
+) -> str | None:
+    """Return an uncertainty verdict when camera capture times are incomparable."""
+    if primary.success_at is None or secondary.success_at is None:
+        return "UNSICHER: Kamera-Zeitstempel fehlen"
+    offset = abs(primary.success_at - secondary.success_at)
+    if offset > max_offset:
+        return f"UNSICHER: Kamera-Zeitversatz {offset:.1f}s überschreitet {max_offset:g}s"
+    return None
+
 
 class CameraCoordinator:
     """Capture the latest frame from each camera without coupling their failures."""

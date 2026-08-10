@@ -12,6 +12,11 @@ from .alarm_coordinator import pause_cooldown_active, resolve_alarm_action
 from .analysis_coordinator import run_analysis, select_labeled_frames
 from .camera import CameraCapture
 from .camera_coordinator import CameraCoordinator
+from .camera_coordinator import (
+    CameraCoordinator,
+    camera_availability_verdict,
+    camera_offset_verdict,
+)
 from .configuration import load_config
 from .diagnostics import DryRunDiagnostics
 from .printer import PrinterClient
@@ -169,11 +174,9 @@ async def main():
                     pair = dry_run_diagnostics.save_pair(check_count, view_entries, captured_at)
                 except OSError as exc:
                     log.error(f"❌ Dry-Run-Bilder konnten nicht gespeichert werden: {exc}")
-            if not primary_snapshot.available or not secondary_snapshot.available:
+            verdict = camera_availability_verdict(primary_snapshot, secondary_snapshot)
+            if verdict is not None:
                 stats.camera_errors += 1
-                verdict = "UNSICHER: Kameraevidenz unvollständig"
-            else:
-                verdict = None
             stats.checks += 1
             active_print = printer.is_active_print(active_print_statuses, status_stale_after)
             if not active_print:
@@ -238,8 +241,10 @@ async def main():
                 "print_status": printer.print_status,
             }
             review_frames.append(entry)
-            if verdict is None and time_offset is not None and time_offset > max_camera_time_offset:
-                verdict = f"UNSICHER: Kamera-Zeitversatz {time_offset:.1f}s überschreitet {max_camera_time_offset:g}s"
+            if verdict is None:
+                verdict = camera_offset_verdict(
+                    primary_snapshot, secondary_snapshot, max_camera_time_offset
+                )
             if verdict is None:
                 analysis_result = None
                 labeled_frames = select_labeled_frames(review_frames, evidence_count)

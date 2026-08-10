@@ -14,6 +14,12 @@ from printguard.alarm_coordinator import resolve_alarm_action
 from printguard.analysis_coordinator import run_analysis, select_labeled_frames
 from printguard.camera import CameraCapture, redact_url
 from printguard.camera_coordinator import CameraCoordinator
+from printguard.camera_coordinator import (
+    CameraCoordinator,
+    FrameSnapshot,
+    camera_availability_verdict,
+    camera_offset_verdict,
+)
 from printguard.configuration import load_config
 from printguard.diagnostics import DryRunDiagnostics
 from printguard.monitor import _capture_views, _pause_cooldown_active
@@ -152,6 +158,24 @@ class MultiViewTests(unittest.TestCase):
 
         asyncio.run(scenario())
 
+    def test_secondary_camera_unavailable_forces_uncertain_verdict(self):
+        primary = FrameSnapshot(b"front", "primary", "Front", "t1", 100.0, 0.0, True)
+        secondary = FrameSnapshot(None, "secondary", "Seite", None, None, None, False)
+
+        self.assertEqual(
+            camera_availability_verdict(primary, secondary),
+            "UNSICHER: Kameraevidenz unvollständig",
+        )
+
+    def test_camera_time_offset_forces_uncertain_verdict(self):
+        primary = FrameSnapshot(b"front", "primary", "Front", "t1", 100.0, 0.0, True)
+        secondary = FrameSnapshot(b"side", "secondary", "Seite", "t2", 108.0, 0.0, True)
+
+        self.assertEqual(
+            camera_offset_verdict(primary, secondary, 5),
+            "UNSICHER: Kamera-Zeitversatz 8.0s überschreitet 5s",
+        )
+
     def test_review_writes_distinct_camera_files_and_metadata(self):
         entry = {
             "frame": b"front",
@@ -258,6 +282,36 @@ class MultiViewTests(unittest.TestCase):
         self.assertEqual(alarm.catastrophe, "SPAGHETTI")
         self.assertEqual(alarm.unknown_count, 1)
         self.assertEqual(len(alarm.frames), 2)
+
+    def test_different_catastrophe_resets_pending_alarm(self):
+        alarm = AlarmState(required_errors=2)
+        alarm.observe("FEHLER: SPAGHETTI", b"front")
+
+        result = alarm.observe("FEHLER: ABGELOEST", b"front")
+
+        self.assertEqual(result.action, "RESET")
+        self.assertEqual(result.state, "IDLE")
+        self.assertIsNone(alarm.catastrophe)
+        self.assertEqual(alarm.frames, [])
+
+    def test_analysis_coordinator_preserves_timeout_diagnostics(self):
+        async def delayed_to_thread(*args, **kwargs):
+            await asyncio.sleep(0.01)
+
+        async def scenario():
+            with patch(
+                "printguard.analysis_coordinator.asyncio.to_thread",
+                side_effect=delayed_to_thread,
+            ):
+                result = await run_analysis(
+                    [("Front / Bild 1 / t1", b"front")],
+                    {"model": "qwen", "ollama_host": "http://ollama", "timeout": 0.001},
+                    diagnostic=True,
+                )
+            self.assertEqual(result.verdict, "UNKNOWN: Ollama-Analyse Timeout")
+            self.assertEqual(result.diagnostics["error"], "Ollama-Analyse Timeout")
+
+        asyncio.run(scenario())
 
     def test_ok_requires_configured_streak_to_clear_pending_alarm(self):
         alarm = AlarmState(confirmation_frames=3, required_errors=2, clear_ok_count=2)
