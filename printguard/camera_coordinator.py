@@ -2,10 +2,34 @@
 
 import asyncio
 import logging
+from dataclasses import dataclass
 
 from .camera import CameraCapture
 
 log = logging.getLogger(__name__)
+
+
+@dataclass(frozen=True)
+class FrameSnapshot:
+    """Latest frame and timing metadata for one camera."""
+
+    frame: bytes | None
+    camera_role: str
+    camera_label: str
+    captured_at: str | None
+    success_at: float | None
+    age_seconds: float | None
+    available: bool
+
+    def as_view_entry(self) -> dict:
+        return {
+            "frame": self.frame,
+            "camera_role": self.camera_role,
+            "camera_label": self.camera_label,
+            "captured_at": self.captured_at,
+            "age_seconds": self.age_seconds,
+            "available": self.available,
+        }
 
 
 class CameraCoordinator:
@@ -15,9 +39,30 @@ class CameraCoordinator:
         self.cameras = cameras
 
     async def capture_views(self) -> dict[str, bytes | None]:
-        frames = await asyncio.gather(*(self._capture_camera(camera) for camera in self.cameras))
+        snapshots = await self.capture_snapshots()
         return {
-            camera.role: frame
+            role: snapshot.frame
+            for role, snapshot in snapshots.items()
+        }
+
+    async def capture_snapshots(self, analysis_time: float | None = None) -> dict[str, FrameSnapshot]:
+        frames = await asyncio.gather(*(self._capture_camera(camera) for camera in self.cameras))
+        if analysis_time is None:
+            analysis_time = asyncio.get_running_loop().time()
+        return {
+            camera.role: FrameSnapshot(
+                frame=frame,
+                camera_role=camera.role,
+                camera_label=getattr(camera, "label", camera.role),
+                captured_at=getattr(camera, "last_captured_at", None),
+                success_at=camera.last_success_at,
+                age_seconds=(
+                    max(0.0, analysis_time - camera.last_success_at)
+                    if camera.last_success_at is not None
+                    else None
+                ),
+                available=frame is not None,
+            )
             for camera, frame in zip(self.cameras, frames)
         }
 

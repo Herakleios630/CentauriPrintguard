@@ -152,40 +152,24 @@ async def main():
                 except Exception as exc:
                     printer.mark_status_stale()
                     log.warning(f"⚠️  Regelmäßiger Status-Refresh fehlgeschlagen: {exc}")
-            current_views = await camera_coordinator.capture_views()
-            current_frame = current_views["primary"]
             captured_at = datetime.now().isoformat(timespec="seconds")
             analysis_time = asyncio.get_running_loop().time()
-            capture_times = {
-                camera.role: camera.last_success_at
-                for camera in cameras
-            }
-            if all(capture_times[camera.role] is not None for camera in cameras):
-                time_offset = abs(capture_times["primary"] - capture_times["secondary"])
+            snapshots = await camera_coordinator.capture_snapshots(analysis_time)
+            primary_snapshot = snapshots["primary"]
+            secondary_snapshot = snapshots["secondary"]
+            current_frame = primary_snapshot.frame
+            if primary_snapshot.success_at is not None and secondary_snapshot.success_at is not None:
+                time_offset = abs(primary_snapshot.success_at - secondary_snapshot.success_at)
             else:
                 time_offset = None
-            view_entries = [
-                {
-                    "frame": current_views[camera.role],
-                    "camera_role": camera.role,
-                    "camera_label": camera.label,
-                    "captured_at": camera.last_captured_at,
-                    "age_seconds": (
-                        max(0.0, analysis_time - capture_times[camera.role])
-                        if capture_times[camera.role] is not None
-                        else None
-                    ),
-                    "available": current_views[camera.role] is not None,
-                }
-                for camera in cameras
-            ]
+            view_entries = [snapshot.as_view_entry() for snapshot in snapshots.values()]
             pair = None
             if dry_run_diagnostics is not None:
                 try:
                     pair = dry_run_diagnostics.save_pair(check_count, view_entries, captured_at)
                 except OSError as exc:
                     log.error(f"❌ Dry-Run-Bilder konnten nicht gespeichert werden: {exc}")
-            if current_frame is None or current_views["secondary"] is None:
+            if not primary_snapshot.available or not secondary_snapshot.available:
                 stats.camera_errors += 1
                 verdict = "UNSICHER: Kameraevidenz unvollständig"
             else:
@@ -234,17 +218,17 @@ async def main():
                 "frame": current_frame,
                 "views": view_entries,
                 "multi_view_complete": (
-                    current_frame is not None
-                    and current_views["secondary"] is not None
+                    primary_snapshot.available
+                    and secondary_snapshot.available
                     and time_offset is not None
                     and time_offset <= max_camera_time_offset
                 ),
                 "time_offset_seconds": time_offset,
                 "analysis_max_age_seconds": max(
-                    (analysis_time - capture_times[camera.role])
-                    for camera in cameras
-                    if capture_times[camera.role] is not None
-                ) if any(capture_times[camera.role] is not None for camera in cameras) else None,
+                    snapshot.age_seconds
+                    for snapshot in snapshots.values()
+                    if snapshot.age_seconds is not None
+                ) if any(snapshot.age_seconds is not None for snapshot in snapshots.values()) else None,
                 "check": check_count,
                 "captured_at": captured_at,
                 "verdict": "UNKNOWN: Analyse ausstehend",

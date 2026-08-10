@@ -47,6 +47,16 @@ class ReconnectingCamera(FakeCamera):
         self.reconnect_calls += 1
 
 
+class SnapshotCamera:
+    role = "secondary"
+    label = "Seitenansicht"
+    last_captured_at = "2026-08-10T10:00:00.000"
+    last_success_at = 98.0
+
+    def grab_frame(self):
+        return b"side"
+
+
 class MultiViewTests(unittest.TestCase):
     def test_current_configuration_resolves_secondary_from_environment(self):
         expected_url = "rtsp://user:example-password@10.0.0.88:554/stream1"
@@ -78,6 +88,19 @@ class MultiViewTests(unittest.TestCase):
                 views = await coordinator.capture_views()
             self.assertEqual(views, {"secondary": b"side"})
             self.assertEqual(camera.reconnect_calls, 1)
+
+        asyncio.run(scenario())
+
+    def test_camera_coordinator_returns_typed_frame_snapshots(self):
+        async def scenario():
+            coordinator = CameraCoordinator([SnapshotCamera()])
+            snapshots = await coordinator.capture_snapshots(100.0)
+            snapshot = snapshots["secondary"]
+            self.assertEqual(snapshot.frame, b"side")
+            self.assertEqual(snapshot.camera_role, "secondary")
+            self.assertEqual(snapshot.age_seconds, 2.0)
+            self.assertTrue(snapshot.available)
+            self.assertEqual(snapshot.as_view_entry()["camera_label"], "Seitenansicht")
 
         asyncio.run(scenario())
 
