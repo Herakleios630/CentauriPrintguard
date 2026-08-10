@@ -6,14 +6,24 @@ from collections import deque
 from datetime import datetime
 from pathlib import Path
 from tempfile import TemporaryDirectory
-from unittest.mock import patch
+from unittest.mock import AsyncMock, Mock, patch
 
 from alarm_state import AlarmState
 from printguard.ai import build_analysis_prompt, extract_verdict
-from printguard.camera import redact_url
+from printguard.alarm_coordinator import resolve_alarm_action
+from printguard.analysis_coordinator import run_analysis, select_labeled_frames
+from printguard.camera import CameraCapture, redact_url
+from printguard.camera_coordinator import CameraCoordinator
+from printguard.camera_coordinator import (
+    CameraCoordinator,
+    FrameSnapshot,
+    camera_availability_verdict,
+    camera_offset_verdict,
+)
 from printguard.configuration import load_config
 from printguard.diagnostics import DryRunDiagnostics
-from printguard.monitor import _capture_views
+from printguard.monitor import _capture_views, _pause_cooldown_active
+from printguard.monitor_resources import MonitorResources
 from printguard.printer import PRINT_STATUS_NAMES
 from printguard.review import save_review_frames
 
@@ -27,6 +37,33 @@ class FakeCamera:
     def grab_frame(self):
         self.last_success_at = 1.0
         return self.frame
+
+
+class ReconnectingCamera(FakeCamera):
+    def __init__(self, role, frame):
+        super().__init__(role, frame)
+        self.label = role
+        self.reconnect_calls = 0
+        self.failed_once = True
+
+    def grab_frame(self):
+        if self.failed_once:
+            self.failed_once = False
+            raise RuntimeError("stream unavailable")
+        return super().grab_frame()
+
+    def reconnect(self):
+        self.reconnect_calls += 1
+
+
+class SnapshotCamera:
+    role = "secondary"
+    label = "Seitenansicht"
+    last_captured_at = "2026-08-10T10:00:00.000"
+    last_success_at = 98.0
+
+    def grab_frame(self):
+        return b"side"
 
 
 class MultiViewTests(unittest.TestCase):
@@ -51,6 +88,93 @@ class MultiViewTests(unittest.TestCase):
         cameras = [FakeCamera("primary", b"front"), FakeCamera("secondary", b"side")]
         frames = asyncio.run(_capture_views(cameras))
         self.assertEqual(frames, {"primary": b"front", "secondary": b"side"})
+
+    def test_camera_coordinator_reconnects_failed_camera_independently(self):
+        async def scenario():
+            camera = ReconnectingCamera("secondary", b"side")
+            coordinator = CameraCoordinator([camera])
+            with patch("printguard.camera_coordinator.asyncio.sleep", new_callable=AsyncMock):
+                views = await coordinator.capture_views()
+            self.assertEqual(views, {"secondary": b"side"})
+            self.assertEqual(camera.reconnect_calls, 1)
+
+        asyncio.run(scenario())
+
+    def test_camera_release_releases_capture_before_reader_join(self):
+        camera = CameraCapture("http://camera", label="Frontansicht")
+        capture = Mock()
+        reader = Mock()
+        reader.is_alive.return_value = True
+        camera.cap = capture
+        camera._reader_thread = reader
+
+        with patch("printguard.camera.log.warning") as warning:
+            camera.release()
+
+        capture.release.assert_called_once_with()
+        reader.join.assert_called_once_with(timeout=2)
+        warning.assert_called_once()
+        self.assertIsNone(camera.cap)
+        self.assertIsNone(camera._reader_thread)
+
+    def test_camera_reconnect_reopens_capture_and_releases_previous_stream(self):
+        first_capture = Mock()
+        second_capture = Mock()
+        first_capture.isOpened.return_value = True
+        second_capture.isOpened.return_value = True
+        first_reader = Mock()
+        second_reader = Mock()
+        first_reader.is_alive.return_value = False
+        second_reader.is_alive.return_value = False
+        camera = CameraCapture("http://camera", role="secondary", label="Seitenansicht")
+
+        with patch(
+            "printguard.camera.cv2.VideoCapture",
+            side_effect=[first_capture, second_capture],
+        ), patch(
+            "printguard.camera.threading.Thread",
+            side_effect=[first_reader, second_reader],
+        ):
+            camera.open()
+            camera.reconnect()
+
+        self.assertEqual(camera.reconnect_count, 1)
+        self.assertIs(camera.cap, second_capture)
+        self.assertIs(camera._reader_thread, second_reader)
+        first_capture.release.assert_called_once_with()
+        first_reader.join.assert_called_once_with(timeout=2)
+        second_reader.start.assert_called_once_with()
+
+    def test_camera_coordinator_returns_typed_frame_snapshots(self):
+        async def scenario():
+            coordinator = CameraCoordinator([SnapshotCamera()])
+            snapshots = await coordinator.capture_snapshots(100.0)
+            snapshot = snapshots["secondary"]
+            self.assertEqual(snapshot.frame, b"side")
+            self.assertEqual(snapshot.camera_role, "secondary")
+            self.assertEqual(snapshot.age_seconds, 2.0)
+            self.assertTrue(snapshot.available)
+            self.assertEqual(snapshot.as_view_entry()["camera_label"], "Seitenansicht")
+
+        asyncio.run(scenario())
+
+    def test_secondary_camera_unavailable_forces_uncertain_verdict(self):
+        primary = FrameSnapshot(b"front", "primary", "Front", "t1", 100.0, 0.0, True)
+        secondary = FrameSnapshot(None, "secondary", "Seite", None, None, None, False)
+
+        self.assertEqual(
+            camera_availability_verdict(primary, secondary),
+            "UNSICHER: Kameraevidenz unvollständig",
+        )
+
+    def test_camera_time_offset_forces_uncertain_verdict(self):
+        primary = FrameSnapshot(b"front", "primary", "Front", "t1", 100.0, 0.0, True)
+        secondary = FrameSnapshot(b"side", "secondary", "Seite", "t2", 108.0, 0.0, True)
+
+        self.assertEqual(
+            camera_offset_verdict(primary, secondary, 5),
+            "UNSICHER: Kamera-Zeitversatz 8.0s überschreitet 5s",
+        )
 
     def test_review_writes_distinct_camera_files_and_metadata(self):
         entry = {
@@ -109,6 +233,44 @@ class MultiViewTests(unittest.TestCase):
         self.assertIn("BEOBACHTUNGEN_FRONT", prompt)
         self.assertEqual(extract_verdict("UNSICHER: Druckkopf verdeckt\nBEGRUENDUNG: unklar"), "UNSICHER: Druckkopf verdeckt")
 
+    def test_analysis_evidence_selects_newest_available_labeled_frames(self):
+        entries = [
+            {
+                "check": 1,
+                "views": [
+                    {"camera_label": "Front", "captured_at": "t1", "frame": b"old", "available": True},
+                    {"camera_label": "Seite", "captured_at": "t1", "frame": None, "available": False},
+                ],
+            },
+            {
+                "check": 2,
+                "views": [
+                    {"camera_label": "Front", "captured_at": "t2", "frame": b"new", "available": True},
+                ],
+            },
+        ]
+
+        self.assertEqual(
+            select_labeled_frames(entries, 1),
+            [("Front / Bild 2 / t2", b"new")],
+        )
+
+    def test_analysis_coordinator_preserves_diagnostic_result(self):
+        async def scenario():
+            with patch(
+                "printguard.analysis_coordinator.analyze_frames_diagnostic",
+                return_value={"prompt": "p", "raw_response": "OK", "error": None},
+            ):
+                result = await run_analysis(
+                    [("Front / Bild 1 / t1", b"front")],
+                    {"model": "qwen", "ollama_host": "http://ollama"},
+                    diagnostic=True,
+                )
+            self.assertEqual(result.verdict, "OK")
+            self.assertEqual(result.diagnostics["prompt"], "p")
+
+        asyncio.run(scenario())
+
     def test_uncertain_evidence_preserves_pending_alarm(self):
         alarm = AlarmState(required_errors=2)
         first = alarm.observe("FEHLER: SPAGHETTI", b"front")
@@ -120,6 +282,81 @@ class MultiViewTests(unittest.TestCase):
         self.assertEqual(alarm.catastrophe, "SPAGHETTI")
         self.assertEqual(alarm.unknown_count, 1)
         self.assertEqual(len(alarm.frames), 2)
+
+    def test_different_catastrophe_resets_pending_alarm(self):
+        alarm = AlarmState(required_errors=2)
+        alarm.observe("FEHLER: SPAGHETTI", b"front")
+
+        result = alarm.observe("FEHLER: ABGELOEST", b"front")
+
+        self.assertEqual(result.action, "RESET")
+        self.assertEqual(result.state, "IDLE")
+        self.assertIsNone(alarm.catastrophe)
+        self.assertEqual(alarm.frames, [])
+
+    def test_analysis_coordinator_preserves_timeout_diagnostics(self):
+        async def delayed_to_thread(*args, **kwargs):
+            await asyncio.sleep(0.01)
+
+        async def scenario():
+            with patch(
+                "printguard.analysis_coordinator.asyncio.to_thread",
+                side_effect=delayed_to_thread,
+            ):
+                result = await run_analysis(
+                    [("Front / Bild 1 / t1", b"front")],
+                    {"model": "qwen", "ollama_host": "http://ollama", "timeout": 0.001},
+                    diagnostic=True,
+                )
+            self.assertEqual(result.verdict, "UNKNOWN: Ollama-Analyse Timeout")
+            self.assertEqual(result.diagnostics["error"], "Ollama-Analyse Timeout")
+
+        asyncio.run(scenario())
+
+    def test_ok_requires_configured_streak_to_clear_pending_alarm(self):
+        alarm = AlarmState(confirmation_frames=3, required_errors=2, clear_ok_count=2)
+
+        alarm.observe("FEHLER: SPAGHETTI", b"front")
+        first_ok = alarm.observe("OK", b"front")
+        cleared = alarm.observe("OK", b"front")
+
+        self.assertEqual(first_ok.action, "COLLECT")
+        self.assertEqual(first_ok.state, "ALARM_PENDING")
+        self.assertEqual(cleared.action, "RESET")
+        self.assertEqual(cleared.state, "ALARM_CLEARED")
+        self.assertEqual(alarm.ok_streak, 2)
+
+    def test_pause_cooldown_only_defers_until_expired(self):
+        self.assertTrue(_pause_cooldown_active(100.0, 120.0, 60.0))
+        self.assertFalse(_pause_cooldown_active(100.0, 160.0, 60.0))
+        self.assertFalse(_pause_cooldown_active(None, 120.0, 60.0))
+
+    def test_alarm_coordinator_defers_only_pause_actions(self):
+        alarm = AlarmState(required_errors=1)
+        alarm.observe("FEHLER: SPAGHETTI", b"front")
+        pause = alarm.observe("FEHLER: SPAGHETTI", b"front")
+        deferred = resolve_alarm_action(pause, 100.0, 120.0, 60.0)
+        collected = AlarmState(required_errors=2).observe("FEHLER: SPAGHETTI", b"front")
+        unchanged = resolve_alarm_action(collected, 100.0, 120.0, 60.0)
+
+        self.assertEqual(deferred.action, "DEFER_PAUSE")
+        self.assertEqual(deferred.remaining_cooldown, 40.0)
+        self.assertEqual(unchanged.action, "COLLECT")
+
+    def test_monitor_resources_close_is_idempotent(self):
+        async def scenario():
+            camera_coordinator = Mock()
+            printer = Mock()
+            printer.close = AsyncMock()
+            resources = MonitorResources(camera_coordinator, printer)
+
+            await resources.close()
+            await resources.close()
+
+            camera_coordinator.close_all.assert_called_once_with()
+            printer.close.assert_awaited_once_with()
+
+        asyncio.run(scenario())
 
     def test_diagnostic_prompt_is_saved_once_and_referenced(self):
         with TemporaryDirectory() as directory:

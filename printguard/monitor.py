@@ -7,42 +7,32 @@ from collections import deque
 from datetime import datetime
 
 from alarm_state import AlarmState
-from .ai import analyze_frames, analyze_frames_diagnostic, catastrophe_type, check_ollama_startup, extract_verdict, normalize_verdict, unload_ollama_model_async
+from .ai import catastrophe_type, check_ollama_startup, normalize_verdict, unload_ollama_model_async
+from .alarm_coordinator import pause_cooldown_active, resolve_alarm_action
+from .analysis_coordinator import run_analysis, select_labeled_frames
 from .camera import CameraCapture
+from .camera_coordinator import CameraCoordinator
+from .camera_coordinator import (
+    CameraCoordinator,
+    camera_availability_verdict,
+    camera_offset_verdict,
+)
 from .configuration import load_config
 from .diagnostics import DryRunDiagnostics
 from .printer import PrinterClient
 from .review import rotate_logs, save_review_frames
+from .monitor_resources import MonitorResources
 from .stats import MonitorStats
 
 log = logging.getLogger(__name__)
 
 
-async def _capture_camera(camera: CameraCapture) -> bytes | None:
-    """Read one frame and reconnect only the camera that failed."""
-    try:
-        return await asyncio.to_thread(camera.grab_frame)
-    except RuntimeError as exc:
-        log.error(f"❌ {camera.label}-Fehler: {exc}")
-        for attempt in range(1, 4):
-            try:
-                await asyncio.sleep(1)
-                await asyncio.to_thread(camera.reconnect)
-                frame = await asyncio.to_thread(camera.grab_frame)
-                log.info(f"✅ {camera.label}-Reconnect erfolgreich (Versuch {attempt}/3).")
-                return frame
-            except RuntimeError as reconnect_exc:
-                log.warning(
-                    f"⚠️  {camera.label}-Reconnect {attempt}/3 fehlgeschlagen: "
-                    f"{reconnect_exc}"
-                )
-        log.error(f"❌ {camera.label} bleibt nicht verfügbar; nächster Check versucht es erneut.")
-        return None
+_pause_cooldown_active = pause_cooldown_active
 
 
 async def _capture_views(cameras: list[CameraCapture]) -> dict[str, bytes | None]:
-    frames = await asyncio.gather(*(_capture_camera(camera) for camera in cameras))
-    return {camera.role: frame for camera, frame in zip(cameras, frames)}
+    """Compatibility wrapper for callers using the former helper."""
+    return await CameraCoordinator(cameras).capture_views()
 
 
 def parse_args():
@@ -131,13 +121,12 @@ async def main():
             label=camera_configs["secondary"].get("label", "Seitenansicht"),
         ),
     ]
+    camera_coordinator = CameraCoordinator(cameras)
+    resources = MonitorResources(camera_coordinator, printer)
     try:
-        for camera in cameras:
-            camera.open()
+        camera_coordinator.open_all()
     except Exception:
-        for camera in cameras:
-            camera.release()
-        await printer.close()
+        await resources.close()
         raise
     await asyncio.sleep(2)
     if not printer.is_active_print(active_print_statuses):
@@ -147,9 +136,7 @@ async def main():
         )
     initial_views = await _capture_views(cameras)
     if any(frame is None for frame in initial_views.values()):
-        for camera in cameras:
-            camera.release()
-        await printer.close()
+        await resources.close()
         raise RuntimeError("Beide Kamera-Streams müssen für den Start verfügbar sein.")
     previous_frame = initial_views["primary"]
     review_frames = deque(maxlen=review_count)
@@ -170,44 +157,26 @@ async def main():
                 except Exception as exc:
                     printer.mark_status_stale()
                     log.warning(f"⚠️  Regelmäßiger Status-Refresh fehlgeschlagen: {exc}")
-            current_views = await _capture_views(cameras)
-            current_frame = current_views["primary"]
             captured_at = datetime.now().isoformat(timespec="seconds")
             analysis_time = asyncio.get_running_loop().time()
-            capture_times = {
-                camera.role: camera.last_success_at
-                for camera in cameras
-            }
-            if all(capture_times[camera.role] is not None for camera in cameras):
-                time_offset = abs(capture_times["primary"] - capture_times["secondary"])
+            snapshots = await camera_coordinator.capture_snapshots(analysis_time)
+            primary_snapshot = snapshots["primary"]
+            secondary_snapshot = snapshots["secondary"]
+            current_frame = primary_snapshot.frame
+            if primary_snapshot.success_at is not None and secondary_snapshot.success_at is not None:
+                time_offset = abs(primary_snapshot.success_at - secondary_snapshot.success_at)
             else:
                 time_offset = None
-            view_entries = [
-                {
-                    "frame": current_views[camera.role],
-                    "camera_role": camera.role,
-                    "camera_label": camera.label,
-                    "captured_at": camera.last_captured_at,
-                    "age_seconds": (
-                        max(0.0, analysis_time - capture_times[camera.role])
-                        if capture_times[camera.role] is not None
-                        else None
-                    ),
-                    "available": current_views[camera.role] is not None,
-                }
-                for camera in cameras
-            ]
+            view_entries = [snapshot.as_view_entry() for snapshot in snapshots.values()]
             pair = None
             if dry_run_diagnostics is not None:
                 try:
                     pair = dry_run_diagnostics.save_pair(check_count, view_entries, captured_at)
                 except OSError as exc:
                     log.error(f"❌ Dry-Run-Bilder konnten nicht gespeichert werden: {exc}")
-            if current_frame is None or current_views["secondary"] is None:
+            verdict = camera_availability_verdict(primary_snapshot, secondary_snapshot)
+            if verdict is not None:
                 stats.camera_errors += 1
-                verdict = "UNSICHER: Kameraevidenz unvollständig"
-            else:
-                verdict = None
             stats.checks += 1
             active_print = printer.is_active_print(active_print_statuses, status_stale_after)
             if not active_print:
@@ -252,17 +221,17 @@ async def main():
                 "frame": current_frame,
                 "views": view_entries,
                 "multi_view_complete": (
-                    current_frame is not None
-                    and current_views["secondary"] is not None
+                    primary_snapshot.available
+                    and secondary_snapshot.available
                     and time_offset is not None
                     and time_offset <= max_camera_time_offset
                 ),
                 "time_offset_seconds": time_offset,
                 "analysis_max_age_seconds": max(
-                    (analysis_time - capture_times[camera.role])
-                    for camera in cameras
-                    if capture_times[camera.role] is not None
-                ) if any(capture_times[camera.role] is not None for camera in cameras) else None,
+                    snapshot.age_seconds
+                    for snapshot in snapshots.values()
+                    if snapshot.age_seconds is not None
+                ) if any(snapshot.age_seconds is not None for snapshot in snapshots.values()) else None,
                 "check": check_count,
                 "captured_at": captured_at,
                 "verdict": "UNKNOWN: Analyse ausstehend",
@@ -272,50 +241,20 @@ async def main():
                 "print_status": printer.print_status,
             }
             review_frames.append(entry)
-            if verdict is None and time_offset is not None and time_offset > max_camera_time_offset:
-                verdict = f"UNSICHER: Kamera-Zeitversatz {time_offset:.1f}s überschreitet {max_camera_time_offset:g}s"
+            if verdict is None:
+                verdict = camera_offset_verdict(
+                    primary_snapshot, secondary_snapshot, max_camera_time_offset
+                )
             if verdict is None:
                 analysis_result = None
-                try:
-                    evidence = list(review_frames)[-max(1, evidence_count):]
-                    labeled_frames = [
-                        (
-                            f"{view['camera_label']} / Bild {item['check']} / {view['captured_at']}",
-                            view["frame"],
-                        )
-                        for item in evidence
-                        for view in item["views"]
-                        if view["available"]
-                    ]
-                    if dry_run_diagnostics is not None:
-                        analysis_result = await asyncio.wait_for(
-                            asyncio.to_thread(
-                                analyze_frames_diagnostic,
-                                labeled_frames,
-                                ai_config["model"],
-                                ai_config["ollama_host"],
-                            ),
-                            ai_config.get("timeout", 120),
-                        )
-                        verdict = extract_verdict(analysis_result["raw_response"])
-                    else:
-                        verdict = await asyncio.wait_for(
-                            asyncio.to_thread(
-                                analyze_frames,
-                                labeled_frames,
-                                ai_config["model"],
-                                ai_config["ollama_host"],
-                            ),
-                            ai_config.get("timeout", 120),
-                        )
-                except asyncio.TimeoutError:
-                    verdict = "UNKNOWN: Ollama-Analyse Timeout"
-                    log.error("❌ Ollama-Analyse überschreitet das Timeout.")
-                    analysis_result = {
-                        "prompt": None,
-                        "raw_response": "",
-                        "error": "Ollama-Analyse Timeout",
-                    }
+                labeled_frames = select_labeled_frames(review_frames, evidence_count)
+                result = await run_analysis(
+                    labeled_frames,
+                    ai_config,
+                    diagnostic=dry_run_diagnostics is not None,
+                )
+                verdict = result.verdict
+                analysis_result = result.diagnostics
             verdict = normalize_verdict(verdict)
             entry["verdict"] = verdict
             if dry_run_diagnostics is not None and pair is not None:
@@ -338,33 +277,33 @@ async def main():
             if alarm.state == "IDLE" and catastrophe_type(verdict) is not None:
                 alarm.normal_reference = previous_frame
             result = alarm.observe(verdict, current_frame, entry)
-            if result.action == "CONTINUE":
+            decision = resolve_alarm_action(result, last_pause, asyncio.get_running_loop().time(), pause_cooldown)
+            if decision.action == "CONTINUE":
                 log.info(f"   ✅ {verdict}")
-            elif result.action == "COLLECT":
+            elif decision.action == "COLLECT":
                 log.warning(f"   ⚠️  Alarmprüfung: {verdict} ({result.error_count} Fehler, {result.confirmation_count}/{alarm_frames_count} Bilder)")
                 if pending_review_enabled and result.confirmation_count == 1:
                     pending_context = {"reason": verdict, "alarm": alarm.context(), "pending": True}
                     save_review_frames(deque(review_frames, maxlen=review_count), review_dir, datetime.now(), context=pending_context)
-            elif result.action == "RESET":
+            elif decision.action == "RESET":
                 log.info(f"   ✅ Alarm verworfen: {result.error_count}/{result.confirmation_count} Bestätigungsfehler.")
                 alarm.reset()
-            elif result.action == "PAUSE":
+            elif decision.action in ("PAUSE", "DEFER_PAUSE"):
                 pause_time = datetime.now()
                 context = {"reason": verdict, "error_count": result.error_count, "task_id": printer.print_info.get("TaskId"), "filename": printer.print_info.get("Filename"), "current_layer": printer.print_info.get("CurrentLayer"), "total_layer": printer.print_info.get("TotalLayer"), "current_status": printer.current_status, "print_status": printer.print_status, "temperature_nozzle": printer.status_data.get("TempOfNozzle", "?"), "captured_at": pause_time.isoformat(timespec="seconds"), "dry_run": dry_run, "alarm": alarm.context()}
                 try:
                     save_review_frames(deque(alarm.frames, maxlen=review_count), review_dir, pause_time, context=context)
                 except OSError as exc:
                     log.error(f"❌ Gegencheck-Bilder konnten nicht gespeichert werden: {exc}")
-                now = asyncio.get_running_loop().time()
-                if last_pause is not None and now - last_pause < pause_cooldown:
-                    log.error(f"⏳ Pause-Cooldown aktiv; nächster Versuch in {pause_cooldown - (now - last_pause):.1f}s.")
-                    if dry_run:
-                        alarm.reset()
-                        set_state("MONITORING")
-                        previous_frame = current_frame
-                        continue
-                    set_state("ERROR")
-                    break
+                if decision.action == "DEFER_PAUSE":
+                    log.warning(
+                        f"⏳ Pause-Cooldown aktiv; Alarm wird weiter beobachtet. "
+                        f"Nächster Versuch in {decision.remaining_cooldown:.1f}s."
+                    )
+                    alarm.reset()
+                    set_state("MONITORING")
+                    previous_frame = current_frame
+                    continue
                 last_pause = now
                 stats.pause_attempts += 1
                 set_state("PAUSING")
@@ -401,7 +340,5 @@ async def main():
         log.info(stats.summary(state))
         if unload_on_exit:
             await unload_ollama_model_async(ai_config["model"], ai_config["ollama_host"], unload_timeout)
-        for camera in cameras:
-            camera.release()
-        await printer.close()
+        await resources.close()
         log.info("🏁 PrintGuard beendet.")
