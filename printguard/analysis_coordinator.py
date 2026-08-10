@@ -5,7 +5,12 @@ import logging
 from collections.abc import Iterable
 from dataclasses import dataclass
 
-from .ai import analyze_frames, analyze_frames_diagnostic, extract_verdict
+from .ai import (
+    analyze_frames,
+    analyze_frames_diagnostic,
+    extract_verdict,
+    guard_diagnostic_verdict,
+)
 
 log = logging.getLogger(__name__)
 
@@ -52,8 +57,9 @@ async def run_analysis(
                 ),
                 timeout,
             )
+            verdict = extract_verdict(diagnostics["raw_response"])
             return AnalysisResult(
-                verdict=extract_verdict(diagnostics["raw_response"]),
+                verdict=guard_diagnostic_verdict(verdict, diagnostics),
                 diagnostics=diagnostics,
             )
         verdict = await asyncio.wait_for(

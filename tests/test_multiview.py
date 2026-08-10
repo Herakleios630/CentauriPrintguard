@@ -9,7 +9,7 @@ from tempfile import TemporaryDirectory
 from unittest.mock import AsyncMock, Mock, patch
 
 from alarm_state import AlarmState
-from printguard.ai import build_analysis_prompt, extract_verdict
+from printguard.ai import build_analysis_prompt, extract_verdict, guard_diagnostic_verdict
 from printguard.alarm_coordinator import resolve_alarm_action
 from printguard.analysis_coordinator import run_analysis, select_labeled_frames
 from printguard.camera import CameraCapture, redact_url
@@ -231,7 +231,24 @@ class MultiViewTests(unittest.TestCase):
     def test_diagnostic_prompt_and_verdict_extraction(self):
         prompt = build_analysis_prompt([("Frontansicht / Bild 1", b"front")], diagnostic=True)
         self.assertIn("BEOBACHTUNGEN_FRONT", prompt)
+        self.assertIn("EVIDENZ: POSITIV oder EVIDENZ: UNKLAR", prompt)
         self.assertEqual(extract_verdict("UNSICHER: Druckkopf verdeckt\nBEGRUENDUNG: unklar"), "UNSICHER: Druckkopf verdeckt")
+
+    def test_diagnostic_catastrophe_requires_positive_evidence(self):
+        self.assertEqual(
+            guard_diagnostic_verdict(
+                "FEHLER: ABGELOEST",
+                {"raw_response": "FEHLER: ABGELOEST"},
+            ),
+            "UNSICHER: Positiver Sichtbeleg für Katastrophe fehlt oder ist verdeckt",
+        )
+        self.assertEqual(
+            guard_diagnostic_verdict(
+                "FEHLER: ABGELOEST",
+                {"raw_response": "FEHLER: ABGELOEST\nEVIDENZ: POSITIV"},
+            ),
+            "FEHLER: ABGELOEST",
+        )
 
     def test_analysis_evidence_selects_newest_available_labeled_frames(self):
         entries = [

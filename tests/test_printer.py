@@ -7,8 +7,9 @@ from printguard.printer import PrinterClient
 
 
 class FakeWebSocket:
-    def __init__(self):
+    def __init__(self, discovery_mainboard_id=None):
         self.messages = asyncio.Queue()
+        self.discovery_mainboard_id = discovery_mainboard_id
         self.sent = []
         self.closed = False
         self.close_code = 1000
@@ -34,14 +35,17 @@ class FakeWebSocket:
         payload = json.loads(raw)
         request_id = payload["Data"]["RequestID"]
         if payload["Data"]["Cmd"] == 0:
-            await self.messages.put(json.dumps({
+            response = {
                 "Topic": "sdcp/response/test",
                 "Data": {
                     "RequestID": request_id,
                     "Cmd": 0,
                     "Data": {"Ack": 0},
                 },
-            }))
+            }
+            if self.discovery_mainboard_id:
+                response["MainboardID"] = self.discovery_mainboard_id
+            await self.messages.put(json.dumps(response))
             await self.messages.put(json.dumps({
                 "Topic": "sdcp/status/test",
                 "Status": {
@@ -84,6 +88,46 @@ class PrinterClientTests(unittest.TestCase):
                 if message != "pong"
             ))
             await client.close()
+
+        asyncio.run(scenario())
+
+    def test_connect_discovers_mainboard_id_without_notify(self):
+        async def scenario():
+            websocket = FakeWebSocket(discovery_mainboard_id="board-discovered")
+            client = PrinterClient("10.0.0.63")
+            with patch(
+                "printguard.printer.websockets.connect",
+                new_callable=AsyncMock,
+                return_value=websocket,
+            ):
+                await client.connect(timeout=1)
+
+            self.assertEqual(client.mainboard_id, "board-discovered")
+            self.assertTrue(any(
+                json.loads(message)["Topic"] == "sdcp/request/"
+                for message in websocket.sent
+                if message != "pong"
+            ))
+            await client.close()
+
+        asyncio.run(scenario())
+
+    def test_connect_logs_missing_mainboard_id(self):
+        async def scenario():
+            client = PrinterClient("10.0.0.63")
+            websocket = FakeWebSocket()
+            with patch(
+                "printguard.printer.websockets.connect",
+                new_callable=AsyncMock,
+                return_value=websocket,
+            ), patch("printguard.printer.log.error") as error_log:
+                with self.assertRaisesRegex(TimeoutError, "Keine MainboardID"):
+                    await client.connect(timeout=0.01)
+
+            error_log.assert_any_call(
+                "❌ Drucker-Handshake fehlgeschlagen: "
+                "Keine MainboardID innerhalb des Zeitlimits empfangen."
+            )
 
         asyncio.run(scenario())
 

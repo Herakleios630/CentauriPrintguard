@@ -88,10 +88,23 @@ class PrinterClient:
             raise TimeoutError(f"Drucker-Reconnect überschreitet {timeout:.0f}s: {exc}") from exc
 
     async def _wait_for_refresh(self, timeout: float):
+        deadline = asyncio.get_running_loop().time() + timeout
         try:
-            await asyncio.wait_for(self._refresh_ready.wait(), timeout=timeout)
+            await asyncio.wait_for(
+                self._connection_ready.wait(),
+                timeout=max(0, deadline - asyncio.get_running_loop().time()),
+            )
         except asyncio.TimeoutError as exc:
-            raise TimeoutError("Kein bestätigter Status-Refresh innerhalb des Zeitlimits.") from exc
+            message = "Keine MainboardID innerhalb des Zeitlimits empfangen."
+            log.error(f"❌ Drucker-Handshake fehlgeschlagen: {message}")
+            raise TimeoutError(message) from exc
+        remaining = max(0, deadline - asyncio.get_running_loop().time())
+        try:
+            await asyncio.wait_for(self._refresh_ready.wait(), timeout=remaining)
+        except asyncio.TimeoutError as exc:
+            message = "Kein bestätigter Status-Refresh innerhalb des Zeitlimits."
+            log.error(f"❌ Drucker-Status-Refresh fehlgeschlagen: {message}")
+            raise TimeoutError(message) from exc
         if self._refresh_error:
             raise self._refresh_error
         log.info(
@@ -114,6 +127,7 @@ class PrinterClient:
                 self._refresh_ready.clear()
                 self._refresh_error = None
                 log.info("✅ WebSocket-Transport geöffnet; warte auf MainboardID.")
+                await self._request_mainboard_id()
                 async for raw in self.ws:
                     data = self._parse_message(raw)
                     if data:
@@ -161,6 +175,23 @@ class PrinterClient:
             had_connection = True
         if had_connection:
             log.info("🛑 WebSocket-Reader beendet.")
+
+    async def _request_mainboard_id(self):
+        request_id = str(uuid.uuid4())
+        payload = {
+            "Id": str(uuid.uuid4()),
+            "Data": {
+                "Cmd": 0,
+                "Data": {},
+                "RequestID": request_id,
+                "MainboardID": "",
+                "TimeStamp": int(time.time()),
+                "From": 0,
+            },
+            "Topic": "sdcp/request/",
+        }
+        await self.ws.send(json.dumps(payload, separators=(",", ":")))
+        log.info("📤 Fordere MainboardID über SDCP-Discovery an.")
 
     async def _refresh_after_connection(self, generation: int):
         try:
