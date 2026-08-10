@@ -127,6 +127,7 @@ class PrinterClient:
                 self._refresh_ready.clear()
                 self._refresh_error = None
                 log.info("✅ WebSocket-Transport geöffnet; warte auf MainboardID.")
+                await self._request_mainboard_id()
                 async for raw in self.ws:
                     data = self._parse_message(raw)
                     if data:
@@ -174,6 +175,23 @@ class PrinterClient:
             had_connection = True
         if had_connection:
             log.info("🛑 WebSocket-Reader beendet.")
+
+    async def _request_mainboard_id(self):
+        request_id = str(uuid.uuid4())
+        payload = {
+            "Id": str(uuid.uuid4()),
+            "Data": {
+                "Cmd": 0,
+                "Data": {},
+                "RequestID": request_id,
+                "MainboardID": "",
+                "TimeStamp": int(time.time()),
+                "From": 0,
+            },
+            "Topic": "sdcp/request/",
+        }
+        await self.ws.send(json.dumps(payload, separators=(",", ":")))
+        log.info("📤 Fordere MainboardID über SDCP-Discovery an.")
 
     async def _refresh_after_connection(self, generation: int):
         try:
