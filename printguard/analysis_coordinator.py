@@ -10,6 +10,9 @@ from .ai import (
     analyze_frames_diagnostic,
     extract_verdict,
     guard_diagnostic_verdict,
+    verification_accepts,
+    verify_catastrophe,
+    catastrophe_type,
 )
 
 log = logging.getLogger(__name__)
@@ -46,6 +49,7 @@ async def run_analysis(
 ) -> AnalysisResult:
     """Run one bounded vision request and preserve diagnostic details."""
     timeout = ai_config.get("timeout", 120)
+    started_at = asyncio.get_running_loop().time()
     try:
         if diagnostic:
             diagnostics = await asyncio.wait_for(
@@ -58,6 +62,26 @@ async def run_analysis(
                 timeout,
             )
             verdict = extract_verdict(diagnostics["raw_response"])
+            if catastrophe_type(verdict) is not None:
+                remaining = timeout - (asyncio.get_running_loop().time() - started_at)
+                if remaining <= 0:
+                    return AnalysisResult(
+                        verdict="UNSICHER: Gegenprüfung nicht mehr innerhalb des Zeitlimits möglich",
+                        diagnostics=diagnostics,
+                    )
+                verification = await asyncio.wait_for(
+                    asyncio.to_thread(
+                        verify_catastrophe,
+                        labeled_frames,
+                        catastrophe_type(verdict),
+                        ai_config["model"],
+                        ai_config["ollama_host"],
+                    ),
+                    remaining,
+                )
+                diagnostics["verification"] = verification
+                if not verification_accepts(verdict, verification):
+                    verdict = "UNSICHER: Gegenprüfung bestätigt keinen direkten Sichtbeleg"
             return AnalysisResult(
                 verdict=guard_diagnostic_verdict(verdict, diagnostics),
                 diagnostics=diagnostics,
@@ -71,6 +95,25 @@ async def run_analysis(
             ),
             timeout,
         )
+        candidate = catastrophe_type(verdict)
+        if candidate is not None:
+            remaining = timeout - (asyncio.get_running_loop().time() - started_at)
+            if remaining <= 0:
+                return AnalysisResult(
+                    verdict="UNSICHER: Gegenprüfung nicht mehr innerhalb des Zeitlimits möglich"
+                )
+            verification = await asyncio.wait_for(
+                asyncio.to_thread(
+                    verify_catastrophe,
+                    labeled_frames,
+                    candidate,
+                    ai_config["model"],
+                    ai_config["ollama_host"],
+                ),
+                remaining,
+            )
+            if not verification_accepts(verdict, verification):
+                verdict = "UNSICHER: Gegenprüfung bestätigt keinen direkten Sichtbeleg"
         return AnalysisResult(verdict=verdict)
     except asyncio.TimeoutError:
         log.error("❌ Ollama-Analyse überschreitet das Timeout.")

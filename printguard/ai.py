@@ -71,6 +71,19 @@ Beleg für die gemeldete Katastrophe zeigt. Bei Druckkopf-Verdeckung, fehlender
 Objektkontur oder nicht sicher vergleichbarer Standfläche setze EVIDENZ: UNKLAR.
 Die erste Zeile bleibt die einzige maschinenlesbare Entscheidungszeile."""
 
+VERIFICATION_PROMPT = """Du bist ein unabhängiger Gegenprüfer für einen möglichen 3D-Druckfehler.
+Prüfe die Bilder erneut und widersprich dem Kandidaten, wenn der direkte sichtbare
+Beleg fehlt. Druckkopf, Düse, Hotend, Schatten, Reflexionen und Verdeckung sind
+kein Fehlerbeleg. Bei unklarer Sicht antworte NEIN.
+
+Möglicher Kandidat: {candidate}
+
+Antworte ausschließlich mit genau diesen vier Zeilen:
+BESTAETIGT: JA oder BESTAETIGT: NEIN
+KATEGORIE: <Kandidat oder KEINE>
+DIREKTER_BELEG: JA oder DIREKTER_BELEG: NEIN
+BEGRUENDUNG: <kurze sichtbare Begründung>"""
+
 
 def build_analysis_prompt(frames: list[tuple[str, bytes]], diagnostic: bool = False) -> str:
     timeline = "\n".join(f"{index + 1}. {label}" for index, (label, _) in enumerate(frames))
@@ -97,6 +110,44 @@ def analyze_frames_diagnostic(frames: list[tuple[str, bytes]], model: str, host:
     except Exception as exc:
         log.error(f"❌ Ollama-Fehler: {exc}")
         return {"prompt": prompt, "raw_response": "", "error": str(exc)}
+
+
+def verify_catastrophe(
+    frames: list[tuple[str, bytes]], candidate: str, model: str, host: str
+) -> dict:
+    """Run an independent challenge pass before accepting a catastrophe candidate."""
+    client = ollama.Client(host=host)
+    images = [base64.b64encode(frame).decode("utf-8") for _, frame in frames]
+    prompt = VERIFICATION_PROMPT.format(candidate=candidate)
+    try:
+        response = client.chat(
+            model=model,
+            messages=[{"role": "user", "content": prompt, "images": images}],
+            options={"temperature": 0.0, "num_predict": 120},
+        )
+        result = response["message"]["content"].strip()
+        log.debug(f"🤖 Gegenprüfung: {result}")
+        return {"prompt": prompt, "raw_response": result, "error": None}
+    except Exception as exc:
+        log.error(f"❌ Gegenprüfung fehlgeschlagen: {exc}")
+        return {"prompt": prompt, "raw_response": "", "error": str(exc)}
+
+
+def verification_accepts(verdict: str, verification: dict) -> bool:
+    """Require an explicit matching category and direct visible evidence."""
+    category = catastrophe_type(verdict)
+    if category is None:
+        return True
+    lines = {
+        line.split(":", 1)[0].strip().upper(): line.split(":", 1)[1].strip().upper()
+        for line in verification.get("raw_response", "").splitlines()
+        if ":" in line
+    }
+    return (
+        lines.get("BESTAETIGT") == "JA"
+        and lines.get("KATEGORIE") == category
+        and lines.get("DIREKTER_BELEG") == "JA"
+    )
 
 
 def analyze_frames(frames: list[tuple[str, bytes]], model: str, host: str) -> str:
