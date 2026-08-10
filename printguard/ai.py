@@ -61,10 +61,14 @@ DIAGNOSTIC_SUFFIX = """
 ZUSATZ FÜR DEN DRY-RUN:
 Antworte zuerst mit genau einer Verdict-Zeile im vereinbarten Format.
 Danach ergänze die Abschnitte:
+EVIDENZ: POSITIV oder EVIDENZ: UNKLAR
 BEOBACHTUNGEN_FRONT: <sichtbare relevante Beobachtungen>
 BEOBACHTUNGEN_SEITE: <sichtbare relevante Beobachtungen>
 UNSICHERHEITEN: <verdeckte oder nicht sicher bewertbare Bereiche>
 BEGRUENDUNG: <warum dieses Verdict gewählt wurde>
+Setze EVIDENZ: POSITIV nur, wenn mindestens ein Bild einen direkten sichtbaren
+Beleg für die gemeldete Katastrophe zeigt. Bei Druckkopf-Verdeckung, fehlender
+Objektkontur oder nicht sicher vergleichbarer Standfläche setze EVIDENZ: UNKLAR.
 Die erste Zeile bleibt die einzige maschinenlesbare Entscheidungszeile."""
 
 
@@ -120,6 +124,21 @@ def extract_verdict(response: str) -> str:
         if line == "OK" or line.startswith("UNSICHER:") or line.startswith("FEHLER: "):
             return line
     return "UNKNOWN: Kein maschinenlesbares Verdict in der Qwen-Antwort"
+
+
+def guard_diagnostic_verdict(verdict: str, diagnostics: dict | None) -> str:
+    """Reject catastrophic verdicts without an explicit positive visual cue."""
+    if catastrophe_type(verdict) is None or diagnostics is None:
+        return verdict
+    raw_response = diagnostics.get("raw_response", "")
+    evidence_line = next(
+        (line.strip().upper() for line in raw_response.splitlines()
+         if line.strip().startswith("EVIDENZ:")),
+        None,
+    )
+    if evidence_line != "EVIDENZ: POSITIV":
+        return "UNSICHER: Positiver Sichtbeleg für Katastrophe fehlt oder ist verdeckt"
+    return verdict
 
 
 def analyze_frame(frame_now: bytes, frame_before: bytes, model: str, host: str) -> str:
