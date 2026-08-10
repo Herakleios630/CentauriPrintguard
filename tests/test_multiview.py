@@ -6,11 +6,12 @@ from collections import deque
 from datetime import datetime
 from pathlib import Path
 from tempfile import TemporaryDirectory
-from unittest.mock import patch
+from unittest.mock import AsyncMock, patch
 
 from alarm_state import AlarmState
 from printguard.ai import build_analysis_prompt, extract_verdict
 from printguard.camera import redact_url
+from printguard.camera_coordinator import CameraCoordinator
 from printguard.configuration import load_config
 from printguard.diagnostics import DryRunDiagnostics
 from printguard.monitor import _capture_views, _pause_cooldown_active
@@ -27,6 +28,23 @@ class FakeCamera:
     def grab_frame(self):
         self.last_success_at = 1.0
         return self.frame
+
+
+class ReconnectingCamera(FakeCamera):
+    def __init__(self, role, frame):
+        super().__init__(role, frame)
+        self.label = role
+        self.reconnect_calls = 0
+        self.failed_once = True
+
+    def grab_frame(self):
+        if self.failed_once:
+            self.failed_once = False
+            raise RuntimeError("stream unavailable")
+        return super().grab_frame()
+
+    def reconnect(self):
+        self.reconnect_calls += 1
 
 
 class MultiViewTests(unittest.TestCase):
@@ -51,6 +69,17 @@ class MultiViewTests(unittest.TestCase):
         cameras = [FakeCamera("primary", b"front"), FakeCamera("secondary", b"side")]
         frames = asyncio.run(_capture_views(cameras))
         self.assertEqual(frames, {"primary": b"front", "secondary": b"side"})
+
+    def test_camera_coordinator_reconnects_failed_camera_independently(self):
+        async def scenario():
+            camera = ReconnectingCamera("secondary", b"side")
+            coordinator = CameraCoordinator([camera])
+            with patch("printguard.camera_coordinator.asyncio.sleep", new_callable=AsyncMock):
+                views = await coordinator.capture_views()
+            self.assertEqual(views, {"secondary": b"side"})
+            self.assertEqual(camera.reconnect_calls, 1)
+
+        asyncio.run(scenario())
 
     def test_review_writes_distinct_camera_files_and_metadata(self):
         entry = {

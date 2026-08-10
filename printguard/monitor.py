@@ -9,6 +9,7 @@ from datetime import datetime
 from alarm_state import AlarmState
 from .ai import analyze_frames, analyze_frames_diagnostic, catastrophe_type, check_ollama_startup, extract_verdict, normalize_verdict, unload_ollama_model_async
 from .camera import CameraCapture
+from .camera_coordinator import CameraCoordinator
 from .configuration import load_config
 from .diagnostics import DryRunDiagnostics
 from .printer import PrinterClient
@@ -23,31 +24,9 @@ def _pause_cooldown_active(last_pause: float | None, now: float, cooldown: float
     return last_pause is not None and now - last_pause < cooldown
 
 
-async def _capture_camera(camera: CameraCapture) -> bytes | None:
-    """Read one frame and reconnect only the camera that failed."""
-    try:
-        return await asyncio.to_thread(camera.grab_frame)
-    except RuntimeError as exc:
-        log.error(f"❌ {camera.label}-Fehler: {exc}")
-        for attempt in range(1, 4):
-            try:
-                await asyncio.sleep(1)
-                await asyncio.to_thread(camera.reconnect)
-                frame = await asyncio.to_thread(camera.grab_frame)
-                log.info(f"✅ {camera.label}-Reconnect erfolgreich (Versuch {attempt}/3).")
-                return frame
-            except RuntimeError as reconnect_exc:
-                log.warning(
-                    f"⚠️  {camera.label}-Reconnect {attempt}/3 fehlgeschlagen: "
-                    f"{reconnect_exc}"
-                )
-        log.error(f"❌ {camera.label} bleibt nicht verfügbar; nächster Check versucht es erneut.")
-        return None
-
-
 async def _capture_views(cameras: list[CameraCapture]) -> dict[str, bytes | None]:
-    frames = await asyncio.gather(*(_capture_camera(camera) for camera in cameras))
-    return {camera.role: frame for camera, frame in zip(cameras, frames)}
+    """Compatibility wrapper for callers using the former helper."""
+    return await CameraCoordinator(cameras).capture_views()
 
 
 def parse_args():
@@ -136,12 +115,11 @@ async def main():
             label=camera_configs["secondary"].get("label", "Seitenansicht"),
         ),
     ]
+    camera_coordinator = CameraCoordinator(cameras)
     try:
-        for camera in cameras:
-            camera.open()
+        camera_coordinator.open_all()
     except Exception:
-        for camera in cameras:
-            camera.release()
+        camera_coordinator.close_all()
         await printer.close()
         raise
     await asyncio.sleep(2)
@@ -152,8 +130,7 @@ async def main():
         )
     initial_views = await _capture_views(cameras)
     if any(frame is None for frame in initial_views.values()):
-        for camera in cameras:
-            camera.release()
+        camera_coordinator.close_all()
         await printer.close()
         raise RuntimeError("Beide Kamera-Streams müssen für den Start verfügbar sein.")
     previous_frame = initial_views["primary"]
@@ -175,7 +152,7 @@ async def main():
                 except Exception as exc:
                     printer.mark_status_stale()
                     log.warning(f"⚠️  Regelmäßiger Status-Refresh fehlgeschlagen: {exc}")
-            current_views = await _capture_views(cameras)
+            current_views = await camera_coordinator.capture_views()
             current_frame = current_views["primary"]
             captured_at = datetime.now().isoformat(timespec="seconds")
             analysis_time = asyncio.get_running_loop().time()
@@ -407,7 +384,6 @@ async def main():
         log.info(stats.summary(state))
         if unload_on_exit:
             await unload_ollama_model_async(ai_config["model"], ai_config["ollama_host"], unload_timeout)
-        for camera in cameras:
-            camera.release()
+        camera_coordinator.close_all()
         await printer.close()
         log.info("🏁 PrintGuard beendet.")
