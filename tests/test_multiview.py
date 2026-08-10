@@ -6,7 +6,7 @@ from collections import deque
 from datetime import datetime
 from pathlib import Path
 from tempfile import TemporaryDirectory
-from unittest.mock import AsyncMock, patch
+from unittest.mock import AsyncMock, Mock, patch
 
 from alarm_state import AlarmState
 from printguard.ai import build_analysis_prompt, extract_verdict
@@ -17,6 +17,7 @@ from printguard.camera_coordinator import CameraCoordinator
 from printguard.configuration import load_config
 from printguard.diagnostics import DryRunDiagnostics
 from printguard.monitor import _capture_views, _pause_cooldown_active
+from printguard.monitor_resources import MonitorResources
 from printguard.printer import PRINT_STATUS_NAMES
 from printguard.review import save_review_frames
 
@@ -242,6 +243,21 @@ class MultiViewTests(unittest.TestCase):
         self.assertEqual(deferred.action, "DEFER_PAUSE")
         self.assertEqual(deferred.remaining_cooldown, 40.0)
         self.assertEqual(unchanged.action, "COLLECT")
+
+    def test_monitor_resources_close_is_idempotent(self):
+        async def scenario():
+            camera_coordinator = Mock()
+            printer = Mock()
+            printer.close = AsyncMock()
+            resources = MonitorResources(camera_coordinator, printer)
+
+            await resources.close()
+            await resources.close()
+
+            camera_coordinator.close_all.assert_called_once_with()
+            printer.close.assert_awaited_once_with()
+
+        asyncio.run(scenario())
 
     def test_diagnostic_prompt_is_saved_once_and_referenced(self):
         with TemporaryDirectory() as directory:

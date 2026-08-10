@@ -16,6 +16,7 @@ from .configuration import load_config
 from .diagnostics import DryRunDiagnostics
 from .printer import PrinterClient
 from .review import rotate_logs, save_review_frames
+from .monitor_resources import MonitorResources
 from .stats import MonitorStats
 
 log = logging.getLogger(__name__)
@@ -116,11 +117,11 @@ async def main():
         ),
     ]
     camera_coordinator = CameraCoordinator(cameras)
+    resources = MonitorResources(camera_coordinator, printer)
     try:
         camera_coordinator.open_all()
     except Exception:
-        camera_coordinator.close_all()
-        await printer.close()
+        await resources.close()
         raise
     await asyncio.sleep(2)
     if not printer.is_active_print(active_print_statuses):
@@ -130,8 +131,7 @@ async def main():
         )
     initial_views = await _capture_views(cameras)
     if any(frame is None for frame in initial_views.values()):
-        camera_coordinator.close_all()
-        await printer.close()
+        await resources.close()
         raise RuntimeError("Beide Kamera-Streams müssen für den Start verfügbar sein.")
     previous_frame = initial_views["primary"]
     review_frames = deque(maxlen=review_count)
@@ -335,6 +335,5 @@ async def main():
         log.info(stats.summary(state))
         if unload_on_exit:
             await unload_ollama_model_async(ai_config["model"], ai_config["ollama_host"], unload_timeout)
-        camera_coordinator.close_all()
-        await printer.close()
+        await resources.close()
         log.info("🏁 PrintGuard beendet.")
