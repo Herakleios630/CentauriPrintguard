@@ -8,6 +8,7 @@ from datetime import datetime
 
 from alarm_state import AlarmState
 from .ai import catastrophe_type, check_ollama_startup, normalize_verdict, unload_ollama_model_async
+from .alarm_coordinator import pause_cooldown_active, resolve_alarm_action
 from .analysis_coordinator import run_analysis, select_labeled_frames
 from .camera import CameraCapture
 from .camera_coordinator import CameraCoordinator
@@ -20,9 +21,7 @@ from .stats import MonitorStats
 log = logging.getLogger(__name__)
 
 
-def _pause_cooldown_active(last_pause: float | None, now: float, cooldown: float) -> bool:
-    """Return whether another pause attempt must still be deferred."""
-    return last_pause is not None and now - last_pause < cooldown
+_pause_cooldown_active = pause_cooldown_active
 
 
 async def _capture_views(cameras: list[CameraCapture]) -> dict[str, bytes | None]:
@@ -273,29 +272,28 @@ async def main():
             if alarm.state == "IDLE" and catastrophe_type(verdict) is not None:
                 alarm.normal_reference = previous_frame
             result = alarm.observe(verdict, current_frame, entry)
-            if result.action == "CONTINUE":
+            decision = resolve_alarm_action(result, last_pause, asyncio.get_running_loop().time(), pause_cooldown)
+            if decision.action == "CONTINUE":
                 log.info(f"   ✅ {verdict}")
-            elif result.action == "COLLECT":
+            elif decision.action == "COLLECT":
                 log.warning(f"   ⚠️  Alarmprüfung: {verdict} ({result.error_count} Fehler, {result.confirmation_count}/{alarm_frames_count} Bilder)")
                 if pending_review_enabled and result.confirmation_count == 1:
                     pending_context = {"reason": verdict, "alarm": alarm.context(), "pending": True}
                     save_review_frames(deque(review_frames, maxlen=review_count), review_dir, datetime.now(), context=pending_context)
-            elif result.action == "RESET":
+            elif decision.action == "RESET":
                 log.info(f"   ✅ Alarm verworfen: {result.error_count}/{result.confirmation_count} Bestätigungsfehler.")
                 alarm.reset()
-            elif result.action == "PAUSE":
+            elif decision.action in ("PAUSE", "DEFER_PAUSE"):
                 pause_time = datetime.now()
                 context = {"reason": verdict, "error_count": result.error_count, "task_id": printer.print_info.get("TaskId"), "filename": printer.print_info.get("Filename"), "current_layer": printer.print_info.get("CurrentLayer"), "total_layer": printer.print_info.get("TotalLayer"), "current_status": printer.current_status, "print_status": printer.print_status, "temperature_nozzle": printer.status_data.get("TempOfNozzle", "?"), "captured_at": pause_time.isoformat(timespec="seconds"), "dry_run": dry_run, "alarm": alarm.context()}
                 try:
                     save_review_frames(deque(alarm.frames, maxlen=review_count), review_dir, pause_time, context=context)
                 except OSError as exc:
                     log.error(f"❌ Gegencheck-Bilder konnten nicht gespeichert werden: {exc}")
-                now = asyncio.get_running_loop().time()
-                if _pause_cooldown_active(last_pause, now, pause_cooldown):
-                    remaining = pause_cooldown - (now - last_pause)
+                if decision.action == "DEFER_PAUSE":
                     log.warning(
                         f"⏳ Pause-Cooldown aktiv; Alarm wird weiter beobachtet. "
-                        f"Nächster Versuch in {remaining:.1f}s."
+                        f"Nächster Versuch in {decision.remaining_cooldown:.1f}s."
                     )
                     alarm.reset()
                     set_state("MONITORING")

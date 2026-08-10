@@ -10,6 +10,7 @@ from unittest.mock import AsyncMock, patch
 
 from alarm_state import AlarmState
 from printguard.ai import build_analysis_prompt, extract_verdict
+from printguard.alarm_coordinator import resolve_alarm_action
 from printguard.analysis_coordinator import run_analysis, select_labeled_frames
 from printguard.camera import redact_url
 from printguard.camera_coordinator import CameraCoordinator
@@ -229,6 +230,18 @@ class MultiViewTests(unittest.TestCase):
         self.assertTrue(_pause_cooldown_active(100.0, 120.0, 60.0))
         self.assertFalse(_pause_cooldown_active(100.0, 160.0, 60.0))
         self.assertFalse(_pause_cooldown_active(None, 120.0, 60.0))
+
+    def test_alarm_coordinator_defers_only_pause_actions(self):
+        alarm = AlarmState(required_errors=1)
+        alarm.observe("FEHLER: SPAGHETTI", b"front")
+        pause = alarm.observe("FEHLER: SPAGHETTI", b"front")
+        deferred = resolve_alarm_action(pause, 100.0, 120.0, 60.0)
+        collected = AlarmState(required_errors=2).observe("FEHLER: SPAGHETTI", b"front")
+        unchanged = resolve_alarm_action(collected, 100.0, 120.0, 60.0)
+
+        self.assertEqual(deferred.action, "DEFER_PAUSE")
+        self.assertEqual(deferred.remaining_cooldown, 40.0)
+        self.assertEqual(unchanged.action, "COLLECT")
 
     def test_diagnostic_prompt_is_saved_once_and_referenced(self):
         with TemporaryDirectory() as directory:
