@@ -8,6 +8,7 @@ from datetime import datetime
 
 from alarm_state import AlarmState
 from .ai import analyze_frames, analyze_frames_diagnostic, catastrophe_type, check_ollama_startup, extract_verdict, normalize_verdict, unload_ollama_model_async
+from .analysis_coordinator import select_labeled_frames
 from .camera import CameraCapture
 from .camera_coordinator import CameraCoordinator
 from .configuration import load_config
@@ -243,16 +244,7 @@ async def main():
             if verdict is None:
                 analysis_result = None
                 try:
-                    evidence = list(review_frames)[-max(1, evidence_count):]
-                    labeled_frames = [
-                        (
-                            f"{view['camera_label']} / Bild {item['check']} / {view['captured_at']}",
-                            view["frame"],
-                        )
-                        for item in evidence
-                        for view in item["views"]
-                        if view["available"]
-                    ]
+                    labeled_frames = select_labeled_frames(review_frames, evidence_count)
                     if dry_run_diagnostics is not None:
                         analysis_result = await asyncio.wait_for(
                             asyncio.to_thread(

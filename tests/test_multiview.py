@@ -10,6 +10,7 @@ from unittest.mock import AsyncMock, patch
 
 from alarm_state import AlarmState
 from printguard.ai import build_analysis_prompt, extract_verdict
+from printguard.analysis_coordinator import select_labeled_frames
 from printguard.camera import redact_url
 from printguard.camera_coordinator import CameraCoordinator
 from printguard.configuration import load_config
@@ -160,6 +161,28 @@ class MultiViewTests(unittest.TestCase):
         prompt = build_analysis_prompt([("Frontansicht / Bild 1", b"front")], diagnostic=True)
         self.assertIn("BEOBACHTUNGEN_FRONT", prompt)
         self.assertEqual(extract_verdict("UNSICHER: Druckkopf verdeckt\nBEGRUENDUNG: unklar"), "UNSICHER: Druckkopf verdeckt")
+
+    def test_analysis_evidence_selects_newest_available_labeled_frames(self):
+        entries = [
+            {
+                "check": 1,
+                "views": [
+                    {"camera_label": "Front", "captured_at": "t1", "frame": b"old", "available": True},
+                    {"camera_label": "Seite", "captured_at": "t1", "frame": None, "available": False},
+                ],
+            },
+            {
+                "check": 2,
+                "views": [
+                    {"camera_label": "Front", "captured_at": "t2", "frame": b"new", "available": True},
+                ],
+            },
+        ]
+
+        self.assertEqual(
+            select_labeled_frames(entries, 1),
+            [("Front / Bild 2 / t2", b"new")],
+        )
 
     def test_uncertain_evidence_preserves_pending_alarm(self):
         alarm = AlarmState(required_errors=2)
