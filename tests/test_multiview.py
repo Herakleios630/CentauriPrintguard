@@ -10,7 +10,7 @@ from unittest.mock import AsyncMock, patch
 
 from alarm_state import AlarmState
 from printguard.ai import build_analysis_prompt, extract_verdict
-from printguard.analysis_coordinator import select_labeled_frames
+from printguard.analysis_coordinator import run_analysis, select_labeled_frames
 from printguard.camera import redact_url
 from printguard.camera_coordinator import CameraCoordinator
 from printguard.configuration import load_config
@@ -183,6 +183,22 @@ class MultiViewTests(unittest.TestCase):
             select_labeled_frames(entries, 1),
             [("Front / Bild 2 / t2", b"new")],
         )
+
+    def test_analysis_coordinator_preserves_diagnostic_result(self):
+        async def scenario():
+            with patch(
+                "printguard.analysis_coordinator.analyze_frames_diagnostic",
+                return_value={"prompt": "p", "raw_response": "OK", "error": None},
+            ):
+                result = await run_analysis(
+                    [("Front / Bild 1 / t1", b"front")],
+                    {"model": "qwen", "ollama_host": "http://ollama"},
+                    diagnostic=True,
+                )
+            self.assertEqual(result.verdict, "OK")
+            self.assertEqual(result.diagnostics["prompt"], "p")
+
+        asyncio.run(scenario())
 
     def test_uncertain_evidence_preserves_pending_alarm(self):
         alarm = AlarmState(required_errors=2)

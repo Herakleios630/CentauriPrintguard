@@ -7,8 +7,8 @@ from collections import deque
 from datetime import datetime
 
 from alarm_state import AlarmState
-from .ai import analyze_frames, analyze_frames_diagnostic, catastrophe_type, check_ollama_startup, extract_verdict, normalize_verdict, unload_ollama_model_async
-from .analysis_coordinator import select_labeled_frames
+from .ai import catastrophe_type, check_ollama_startup, normalize_verdict, unload_ollama_model_async
+from .analysis_coordinator import run_analysis, select_labeled_frames
 from .camera import CameraCapture
 from .camera_coordinator import CameraCoordinator
 from .configuration import load_config
@@ -243,37 +243,14 @@ async def main():
                 verdict = f"UNSICHER: Kamera-Zeitversatz {time_offset:.1f}s überschreitet {max_camera_time_offset:g}s"
             if verdict is None:
                 analysis_result = None
-                try:
-                    labeled_frames = select_labeled_frames(review_frames, evidence_count)
-                    if dry_run_diagnostics is not None:
-                        analysis_result = await asyncio.wait_for(
-                            asyncio.to_thread(
-                                analyze_frames_diagnostic,
-                                labeled_frames,
-                                ai_config["model"],
-                                ai_config["ollama_host"],
-                            ),
-                            ai_config.get("timeout", 120),
-                        )
-                        verdict = extract_verdict(analysis_result["raw_response"])
-                    else:
-                        verdict = await asyncio.wait_for(
-                            asyncio.to_thread(
-                                analyze_frames,
-                                labeled_frames,
-                                ai_config["model"],
-                                ai_config["ollama_host"],
-                            ),
-                            ai_config.get("timeout", 120),
-                        )
-                except asyncio.TimeoutError:
-                    verdict = "UNKNOWN: Ollama-Analyse Timeout"
-                    log.error("❌ Ollama-Analyse überschreitet das Timeout.")
-                    analysis_result = {
-                        "prompt": None,
-                        "raw_response": "",
-                        "error": "Ollama-Analyse Timeout",
-                    }
+                labeled_frames = select_labeled_frames(review_frames, evidence_count)
+                result = await run_analysis(
+                    labeled_frames,
+                    ai_config,
+                    diagnostic=dry_run_diagnostics is not None,
+                )
+                verdict = result.verdict
+                analysis_result = result.diagnostics
             verdict = normalize_verdict(verdict)
             entry["verdict"] = verdict
             if dry_run_diagnostics is not None and pair is not None:
