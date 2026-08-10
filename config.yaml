@@ -6,6 +6,16 @@ printer:
   ws_port: 3030               # SDCP WebSocket
   camera_url: "http://10.0.0.63:3031/video"
 
+cameras:
+  primary:
+    label: "Frontansicht"
+    url: "http://10.0.0.63:3031/video"
+    enabled: true
+  secondary:
+    label: "Seitenansicht"
+    url_env: "CENTAURI_CAMERA_2_RTSP"
+    enabled: true
+
 ai:
   model: "qwen2.5vl:7b"
   ollama_host: "http://localhost:11434"
@@ -26,9 +36,13 @@ monitoring:
   active_print_statuses: [2, 3, 4, 13] # OpenCentauri print phases eligible for AI checks
   status_refresh_interval: 10     # seconds between active Cmd 0 status requests
   status_stale_after: 30          # older status is invalid for AI and pause decisions
+  max_camera_time_offset: 5       # seconds allowed between the two camera frames
   pause_timeout: 20            # seconds for sending and confirming pause
   pause_cooldown: 60           # seconds before another pause attempt is allowed
-  dry_run: false               # analyze and save evidence without sending SDCP commands
+  dry_run: true                # analyze and save evidence without sending SDCP commands
+  dry_run_picture_dir: "tests/pictures"
+  dry_run_picture_pairs: 10
+  dry_run_diagnostics: true
   review_dir: "review_frames" # images saved when an automatic pause is triggered
   review_image_count: 10      # number of recent analysis images to keep in memory
 

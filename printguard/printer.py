@@ -22,6 +22,7 @@ PRINT_STATUS_NAMES = {
     8: "Stopped",
     9: "Complete",
     10: "File Checking",
+    13: "Printing",
     16: "Preparation",
     20: "Bed Leveling",
     21: "Leveling Preparation",
@@ -56,89 +57,156 @@ class PrinterClient:
         self.connection_drop_count = 0
         self.last_pause_ack = None
         self.last_pause_result = None
+        self._reader_task = None
+        self._refresh_task = None
+        self._stop_event = asyncio.Event()
+        self._connection_ready = asyncio.Event()
+        self._refresh_ready = asyncio.Event()
+        self._refresh_error = None
+        self._send_lock = asyncio.Lock()
+        self._connection_generation = 0
 
     async def connect(self, timeout: float = 15):
         log.info(f"🔌 Verbinde mit Drucker: {self.url}")
         self.mark_status_stale()
-        deadline = asyncio.get_running_loop().time() + timeout
+        if self._reader_task and not self._reader_task.done():
+            await self._wait_for_refresh(timeout)
+            return
+        self._stop_event.clear()
+        self._connection_ready.clear()
+        self._refresh_ready.clear()
+        self._refresh_error = None
+        self._reader_task = asyncio.create_task(self._reader_loop(), name="printer-websocket-reader")
         try:
-            remaining = max(0.1, deadline - asyncio.get_running_loop().time())
-            self.ws = await asyncio.wait_for(
-                websockets.connect(self.url, ping_interval=30, ping_timeout=10),
-                timeout=remaining,
-            )
-            for _ in range(20):
-                remaining = deadline - asyncio.get_running_loop().time()
-                if remaining <= 0:
-                    break
-                data = self._parse_message(await asyncio.wait_for(self.ws.recv(), timeout=min(5, remaining)))
-                self._update_status(data)
-                if data and "MainboardID" in data:
-                    self.mainboard_id = data["MainboardID"]
-                    log.info(f"✅ Verbunden! MainboardID: {self.mainboard_id}")
-                    await self._refresh_status_after_connect(timeout=min(5, max(0.1, deadline - asyncio.get_running_loop().time())))
-                    return
-            raise TimeoutError("Keine MainboardID innerhalb des Reconnect-Zeitlimits empfangen.")
+            await self._wait_for_refresh(timeout)
         except asyncio.CancelledError:
-            if self.ws:
-                await self.ws.close()
-            self.mark_status_stale()
+            await self.close()
             raise
-        except (asyncio.TimeoutError, websockets.ConnectionClosed, OSError) as exc:
-            if self.ws:
-                await self.ws.close()
+        except (asyncio.TimeoutError, TimeoutError, ConnectionError, OSError, websockets.ConnectionClosed) as exc:
+            await self.close()
             self.mark_status_stale()
             raise TimeoutError(f"Drucker-Reconnect überschreitet {timeout:.0f}s: {exc}") from exc
 
-    async def _refresh_status_after_connect(self, timeout: float = 5):
-        """Request and consume a fresh status snapshot before listening normally."""
-        request_id = str(uuid.uuid4())
-        payload = {
-            "Id": str(uuid.uuid4()),
-            "Data": {
-                "Cmd": 0,
-                "Data": {},
-                "RequestID": request_id,
-                "MainboardID": self.mainboard_id,
-                "TimeStamp": int(time.time()),
-                "From": 0,
-            },
-            "Topic": f"sdcp/request/{self.mainboard_id}",
-        }
-        await self.ws.send(json.dumps(payload, separators=(",", ":")))
-        log.info("📤 Fordere Status nach Verbindung aktiv an (Cmd 0).")
-
-        deadline = asyncio.get_running_loop().time() + timeout
-        ack = None
-        status_seen = False
-        while asyncio.get_running_loop().time() < deadline:
-            remaining = deadline - asyncio.get_running_loop().time()
-            raw = await asyncio.wait_for(self.ws.recv(), timeout=remaining)
-            data = self._parse_message(raw)
-            if not data:
-                continue
-            self._handle_response(data)
-            self._handle_error(data)
-            self._handle_notice(data)
-            self._update_status(data)
-            if "response" in data.get("Topic", "").lower():
-                response = data.get("Data", {})
-                response_data = response.get("Data", {}) if isinstance(response, dict) else {}
-                if isinstance(response, dict) and response.get("RequestID") == request_id:
-                    ack = response_data.get("Ack") if isinstance(response_data, dict) else None
-            if "status" in data.get("Topic", "").lower():
-                status_seen = True
-            if ack is not None and status_seen:
-                break
-
-        if ack != 0 or not status_seen:
-            self.mark_status_stale()
-            raise TimeoutError(f"Status-Refresh nach Verbindung nicht bestätigt: Ack={ack}, Status={status_seen}.")
+    async def _wait_for_refresh(self, timeout: float):
+        try:
+            await asyncio.wait_for(self._refresh_ready.wait(), timeout=timeout)
+        except asyncio.TimeoutError as exc:
+            raise TimeoutError("Kein bestätigter Status-Refresh innerhalb des Zeitlimits.") from exc
+        if self._refresh_error:
+            raise self._refresh_error
         log.info(
             f"✅ Status nach Verbindung aktualisiert: "
             f"Maschine={format_status(self.current_status, MACHINE_STATUS_NAMES)}, "
             f"Druck={format_status(self.print_status, PRINT_STATUS_NAMES)}"
         )
+
+    async def _reader_loop(self):
+        delay = 2
+        had_connection = False
+        while not self._stop_event.is_set():
+            try:
+                self.ws = await websockets.connect(
+                    self.url, ping_interval=30, ping_timeout=10
+                )
+                self._connection_generation += 1
+                generation = self._connection_generation
+                self._connection_ready.clear()
+                self._refresh_ready.clear()
+                self._refresh_error = None
+                log.info("✅ WebSocket-Transport geöffnet; warte auf MainboardID.")
+                async for raw in self.ws:
+                    data = self._parse_message(raw)
+                    if data:
+                        if data.get("MainboardID") and not self._connection_ready.is_set():
+                            self.mainboard_id = data["MainboardID"]
+                            self._connection_ready.set()
+                            log.info(f"✅ Verbunden! MainboardID: {self.mainboard_id}")
+                            self._refresh_task = asyncio.create_task(
+                                self._refresh_after_connection(generation),
+                                name="printer-status-refresh",
+                            )
+                        self._handle_response(data)
+                        self._handle_error(data)
+                        self._handle_notice(data)
+                    self._update_status(data)
+                if self._stop_event.is_set():
+                    break
+                log.warning(
+                    "⚠️  WebSocket-Verbindung geschlossen; automatischer Reconnect."
+                )
+            except asyncio.CancelledError:
+                raise
+            except (websockets.ConnectionClosed, OSError) as exc:
+                if self._stop_event.is_set():
+                    break
+                log.warning(f"⚠️  WebSocket-Verbindung unterbrochen: {exc}")
+            except Exception as exc:
+                if self._stop_event.is_set():
+                    break
+                log.exception(f"❌ Unerwarteter WebSocket-Reader-Fehler: {exc}")
+            finally:
+                self._fail_pending_commands()
+                self.mark_status_stale()
+                if self.ws:
+                    await self.ws.close()
+                self.ws = None
+                if self._refresh_task and not self._refresh_task.done():
+                    self._refresh_task.cancel()
+                self._refresh_task = None
+            if self._stop_event.is_set():
+                break
+            self.connection_drop_count += 1
+            await asyncio.sleep(delay)
+            delay = min(delay * 2, 30)
+            had_connection = True
+        if had_connection:
+            log.info("🛑 WebSocket-Reader beendet.")
+
+    async def _refresh_after_connection(self, generation: int):
+        try:
+            await self.request_status_refresh(timeout=5)
+            if generation > 1:
+                self.reconnect_count += 1
+                log.info("✅ Reconnect erfolgreich; Status wurde neu eingelesen.")
+        except (asyncio.TimeoutError, TimeoutError, ConnectionError, OSError, websockets.ConnectionClosed) as exc:
+            self._refresh_error = TimeoutError(
+                f"Status-Refresh nach Verbindung fehlgeschlagen: {exc}"
+            )
+            self.mark_status_stale()
+            log.error(f"❌ {self._refresh_error}")
+        finally:
+            self._refresh_ready.set()
+
+    def _fail_pending_commands(self):
+        pending_ids = tuple(self.command_events)
+        for event in self.command_events.values():
+            event.set()
+        for request_id in pending_ids:
+            self.command_acks.pop(request_id, None)
+
+    async def close(self):
+        """Stop the reader and close the current WebSocket connection."""
+        self._stop_event.set()
+        current_task = asyncio.current_task()
+        if self._refresh_task and self._refresh_task is not current_task:
+            self._refresh_task.cancel()
+            try:
+                await self._refresh_task
+            except asyncio.CancelledError:
+                pass
+        self._refresh_task = None
+        if self.ws:
+            await self.ws.close()
+        if self._reader_task and self._reader_task is not current_task:
+            self._reader_task.cancel()
+            try:
+                await self._reader_task
+            except asyncio.CancelledError:
+                pass
+        self._reader_task = None
+        self.ws = None
+        self._fail_pending_commands()
+        self.mark_status_stale()
 
     @staticmethod
     def _normalize_status(value):
@@ -209,62 +277,39 @@ class PrinterClient:
 
     def _parse_message(self, raw):
         if raw == "ping":
-            asyncio.create_task(self._send_pong())
+            task = asyncio.create_task(self._send_pong())
+            task.add_done_callback(self._log_pong_failure)
             return None
         try:
             return json.loads(raw) if isinstance(raw, str) else raw
         except Exception:
             return None
 
+    @staticmethod
+    def _log_pong_failure(task):
+        if task.cancelled():
+            return
+        error = task.exception()
+        if error:
+            log.warning(f"⚠️  Pong konnte nicht gesendet werden: {error}")
+
     async def _send_pong(self):
         if self.ws:
-            await self.ws.send("pong")
-
-    async def listen_status(self):
-        delay = 2
-        while True:
-            try:
-                async for raw in self.ws:
-                    data = self._parse_message(raw)
-                    if data:
-                        self._handle_response(data)
-                        self._handle_error(data)
-                        self._handle_notice(data)
-                    self._update_status(data)
-                self.connection_drop_count += 1
-                log.warning(
-                    "⚠️  WebSocket-Verbindung geschlossen ohne Ausnahme "
-                    f"(Close-Code={self.ws.close_code}, Grund={self.ws.close_reason!r}); "
-                    f"automatischer Reconnect #{self.connection_drop_count}."
-                )
-            except (websockets.ConnectionClosed, OSError) as exc:
-                self.mark_status_stale()
-                self.connection_drop_count += 1
-                close_code = getattr(exc, "code", getattr(self.ws, "close_code", None))
-                close_reason = getattr(exc, "reason", getattr(self.ws, "close_reason", None))
-                log.warning(
-                    "⚠️  WebSocket-Verbindung unterbrochen "
-                    f"(Close-Code={close_code}, Grund={close_reason!r}, Fehler={exc}); "
-                    f"automatischer Reconnect #{self.connection_drop_count}."
-                )
-            delay = min(delay, 30)
-            log.info(f"🔄 Neuer Verbindungsversuch in {delay}s...")
-            await asyncio.sleep(delay)
-            try:
-                await self.connect()
-            except (OSError, TimeoutError, websockets.ConnectionClosed) as exc:
-                log.error(f"❌ Reconnect fehlgeschlagen (nächster Versuch folgt): {exc}")
-                delay = min(delay * 2, 30)
-                continue
-            self.reconnect_count += 1
-            log.info("✅ Reconnect erfolgreich; Status wurde neu eingelesen.")
-            delay = 2
+            async with self._send_lock:
+                await self.ws.send("pong")
 
     async def send_command(self, cmd: int, cmd_data=None) -> str:
+        if not self._connection_is_open() or not self.mainboard_id:
+            raise ConnectionError("Keine aktive Druckerverbindung für Befehl.")
         request_id = str(uuid.uuid4())
         payload = {"Id": str(uuid.uuid4()), "Data": {"Cmd": cmd, "Data": cmd_data or {}, "RequestID": request_id, "MainboardID": self.mainboard_id, "TimeStamp": int(time.time()), "From": 0}, "Topic": f"sdcp/request/{self.mainboard_id}"}
         self.command_events[request_id] = asyncio.Event()
-        await self.ws.send(json.dumps(payload, separators=(",", ":")))
+        try:
+            async with self._send_lock:
+                await self.ws.send(json.dumps(payload, separators=(",", ":")))
+        except Exception:
+            self.command_events.pop(request_id, None)
+            raise
         log.info(f"📤 Sende Cmd {cmd} an {payload['Topic']}")
         return request_id
 
@@ -308,7 +353,9 @@ class PrinterClient:
         return self.status_updated_at is not None and time.monotonic() - self.status_updated_at <= max_age
 
     async def wait_for_ack(self, request_id: str, timeout: float):
-        event = self.command_events[request_id]
+        event = self.command_events.get(request_id)
+        if event is None:
+            return None
         try:
             await asyncio.wait_for(event.wait(), timeout=timeout)
         except asyncio.TimeoutError:

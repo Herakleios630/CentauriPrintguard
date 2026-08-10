@@ -1,8 +1,64 @@
 """Configuration loading and validation."""
 
+import os
 from pathlib import Path
+from urllib.parse import urlsplit
 
 import yaml
+
+
+def _validate_camera_url(url: str, name: str) -> None:
+    if not isinstance(url, str) or not url:
+        raise ValueError(f"{name} muss eine URL sein.")
+    try:
+        parts = urlsplit(url)
+        if parts.scheme not in {"http", "https", "rtsp", "rtsps"} or not parts.hostname:
+            raise ValueError
+        if parts.scheme in {"rtsp", "rtsps"} and parts.port not in {None, 554}:
+            raise ValueError
+    except (ValueError, UnicodeError):
+        raise ValueError(f"{name} hat ein ungültiges URL-Format.") from None
+
+
+def _resolve_cameras(config: dict) -> None:
+    cameras = config.get("cameras")
+    if cameras is None:
+        config["cameras"] = {
+            "primary": {
+                "label": "Frontansicht",
+                "url": config["printer"]["camera_url"],
+                "enabled": True,
+            },
+            "secondary": {"label": "Seitenansicht", "enabled": False},
+        }
+        return
+    if not isinstance(cameras, dict):
+        raise ValueError("Konfigurationsbereich cameras ist ungültig.")
+
+    primary = cameras.get("primary", {})
+    secondary = cameras.get("secondary", {})
+    if not isinstance(primary, dict) or not isinstance(secondary, dict):
+        raise ValueError("cameras.primary und cameras.secondary müssen YAML-Objekte sein.")
+    primary_url = primary.get("url", config["printer"].get("camera_url"))
+    if primary.get("enabled", True):
+        _validate_camera_url(primary_url, "cameras.primary.url")
+        primary["url"] = primary_url
+    if not isinstance(primary.get("label", "Frontansicht"), str) or not primary.get("label", "Frontansicht"):
+        raise ValueError("cameras.primary.label muss gesetzt sein.")
+    if not isinstance(secondary.get("enabled", True), bool):
+        raise ValueError("cameras.secondary.enabled muss true oder false sein.")
+    if not isinstance(secondary.get("label", "Seitenansicht"), str) or not secondary.get("label", "Seitenansicht"):
+        raise ValueError("cameras.secondary.label muss gesetzt sein.")
+    if not secondary.get("enabled", True):
+        return
+    url_env = secondary.get("url_env")
+    if not isinstance(url_env, str) or not url_env:
+        raise ValueError("cameras.secondary.url_env muss gesetzt sein.")
+    secondary_url = os.environ.get(url_env)
+    if not secondary_url:
+        raise ValueError(f"Umgebungsvariable {url_env} für cameras.secondary fehlt.")
+    _validate_camera_url(secondary_url, "cameras.secondary RTSP-URL")
+    secondary["url"] = secondary_url
 
 
 def load_config(path: str = "config.yaml") -> dict:
@@ -29,6 +85,8 @@ def load_config(path: str = "config.yaml") -> dict:
         missing = [key for key in keys if key not in config[section]]
         if missing:
             raise ValueError(f"Fehlende Konfigurationswerte in {section}: {', '.join(missing)}")
+
+    _resolve_cameras(config)
 
     monitoring = config["monitoring"]
     if (
@@ -69,6 +127,7 @@ def load_config(path: str = "config.yaml") -> dict:
     pause_cooldown = monitoring.get("pause_cooldown", 60)
     status_refresh_interval = monitoring.get("status_refresh_interval", 10)
     status_stale_after = monitoring.get("status_stale_after", max(30, status_refresh_interval * 3))
+    max_camera_time_offset = monitoring.get("max_camera_time_offset", 5)
     if not isinstance(pause_timeout, (int, float)) or isinstance(pause_timeout, bool) or pause_timeout <= 0:
         raise ValueError("monitoring.pause_timeout muss größer als 0 sein.")
     if not isinstance(pause_cooldown, (int, float)) or isinstance(pause_cooldown, bool) or pause_cooldown < 0:
@@ -77,8 +136,15 @@ def load_config(path: str = "config.yaml") -> dict:
         raise ValueError("monitoring.status_refresh_interval muss größer als 0 sein.")
     if not isinstance(status_stale_after, (int, float)) or isinstance(status_stale_after, bool) or status_stale_after < status_refresh_interval:
         raise ValueError("monitoring.status_stale_after muss mindestens dem Refresh-Intervall entsprechen.")
+    if not isinstance(max_camera_time_offset, (int, float)) or isinstance(max_camera_time_offset, bool) or max_camera_time_offset <= 0:
+        raise ValueError("monitoring.max_camera_time_offset muss größer als 0 sein.")
     if not isinstance(monitoring.get("dry_run", False), bool):
         raise ValueError("monitoring.dry_run muss true oder false sein.")
+    if not isinstance(monitoring.get("dry_run_diagnostics", True), bool):
+        raise ValueError("monitoring.dry_run_diagnostics muss true oder false sein.")
+    dry_run_picture_pairs = monitoring.get("dry_run_picture_pairs", 10)
+    if not isinstance(dry_run_picture_pairs, int) or isinstance(dry_run_picture_pairs, bool) or dry_run_picture_pairs <= 0:
+        raise ValueError("monitoring.dry_run_picture_pairs muss größer als 0 sein.")
     if not isinstance(monitoring.get("pending_review_enabled", True), bool):
         raise ValueError("monitoring.pending_review_enabled muss true oder false sein.")
     active_print_statuses = monitoring.get("active_print_statuses", [2, 3, 4])
