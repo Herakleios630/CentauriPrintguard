@@ -111,6 +111,34 @@ class MultiViewTests(unittest.TestCase):
         self.assertIsNone(camera.cap)
         self.assertIsNone(camera._reader_thread)
 
+    def test_camera_reconnect_reopens_capture_and_releases_previous_stream(self):
+        first_capture = Mock()
+        second_capture = Mock()
+        first_capture.isOpened.return_value = True
+        second_capture.isOpened.return_value = True
+        first_reader = Mock()
+        second_reader = Mock()
+        first_reader.is_alive.return_value = False
+        second_reader.is_alive.return_value = False
+        camera = CameraCapture("http://camera", role="secondary", label="Seitenansicht")
+
+        with patch(
+            "printguard.camera.cv2.VideoCapture",
+            side_effect=[first_capture, second_capture],
+        ), patch(
+            "printguard.camera.threading.Thread",
+            side_effect=[first_reader, second_reader],
+        ):
+            camera.open()
+            camera.reconnect()
+
+        self.assertEqual(camera.reconnect_count, 1)
+        self.assertIs(camera.cap, second_capture)
+        self.assertIs(camera._reader_thread, second_reader)
+        first_capture.release.assert_called_once_with()
+        first_reader.join.assert_called_once_with(timeout=2)
+        second_reader.start.assert_called_once_with()
+
     def test_camera_coordinator_returns_typed_frame_snapshots(self):
         async def scenario():
             coordinator = CameraCoordinator([SnapshotCamera()])
