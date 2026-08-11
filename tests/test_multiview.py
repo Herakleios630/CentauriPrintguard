@@ -9,7 +9,12 @@ from tempfile import TemporaryDirectory
 from unittest.mock import AsyncMock, Mock, patch
 
 from alarm_state import AlarmState
-from printguard.ai import build_analysis_prompt, extract_verdict, guard_diagnostic_verdict
+from printguard.ai import (
+    build_analysis_prompt,
+    extract_verdict,
+    guard_diagnostic_verdict,
+    verification_accepts,
+)
 from printguard.alarm_coordinator import resolve_alarm_action
 from printguard.analysis_coordinator import run_analysis, select_labeled_frames
 from printguard.camera import CameraCapture, redact_url
@@ -250,6 +255,20 @@ class MultiViewTests(unittest.TestCase):
             "FEHLER: ABGELOEST",
         )
 
+    def test_verification_requires_matching_direct_evidence(self):
+        self.assertFalse(verification_accepts(
+            "FEHLER: SPAGHETTI",
+            {"raw_response": "BESTAETIGT: JA\nKATEGORIE: SPAGHETTI\nDIREKTER_BELEG: NEIN"},
+        ))
+        self.assertFalse(verification_accepts(
+            "FEHLER: SPAGHETTI",
+            {"raw_response": "BESTAETIGT: JA\nKATEGORIE: ABGELOEST\nDIREKTER_BELEG: JA"},
+        ))
+        self.assertTrue(verification_accepts(
+            "FEHLER: SPAGHETTI",
+            {"raw_response": "BESTAETIGT: JA\nKATEGORIE: SPAGHETTI\nDIREKTER_BELEG: JA"},
+        ))
+
     def test_analysis_evidence_selects_newest_available_labeled_frames(self):
         entries = [
             {
@@ -285,6 +304,57 @@ class MultiViewTests(unittest.TestCase):
                 )
             self.assertEqual(result.verdict, "OK")
             self.assertEqual(result.diagnostics["prompt"], "p")
+
+        asyncio.run(scenario())
+
+    def test_analysis_rejects_unverified_catastrophe(self):
+        async def scenario():
+            with patch(
+                "printguard.analysis_coordinator.analyze_frames",
+                return_value="FEHLER: SPAGHETTI",
+            ), patch(
+                "printguard.analysis_coordinator.verify_catastrophe",
+                return_value={
+                    "prompt": "verify",
+                    "raw_response": (
+                        "BESTAETIGT: NEIN\nKATEGORIE: KEINE\n"
+                        "DIREKTER_BELEG: NEIN"
+                    ),
+                    "error": None,
+                },
+            ):
+                result = await run_analysis(
+                    [("Front / Bild 1 / t1", b"front")],
+                    {"model": "qwen", "ollama_host": "http://ollama"},
+                )
+            self.assertEqual(
+                result.verdict,
+                "UNSICHER: Gegenprüfung bestätigt keinen direkten Sichtbeleg",
+            )
+
+        asyncio.run(scenario())
+
+    def test_analysis_accepts_matching_verified_catastrophe(self):
+        async def scenario():
+            with patch(
+                "printguard.analysis_coordinator.analyze_frames",
+                return_value="FEHLER: SPAGHETTI",
+            ), patch(
+                "printguard.analysis_coordinator.verify_catastrophe",
+                return_value={
+                    "prompt": "verify",
+                    "raw_response": (
+                        "BESTAETIGT: JA\nKATEGORIE: SPAGHETTI\n"
+                        "DIREKTER_BELEG: JA"
+                    ),
+                    "error": None,
+                },
+            ):
+                result = await run_analysis(
+                    [("Front / Bild 1 / t1", b"front")],
+                    {"model": "qwen", "ollama_host": "http://ollama"},
+                )
+            self.assertEqual(result.verdict, "FEHLER: SPAGHETTI")
 
         asyncio.run(scenario())
 
